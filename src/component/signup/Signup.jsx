@@ -135,10 +135,10 @@ function Signup() {
       <div className="signup">
         <div className="container">
           <div className="row  g-0">
-            <div className="col-6">
+            <div className="col-5">
               <div className="image-section"></div>
             </div>
-            <div className="col-6">
+            <div className="col-5 m-4 p-4">
               <div className="signup-content">
                 <p className="signup-text">Sign Up</p>
                 <form onSubmit={handleSubmit}>
@@ -221,7 +221,7 @@ function Signup() {
                     />
                   </div>
                   <div className="customize-file">
-                    <span>Choose</span>
+                    <span style={{ color: "#452115" }}>Choose</span>
                     <input type="file" name="avatar" onChange={onFileChange} />
                   </div>
                   <div className="mb-3 input-container ">

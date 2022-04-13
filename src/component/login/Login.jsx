@@ -107,7 +107,7 @@ function Login({ setToken }) {
                     </div>
                     <input
                       id="username"
-                      type="text" className="form-control is-valid"
+                      type="text" className="form-control "
                       required
                       name="username"
                       placeholder="Enter Username"
@@ -130,7 +130,8 @@ function Login({ setToken }) {
 
                     <input
                       id="password"
-                      className="form-control"
+                      className="form-control "
+
                       type="password"
                       name="password"
                       placeholder="Enter password"
@@ -141,7 +142,7 @@ function Login({ setToken }) {
                     />
                   </div>
                   <div className="mb-3 input-container ">
-                    <button className="btn btn-success ms-auto d-block ">
+                    <button className="btn  ms-auto d-block ">
                       login
                     </button>
                   </div>

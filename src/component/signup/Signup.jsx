@@ -142,88 +142,140 @@ function Signup() {
               <div className="signup-content">
                 <p className="signup-text">Sign Up</p>
                 <form onSubmit={handleSubmit}>
-                  <div className="mb-3 input-container">
-                    <label className="form-label" htmlFor="username">
-                      Username
-                    </label>
-                    <input
-                      id="username"
-                      className="form-control"
-                      type="text"
-                      name="username"
-                      placeholder="Enter Username"
-                      onChange={(e) => {
-                        usernameChange(e);
-                      }}
-                    />
-                  </div>
-                  <div className="mb-3 input-container">
-                    <label className="form-label" htmlFor="password">
-                      Password
-                    </label>
-                    <input
-                      id="password"
-                      className="form-control"
-                      type="password"
-                      name="password"
-                      placeholder="Enter Password"
-                      onChange={(e) => {
-                        passwordChange(e);
-                      }}
-                    />
-                  </div>
-                  <div className="mb-3 input-container">
-                    <label className="form-label" htmlFor="email">
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      className="form-control"
-                      type="email"
-                      name="email"
-                      placeholder="Enter Email"
-                      onChange={(e) => {
-                        emailChange(e);
-                      }}
-                    />
-                    <p>
-                      <span style={{ color: "#bc3942" }}> {emailError}</span>
-                    </p>
-                  </div>
-                  <div className="mb-3 input-container">
-                    <label className="form-label" htmlFor="phone">
-                      Phone number
-                    </label>
-                    <input
-                      id="phone"
-                      className="form-control"
-                      type="text"
-                      name="phone"
-                      placeholder="Enter Phone"
-                      onChange={(e) => {
-                        phoneChange(e);
-                      }}
-                    />
-                  </div>
-                  <div className="mb-3 input-container">
-                    <label className="form-label" htmlFor="address">
-                      Address
-                    </label>
-                    <input
-                      id="address"
-                      className="form-control"
-                      type="text"
-                      name="address"
-                      placeholder="Enter Address"
-                      onChange={(e) => {
-                        addressChange(e);
-                      }}
-                    />
-                  </div>
-                  <div className="customize-file">
-                    <span style={{ color: "#452115" }}>Choose</span>
-                    <input type="file" name="avatar" onChange={onFileChange} />
-                  </div>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <label className="form-label" htmlFor="username">
+                            Username
+                          </label>
+                        </td>
+                        <td>
+
+                          <input
+                            id="username"
+                            className="form-control"
+                            style={{ width: '250px' }}
+                            type="text"
+                            name="username"
+                            placeholder="Enter Username"
+                            onChange={(e) => {
+                              usernameChange(e);
+                            }}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label className=" form-label" htmlFor="email">
+                            Email
+                          </label>
+                        </td>
+                        <td>
+                          <input
+                            id="email"
+                            className="form-control"
+                            style={{ width: '250px' }}
+                            type="email"
+                            name="email"
+                            placeholder="Enter Email"
+                            onChange={(e) => {
+                              emailChange(e);
+                            }}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div>
+
+                            <label className="form-label" htmlFor="password">
+                              Password
+                            </label>
+                            <p>
+                              <span style={{ color: "#bc3942" }}> {emailError}</span>
+                            </p>
+                          </div>
+
+                        </td>
+                        <td>
+
+                          <div className="form-row">
+
+                            <input
+                              id="password"
+                              style={{ width: '250px' }}
+                              className="form-control"
+                              type="password"
+                              name="password"
+                              placeholder="Enter Password"
+                              onChange={(e) => {
+                                passwordChange(e);
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label className="form-label" htmlFor="phone">
+                            Phone number
+                          </label>
+                        </td>
+                        <td>
+                          <div className="mb-3 input-container">
+
+                            <input
+                              id="phone"
+                              className="form-control"
+                              type="text"
+                              name="phone"
+                              style={{ width: '250px' }}
+                              placeholder="Enter Phone"
+                              onChange={(e) => {
+                                phoneChange(e);
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label className="form-label" htmlFor="address">
+                            Address
+                          </label>
+                        </td>
+                        <td>
+                          <div className="mb-3 input-container">
+
+                            <input
+                              id="address"
+                              className="form-control"
+                              type="text"
+                              name="address"
+                              style={{ width: '250px' }}
+                              placeholder="Enter Address"
+                              onChange={(e) => {
+                                addressChange(e);
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label className="form-label" htmlFor="photo">photo</label>
+                        </td>
+                        <td>
+                          <div className="customize-file" style={{ width: '250px' }}>
+                            <span style={{ color: "#452115" }}>Choose</span>
+                            <input type="file" name="avatar" onChange={onFileChange} style={{ width: '250px' }} />
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
                   <div className="mb-3 input-container ">
                     <button className="btn btn-success ms-auto d-block ">
                       Signup

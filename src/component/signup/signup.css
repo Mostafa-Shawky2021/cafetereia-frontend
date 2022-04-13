@@ -102,6 +102,23 @@ span {
 }
 
 
+.form-row {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.form-label {
+  margin-bottom: 0.5rem;
+  color: white;
+
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+
+
 
 .customize-file:hover::after {
   display: block;

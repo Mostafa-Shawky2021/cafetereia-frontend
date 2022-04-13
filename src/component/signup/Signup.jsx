@@ -267,9 +267,9 @@ function Signup() {
                           <label className="form-label" htmlFor="photo">photo</label>
                         </td>
                         <td>
-                          <div className="customize-file" style={{ width: '250px' }}>
+                          <div style={{ width: '250px' }}>
                             <span style={{ color: "#452115" }}>Choose</span>
-                            <input type="file" name="avatar" onChange={onFileChange} style={{ width: '250px' }} />
+                            <input className="form-control" type="file" name="avatar" onChange={onFileChange} style={{ width: '250px' }} />
                           </div>
                         </td>
                       </tr>

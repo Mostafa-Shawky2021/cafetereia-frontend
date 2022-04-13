@@ -1,0 +1,131 @@
+.signup {
+  margin-inline-start: 100px auto;
+  border: #fffee9;
+}
+
+.signup .image-section {
+  position: relative;
+  background-image: url("../../assests/img/logo.png");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 40%;
+}
+
+.signup .image-section::before {
+  content: "";
+  position: absolute;
+  mix-blend-mode: multiply;
+  width: 100%;
+  height: 100%;
+}
+
+.signup-text {
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.signup .signup-content {
+  background-color: #c87941;
+  padding: 1.5rem 1.5rem;
+  border: 1px solid #f5f5f5;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+
+.signup .signup-content .signin-link {
+  color: #fcd997;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.signup .signup-content .input-container {
+  position: relative;
+}
+
+.signup .signup-content .input-container .form-label {
+  margin-bottom: 0.5rem;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.signup .signup-content .input-container button {
+  border-radius: 5px;
+  margin: 15px auto;
+  border: none;
+  color: white;
+  background-color: #452115;
+  width: 90%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+span {
+  color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+  font-size: 18px;
+  font-family: tahoma;
+}
+
+.customize-file {
+  width: 90%;
+  margin: auto;
+  padding: 0px 40px 3px 38px;
+  color: #452115;
+  background-color: #fcd997;
+  border-radius: 5px;
+  position: relative;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+
+.customize-file input[type="file"] {
+  padding-bottom: 8px;
+  width: 90%;
+  /* height: 100%; */
+  opacity: 0;
+}
+
+
+.form-row {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.form-label {
+  margin-bottom: 0.5rem;
+  color: white;
+
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+
+
+
+.customize-file:hover::after {
+  display: block;
+  position: absolute;
+  width: 180px;
+  height: 30px;
+
+  top: 0px;
+  left: 200px;
+}

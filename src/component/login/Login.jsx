@@ -8,46 +8,75 @@ import Alert from "../alert/Alert";
 
 function Login({ setToken }) {
   console.log("login");
-  // let [username, password] = ["", "", ""];
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-
-  let usernameChange = (e) => {
+  let [email, uname, password] = ['', '', ''];
+  const [unameError, setUnameError] = useState('');
+  const [passError, setPassError] = useState('');
+  let unameChange = (e) => {
     console.log(e.target.value);
-    setUserName(e.target.value);
-    if (username.length < 3) e.target.style = "border-color:#bc3942";
-    else e.target.style = "border-color:#d8e2dc";
-  };
+    uname = e.target.value;
+    if (uname.length < 3)
+      e.target.style = "border-color:red;shadow-radius:0px"
+    else
+      e.target.style = "border-color:#fffee9 ; shadow-radius:0px;"
+
+  }
   let passwordChange = (e) => {
-    setPassword(e.target.value);
-    if (password.length < 8) {
-      e.target.style = "border-color:#bc3942";
-    } else e.target.style = "border-color:#d8e2dc";
-  };
+
+    password = e.target.value
+    if (password.length < 6) {
+      e.target.style = "border-color:red"
+    }
+    else
+      e.target.style = "border-color:#fffee9"
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password);
-    await loginUser({
-      email: username,
-      password,
-    })
-      .then((res) => {
-        console.log(res);
-        if (res.data.token) {
-          setToken(res.data.token);
-          console.log("123");
-          window.location.href = "/profile";
-        } else {
-          setShowAlert(true);
-        }
-
+    if (isValid()) {
+      console.log(uname, password);
+      await loginUser({
+        email: uname,
+        password,
       })
-      .catch((err) => {
-        setToken(null);
-      });
+        .then((res) => {
+          console.log(res);
+          if (res.data.token) {
+            setToken(res.data.token);
+            console.log("123");
+            window.location.href = "/profile";
+          } else {
+            setShowAlert(true);
+          }
+
+        })
+        .catch((err) => {
+          setToken(null);
+        });
+
+    }
+    else {
+      if (uname.length < 3)
+        setUnameError('{Username must be >=3}')
+      else
+        setUnameError('');
+      if (password.length < 6)
+        setPassError('{Password must be >6}');
+      else
+        setPassError('');
+    }
+
   };
+  function isValid() {
+    if (uname.length < 3 || password.length < 6) {
+
+      return false;
+    }
+    setUnameError('');
+    setPassError('');
+    return true;
+  }
 
   return (
     <>
@@ -64,32 +93,48 @@ function Login({ setToken }) {
             <div className="col-7">
               <div className="login-content">
                 <p className="login-text">Log In</p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className=" needs-validation" novalidate>
                   <div className="mb-3 input-container">
-                    <label className="form-label" htmlFor="username">
-                      Username
-                    </label>
+                    <div>
+                      <label className="form-label" htmlFor="username">
+                        Username
+                      </label>
+
+                      <p>
+                        <span style={{ color: "white", fontSize: 14 }}> {unameError}</span>
+
+                      </p>
+                    </div>
                     <input
                       id="username"
-                      className="form-control"
-                      type="text"
+                      type="text" className="form-control is-valid"
+                      required
                       name="username"
                       placeholder="Enter Username"
                       onChange={(e) => {
-                        usernameChange(e);
+                        unameChange(e);
                       }}
                     />
                   </div>
                   <div className="mb-3 input-container">
+
+
+                    <p>
+                      <span style={{ color: "white", fontSize: 14 }}> {passError}</span>
+
+                    </p>
+
                     <label className="form-label" htmlFor="password">
                       Password
                     </label>
+
                     <input
                       id="password"
                       className="form-control"
                       type="password"
                       name="password"
                       placeholder="Enter password"
+                      required
                       onChange={(e) => {
                         passwordChange(e);
                       }}

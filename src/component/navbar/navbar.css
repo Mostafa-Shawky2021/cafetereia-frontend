@@ -10,7 +10,7 @@
 
 .customize-navbar .container .navbar-brand {
   position: absolute;
-  top: -23px;
+  top: -45px;
   left: 3%;
   transform: translateX(-50%);
 }
@@ -26,13 +26,13 @@
 }
 
 .customize-navbar .container .navbar-nav li .nav-link.active {
-  color: #452115;
+  color: #4e4e4e;
   font-weight: bold;
 }
 
 .customize-navbar .container .navbar-nav li:focus .nav-link,
 .customize-navbar .container .navbar-nav li:hover .nav-link {
-  color: #452115 !important;
+  color: #4e4e4e !important;
 }
 
 .customize-navbar .container .auth .link {
@@ -42,7 +42,7 @@
 }
 
 .customize-navbar .container .auth .btn-login {
-  color: #452115 !important;
+  color: #4e4e4e !important;
   position: relative;
 }
 
@@ -60,7 +60,7 @@
 
 .customize-navbar .container .auth .animate-icon .fa {
   color: #fff;
-  background-color: #452115;
+  background-color: #4e4e4e;
   padding: 6px;
   border-radius: 50%;
   width: 30px;
@@ -71,7 +71,7 @@
   content: "";
   width: 100%;
   height: 100%;
-  border: 1px solid #452115;
+  border: 1px solid #4e4e4e;
   position: absolute;
   left: 0px;
   top: 0px;

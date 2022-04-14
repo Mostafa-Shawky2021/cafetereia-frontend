@@ -1,0 +1,18 @@
+.bread-crumb {
+    padding: 2px 14px;
+    background: #fff;
+    margin-bottom: 45px;
+    display: flex;
+    align-items: center;
+}
+.bread-crumb li {
+    padding: 0.9rem 0px
+}
+.bread-crumb .breadcrumb-item a {
+    text-decoration: none;
+    color: #505050;
+}
+.bread-crumb .breadcrumb-item a.active {
+    color: #6c757d;
+    font-weight: 500;
+}

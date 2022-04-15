@@ -12,7 +12,7 @@ const Users = ()=> {
             <div className="container-user">
                 <Breadcrumb />
                 <div style={{textAlign:'right',marginBottom:'10px'}}>
-                    <NavLink className="btn btn-primary add" to="/admin/addproduct"><i className="fa fa-plus"></i>Add users</NavLink>
+                    <NavLink className="btn btn-primary add" to="/admin/adduser"><i className="fa fa-plus"></i>Add users</NavLink>
                 </div>
                 <h3 className="title">users</h3>
                 <Table striped bordered hover size="sm">

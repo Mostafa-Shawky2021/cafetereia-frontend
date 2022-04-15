@@ -51,7 +51,8 @@ export default function Home(props) {
             <div className="container">
 
                 <div className="productsDetails">
-                    <div>
+                    <h1>Orders</h1>
+                    <div className="Adminorders">
                         {
 
 
@@ -85,7 +86,7 @@ export default function Home(props) {
                     <Form.Select aria-label="Default select example">
                         <option>Select Username</option>
                         <option value="1">Samar</option>
-                        <option value="2">Mohame</option>
+                        <option value="2">Mohamed</option>
                         <option value="3">Nehal</option>
                     </Form.Select>
 

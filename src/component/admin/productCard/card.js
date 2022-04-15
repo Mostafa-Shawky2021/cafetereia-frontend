@@ -25,10 +25,16 @@ export default function ProductCard({ product, addToOrder, removeFromOrder, incr
             <Card.Body>
                 <Card.Title>Price :{product.price}$</Card.Title>
                 <Card.Body>{product.name}</Card.Body>
-                <Button
-                    style={{ backgroundColor: "#452115", borderColor: "#452115", shadow: "#452115" }}
-                    onClick={handleClick}
-                >Add</Button>
+                <div className="actions">
+
+                    <button className="mybtn"
+                        onClick={handleClick}
+                    >+</button>
+                    <button className="mybtn"
+                        onClick={handleClick}
+                    >-</button>
+
+                </div>
             </Card.Body>
         </Card>
     );

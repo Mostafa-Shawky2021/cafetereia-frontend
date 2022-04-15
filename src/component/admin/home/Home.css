@@ -10,7 +10,12 @@
     text-align: center;
     padding: 20px;
     margin-top: 70px;
+    min-height: 200px;
 
+}
+
+.Adminorders {
+    min-height: 200px;
 }
 
 .products {

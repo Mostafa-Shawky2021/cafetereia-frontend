@@ -67,7 +67,9 @@ export default function Home(props) {
                                 const objIndex = count.findIndex((obj => obj.id == currOrder.id));
                                 currCount = count[objIndex].count;
                                 return <OrderItem key={currOrder.id}
-                                    product={currOrder} count={currCount} />
+                                    product={currOrder}
+                                    removeFromOrder={removeFromOrder}
+                                    count={currCount} />
 
                             })
 

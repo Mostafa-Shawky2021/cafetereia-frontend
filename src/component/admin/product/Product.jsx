@@ -8,12 +8,13 @@ const Product = ()=> {
     return (    
     <>
         <NavbarAdmin />
-        <section className="products">
-            <Container>
+        <section className="products-admin">
+            <div className="container-products">
                 <Breadcrumb />
                 <div style={{textAlign:'right',marginBottom:'10px'}}>
-                    <NavLink className="btn btn-primary" to="/admin/addproduct"><i className="fa fa-plus"></i>Add product</NavLink>
+                    <NavLink className="btn btn-primary add" to="/admin/addproduct"><i className="fa fa-plus"></i>Add product</NavLink>
                 </div>
+                <h3 className="title">Products</h3>
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
@@ -50,7 +51,7 @@ const Product = ()=> {
                        
                     </tbody>
                 </Table>
-            </Container>
+            </div>
         </section>
     </>
     )

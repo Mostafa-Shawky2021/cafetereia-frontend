@@ -8,6 +8,9 @@ import React from "react";
 import Home from "./component/admin/home/Home";
 import Product from "./component/admin/product/Product";
 import AddProduct from "./component/admin/addproduct/AddProduct";
+import Categories from "./component/admin/categories/Categories";
+import AddCategory from "./component/admin/addcategory/AddCategory";
+import Adduser from "./component/admin/adduser/Adduser";
 import { Navigate } from "react-router-dom";
 import { useState } from 'react';
 function App() {
@@ -34,7 +37,11 @@ function App() {
 
           <Route path="home" element={<Home onDataChange={onDataChange} count={count} order={order} />} />
           <Route path="products" element={<Product />} />
+          <Route path="categories" element={<Categories />}/>
           <Route path="addproduct" element={<AddProduct />} />
+          <Route path="addcategory" element={<AddCategory />}/>
+          <Route path="addcategory" element={<AddCategory />}/>
+          <Route path="adduser" element={<Adduser />}/>
         </Route>
       </Routes>
       {/* </main> */}

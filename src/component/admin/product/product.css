@@ -1,20 +1,31 @@
-.products {
+.products-admin{
     padding-top: 3rem;
     padding-bottom: 3rem;
 
 }
-.products .title {
+.products-admin .container-products {
+    max-width: 1170px;
+    margin: auto
+}
+.products-admin .btn.add {
+    background-color: #b18137 !important;
+    border: none;
+    transition: all 0.5s;
+}
+.products-admin .btn.add:hover {
+    background-color: #93692a !important;
+}
+.products-admin .title {
     color: #3c3c3c;
     font-weight: bold;
     text-transform: capitalize;
     margin-bottom: 2rem;
 }
-.products .table {
+.products-admin .table {
     background-color: #fff;
  
- 
 }
-.products .table th {
+.products-admin .table th {
     background: #3c3c3c;
     color: #fff;
     border-width: 0px !important; 
@@ -23,13 +34,13 @@
 
 }
 
-.products .table th,
-.products .table td {
+.products-admin .table th,
+.products-admin .table td {
     padding: 0.5rem 1.2rem;
     text-align: center;
     vertical-align: middle;
 }
-.products .table img{
+.products-admin .table img{
 
     width: 50px;
     height: 48px;
@@ -37,7 +48,7 @@
     border-radius: 50%;
 
 }
-.products .table td .btn {
+.products-admin .table td .btn {
     
     margin-right: 16px;
     padding: 4px 19px;

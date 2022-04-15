@@ -1,0 +1,66 @@
+
+.categories {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+}
+.categories .categories-container {
+    max-width: 1170px;
+    margin: auto;
+}
+.categories .btn.add {
+    background-color: #b18137 !important;
+    border: none;
+    transition: all 0.5s;
+}
+.categories .title {
+    color: #3c3c3c;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+}
+.categories .table {
+    background-color: #fff;
+}
+.categories .title {
+    color: #3c3c3c;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+}
+.categories .btn.add {
+    background-color: #b18137 !important;
+    border: none;
+    transition: all 0.5s;
+}
+.categories .btn.add:hover {
+    background-color: #93692a !important;
+}
+.categories .table th {
+    background: #3c3c3c;
+    color: #fff;
+    border-width: 0px !important;
+    padding: 0.9rem 1.2rem !important;
+
+}
+
+.categories .table th,
+.categories .table td {
+    padding: 0.5rem 1.2rem;
+    text-align: center;
+    vertical-align: middle;
+}
+.categories .table img{
+
+    width: 50px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+
+}
+.categories .table td .btn {
+
+    margin-right: 16px;
+    padding: 4px 19px;
+
+}

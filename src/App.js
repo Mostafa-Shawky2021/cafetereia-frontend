@@ -15,8 +15,8 @@ import Users from "./component/admin/users/Users";
 import Checks from "./component/admin/checks/Checks";
 import { Navigate } from "react-router-dom";
 import { useState } from 'react';
-// import Orders from "./component/orders/Orders";
-// import Orders from "./component/admin/orders/Orders";
+ import Orders from "./component/orders/Orders";
+ import OrdersAdmin from "./component/admin/orders/OrdersAdmin";
 function App() {
 
   let [count, setCount] = useState(0);
@@ -37,7 +37,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={<Signup />} />
         <Route path="*" element={<Error />} />
-        {/* <Route path="Orders"  element={<Orders />} /> */}
+        <Route path="Orders"  element={<Orders />} />
         
         <Route path="/admin" >  
           <Route path="home" element={<Home onDataChange={onDataChange} count={count} order={order} />} />
@@ -49,7 +49,7 @@ function App() {
           <Route path="adduser" element={<Adduser />}/>
           <Route path="users" element={<Users />}/>
           <Route path="checks" element={<Checks />}/>
-          {/* <Route path="orders" element={<Orders />}/> */}
+          <Route path="orders" element={<OrdersAdmin />}/>
         </Route>
       </Routes>
       {/* </main> */}

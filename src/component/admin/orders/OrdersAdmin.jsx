@@ -4,7 +4,7 @@ import './orders.css';
 import productImg from "../../../assests/img/product.jpg";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
 import { NavLink } from "react-router-dom";
-const Orders = ()=> {
+const OrdersAdmin = ()=> {
     return (    
     <>
         <NavbarAdmin />
@@ -50,4 +50,4 @@ const Orders = ()=> {
 
 }
 
-export default Orders;
+export default OrdersAdmin;

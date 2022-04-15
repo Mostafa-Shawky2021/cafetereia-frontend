@@ -39,6 +39,11 @@ function Navbar() {
                 About
               </NavLink>
             </li>
+             <li className="nav-item">
+              <NavLink className="nav-link" to="/orders">
+                Myorders
+              </NavLink>
+            </li>
             {token && (
               <li className="nav-item">
                 <NavLink className="nav-link" to="/profile">

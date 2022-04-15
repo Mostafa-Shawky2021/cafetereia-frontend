@@ -1,0 +1,39 @@
+.orders {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    height: 89vh;
+    background-image: url('../../assests//img/background.jpg');
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+.orders::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #452115;
+    mix-blend-mode: multiply;
+}
+.orders .container-orders {
+    max-width: 1000px;
+    margin: auto;
+    position: relative;
+    z-index: 99;
+}
+.orders .container-orders .title {
+    color: #fff;
+    font-family: Abril Fatface;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+.orders .container-orders .table {
+    border: 1px solid #8b8b8b
+}
+.orders .container-orders th,
+.orders .container-orders td {
+    color: #e1e1e1 !important ;
+    padding: 0.75rem 0.5rem;
+}

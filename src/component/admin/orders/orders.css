@@ -1,31 +1,32 @@
-.products-admin{
+.orders {
     padding-top: 3rem;
     padding-bottom: 3rem;
 
 }
-.products-admin .container-products {
+
+.orders .container-orders {
     max-width: 1000px;
     margin: auto
 }
-.products-admin .btn.add {
+.orders .btn.add {
     background-color: #b18137 !important;
     border: none;
     transition: all 0.5s;
 }
-.products-admin .btn.add:hover {
+.orders .btn.add:hover {
     background-color: #93692a !important;
 }
-.products-admin .title {
+.orders .title {
     color: #3c3c3c;
     font-weight: bold;
     text-transform: capitalize;
     margin-bottom: 2rem;
 }
-.products-admin .table {
+.orders .table {
     background-color: #fff;
  
 }
-.products-admin .table th {
+.orders .table th {
     background: #3c3c3c;
     color: #fff;
     border-width: 0px !important; 
@@ -34,21 +35,23 @@
 
 }
 
-.products-admin .table th,
-.products-admin .table td {
+.orders .table th,
+.orders .table td {
     padding: 0.5rem 1.2rem;
     text-align: center;
     vertical-align: middle;
 }
-.products-admin .table img{
-
+.orders .table td {
+    color: #7a7a7a !important;
+}
+.orders .table img {
     width: 50px;
     height: 48px;
     object-fit: cover;
     border-radius: 50%;
 
 }
-.products-admin .table td .btn {
+.orders .table td .btn {
     
     margin-right: 16px;
     padding: 4px 19px;

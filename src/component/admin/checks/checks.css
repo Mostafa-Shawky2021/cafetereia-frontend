@@ -26,3 +26,18 @@
     border-bottom: 1px solid #ccc;
     cursor: pointer;
 }
+.order-details ,.user-details {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.order-details {
+    height: 0px;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.5s;
+}
+.wrapper.active .order-details {
+    transform: scaleY(1);
+    height: auto;
+}

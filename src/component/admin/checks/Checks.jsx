@@ -74,7 +74,7 @@ const Checks = ()=> {
 
 
 
-                        <Accordion defaultActiveKey="0">
+<Accordion defaultActiveKey="0">
   <Accordion.Item eventKey="0">
     <Accordion.Header>Accordion Item #1</Accordion.Header>
     <Accordion.Body>

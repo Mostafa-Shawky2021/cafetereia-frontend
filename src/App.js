@@ -11,6 +11,8 @@ import AddProduct from "./component/admin/addproduct/AddProduct";
 import Categories from "./component/admin/categories/Categories";
 import AddCategory from "./component/admin/addcategory/AddCategory";
 import Adduser from "./component/admin/adduser/Adduser";
+import Users from "./component/admin/users/Users";
+import Checks from "./component/admin/checks/Checks";
 import { Navigate } from "react-router-dom";
 import { useState } from 'react';
 function App() {
@@ -34,7 +36,7 @@ function App() {
         <Route path="/" element={<Signup />} />
         <Route path="*" element={<Error />} />
         <Route path="/admin" >
-
+          
           <Route path="home" element={<Home onDataChange={onDataChange} count={count} order={order} />} />
           <Route path="products" element={<Product />} />
           <Route path="categories" element={<Categories />}/>
@@ -42,6 +44,8 @@ function App() {
           <Route path="addcategory" element={<AddCategory />}/>
           <Route path="addcategory" element={<AddCategory />}/>
           <Route path="adduser" element={<Adduser />}/>
+          <Route path="users" element={<Users />}/>
+          <Route path="checks" element={<Checks />}/>
         </Route>
       </Routes>
       {/* </main> */}

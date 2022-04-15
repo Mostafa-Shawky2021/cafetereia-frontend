@@ -1,0 +1,28 @@
+.checks {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+
+}
+.checks  .checks-container {
+    max-width: 1170px;
+    margin: auto
+}
+.checks  .checks-container .table-checks {
+    background-color: #fff;
+    margin:  1rem auto;
+    max-width: 800px;
+    padding-bottom: 5px;
+}
+.checks  .checks-container .table-checks .head {
+
+    font-weight: bold;
+    padding: 0.5rem 0.88rem;
+    background-color: #c39b51;
+    color: #fff;
+}
+.checks  .checks-container .table-checks .body {
+    color: #8f8585;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}

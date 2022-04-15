@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4f8c36ee-4448-447e-a16f-a0b6549f4d35" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/admin/addproduct/AddProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/admin/addproduct/AddProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/admin/addproduct/addproduct.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/admin/addproduct/addproduct.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/admin/navbar/NavbarAdmin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/admin/navbar/NavbarAdmin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/admin/product/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/admin/product/Product.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/admin/product/product.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/admin/product/product.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +27,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/xampp/htdocs/CafeteriaSystem-master" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -46,6 +41,7 @@
       <workItem from="1650006022657" duration="40000" />
       <workItem from="1650006068615" duration="769000" />
       <workItem from="1650008341081" duration="607000" />
+      <workItem from="1650027303537" duration="24000" />
     </task>
     <servers />
   </component>

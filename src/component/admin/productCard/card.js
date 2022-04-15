@@ -3,13 +3,13 @@ import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
 import React from "react";
 import './card.css'
-export default function ProductCard({ product, addToOrder, removeFromOrder, increment }) {
+export default function ProductCard({ product, addToOrder, removeFromOrder, increment, decrement }) {
 
     let [count, setCount] = useState(0);
     let [Order, setOrder] = useState('');
 
     const [firstTime, setFirstTime] = useState(false);
-    let handleClick = () => {
+    let handleAddClick = () => {
         if (!firstTime) {
             setFirstTime(true);
             addToOrder(product);
@@ -18,6 +18,14 @@ export default function ProductCard({ product, addToOrder, removeFromOrder, incr
         }
     }
 
+    let handleRemoveClick = () => {
+        if (!firstTime) {
+            setFirstTime(true);
+            removeFromOrder(product);
+        } else {
+            decrement(product.id);
+        }
+    }
 
     return (
         <Card className="product-card" style={{ borderRadius: '30px' }}>
@@ -28,10 +36,10 @@ export default function ProductCard({ product, addToOrder, removeFromOrder, incr
                 <div className="actions">
 
                     <button className="mybtn"
-                        onClick={handleClick}
+                        onClick={handleAddClick}
                     >+</button>
                     <button className="mybtn"
-                        onClick={handleClick}
+                        onClick={handleRemoveClick}
                     >-</button>
 
                 </div>

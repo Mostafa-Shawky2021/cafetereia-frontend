@@ -41,8 +41,15 @@ export default function Home(props) {
         currCount = count[objIndex].count;
         setCount(count);
         setcurrCount(currCount);
-        console.log(count)
-        console.log("currCount ", currCount)
+    }
+    function decrement(id) {
+        console.log(count, "...befofe")
+        const objIndex = count.findIndex((obj => obj.id == id));
+        if (count[objIndex].count > 0)
+            count[objIndex].count--;
+        currCount = count[objIndex].count;
+        setCount(count);
+        setcurrCount(currCount);
     }
 
     return (
@@ -100,6 +107,7 @@ export default function Home(props) {
                                 addToOrder={addToOrder}
                                 removeFromOrder={removeFromOrder}
                                 increment={increment}
+                                decrement={decrement}
 
                                 product={product}
                             />

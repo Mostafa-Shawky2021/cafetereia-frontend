@@ -88,11 +88,11 @@ function Login({ setToken }) {
 
       <div className="login" >
         <div className="container">
-          <div className="row  g-0">
+          <div className="row col-12  g-0">
             <div className="col-5">
               <div className="image-section"></div>
             </div>
-            <div className="col-7">
+            <div className="col-6">
               <div className="login-content">
                 <p className="login-text">Log In</p>
                 <form onSubmit={handleSubmit} className=" needs-validation" novalidate>

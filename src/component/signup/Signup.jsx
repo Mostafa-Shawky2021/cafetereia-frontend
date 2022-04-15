@@ -135,7 +135,7 @@ function Signup() {
       <Navbar />
       <div className="signup">
         <div className="container">
-          <div className="row  g-0">
+          <div className="row col-12 g-0">
             <div className="col-5">
               <div className="image-section"></div>
             </div>

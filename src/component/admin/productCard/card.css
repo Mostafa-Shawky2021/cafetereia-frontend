@@ -1,0 +1,17 @@
+.product-card {
+
+    background-color: #fffee9;
+    border-radius: 30px;
+    margin: 10px;
+    width: 13rem;
+}
+
+.add {
+    background-color: #452115;
+}
+
+.product-card-image {
+
+    padding: 30px;
+    height: 150px;
+}

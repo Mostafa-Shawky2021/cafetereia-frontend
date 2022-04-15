@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import ProductCard from '../productCard/card'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import './Home.css';
+import OrderItem from './orderItem';
 import { useState, useEffect } from 'react';
 export default function Home(props) {
 
@@ -13,19 +14,19 @@ export default function Home(props) {
     { 'id': 3, 'name': 'cola', 'price': '150', 'img': 'E:/iti/en/final/1.png' }];
 
     var total = 190;
-
+    let [currCount, setcurrCount] = useState(1);
     let [count, setCount] = useState([]);
     let [order, setOrder] = useState([]);
 
-    let onDataChange = (count, order) => {
-        setCount(count);
-        setOrder(order);
-        console.log("data app ", count, order);
-    }
+    // let onDataChange = (count, order) => {
+    //     setCount(count);
+    //     setOrder(order);
+    //     console.log("data app ", count, order);
+    // }
 
     useEffect(() => {
-        console.log(count);
-    }, [count, setCount]);
+        console.log("useEffect..", currCount);
+    }, [count, setCount, currCount]);
 
     function addToOrder(product) {
         setOrder([...order, product]);
@@ -44,9 +45,11 @@ export default function Home(props) {
         console.log(count, "...befofe")
         const objIndex = count.findIndex((obj => obj.id == id));
         count[objIndex].count++;
-
+        currCount = count[objIndex].count;
         setCount(count);
+        setcurrCount(currCount);
         console.log(count)
+        console.log("currCount ", currCount)
     }
 
     return (
@@ -58,8 +61,20 @@ export default function Home(props) {
                     <div>
                         {
 
-                            order.map((orders, index) => {
-                                return <label>{orders.name}</label>
+
+                            order.map((currOrder, index) => {
+                                const objIndex = count.findIndex((obj => obj.id == currOrder.id));
+                                currCount = count[objIndex].count;
+                                return <div className="odrerItem">
+                                    <div><label htmlFor=""> {currOrder.name}  </label></div>
+                                    <div><label htmlFor=""> x {currCount} ={currOrder.price * currCount} </label></div>
+
+
+                                </div>
+
+                                // <OrderItem key={currOrder.id}
+                                //     onDataChange={onDataChange}
+                                //     currOrder={currOrder} count={currCount} />
                             })
 
                         }
@@ -98,7 +113,7 @@ export default function Home(props) {
                                 addToOrder={addToOrder}
                                 removeFromOrder={removeFromOrder}
                                 increment={increment}
-                                onDataChange={onDataChange}
+
                                 product={product}
                             />
                         })

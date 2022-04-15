@@ -9,13 +9,6 @@ export default function ProductCard({ product, addToOrder, removeFromOrder, incr
     let [Order, setOrder] = useState('');
 
     const [firstTime, setFirstTime] = useState(false);
-
-    // let { onDataChange } = props;
-    // useEffect(() => {
-    //     // onDataChange(count, Order);
-
-    // }, [count, Order]);
-
     let handleClick = () => {
         if (!firstTime) {
             setFirstTime(true);
@@ -23,10 +16,6 @@ export default function ProductCard({ product, addToOrder, removeFromOrder, incr
         } else {
             increment(product.id);
         }
-
-        // setCount(count + 1);
-        // setOrder(title);
-        // console.log(Order, count);
     }
 
 

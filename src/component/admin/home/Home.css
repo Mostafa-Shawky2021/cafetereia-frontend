@@ -23,6 +23,18 @@
     padding: 20px;
 }
 
+.odrerItem {
+
+
+    width: 65%;
+    border-color: #cecbc5;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
 
 
 .container {

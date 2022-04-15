@@ -7,7 +7,7 @@ import './Home.css';
 import { useState, useEffect } from 'react';
 export default function Home(props) {
 
-    const products = [{ 'name': 'coffee', 'price': '190', 'img': 'E:/iti/en/final/1.png' },
+    const products = [{ 'id': 5, 'name': 'coffee', 'price': '190', 'img': 'E:/iti/en/final/1.png' },
     { 'id': 1, 'name': 'tea', 'price': '100', 'img': 'E:/iti/en/final/1.png' },
     { 'id': 2, 'name': 'late', 'price': '200', 'img': 'E:/iti/en/final/1.png' },
     { 'id': 3, 'name': 'cola', 'price': '150', 'img': 'E:/iti/en/final/1.png' }];
@@ -23,16 +23,14 @@ export default function Home(props) {
         console.log("data app ", count, order);
     }
 
-    // let { count } = props;
-    // let { order } = props;
-
-    // useEffect(() => {
-
-    // }, [count]);
+    useEffect(() => {
+        console.log(count);
+    }, [count, setCount]);
 
     function addToOrder(product) {
         setOrder([...order, product]);
         setCount([...count, { 'id': product.id, count: 1 }])
+        console.log(count);
     }
 
     function removeFromOrder(product) {
@@ -43,22 +41,14 @@ export default function Home(props) {
     }
 
     function increment(id) {
-        let newCount = count.map(c => {
-            if (c.id == id) return c.count++;
-        });
-        console.log(newCount);
-        setCount(newCount);
+        console.log(count, "...befofe")
+        const objIndex = count.findIndex((obj => obj.id == id));
+        count[objIndex].count++;
+
+        setCount(count);
+        console.log(count)
     }
 
-    // useEffect(() => {
-
-    // }, [count, order]);
-
-
-    // let onDataChange = (count, order) => {
-
-    //     console.log("Home.. app ", count, order);
-    // }
     return (
         <>
             <NavbarAdmin />
@@ -66,7 +56,14 @@ export default function Home(props) {
 
                 <div className="productsDetails">
                     <div>
-                        <label>{order} ={count}</label>
+                        {
+
+                            order.map((orders, index) => {
+                                return <label>{orders.name}</label>
+                            })
+
+                        }
+
 
                     </div>
 
@@ -100,6 +97,7 @@ export default function Home(props) {
 
                                 addToOrder={addToOrder}
                                 removeFromOrder={removeFromOrder}
+                                increment={increment}
                                 onDataChange={onDataChange}
                                 product={product}
                             />

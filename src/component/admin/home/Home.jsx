@@ -17,13 +17,6 @@ export default function Home(props) {
     let [currCount, setcurrCount] = useState(1);
     let [count, setCount] = useState([]);
     let [order, setOrder] = useState([]);
-
-    // let onDataChange = (count, order) => {
-    //     setCount(count);
-    //     setOrder(order);
-    //     console.log("data app ", count, order);
-    // }
-
     useEffect(() => {
         console.log("useEffect..", currCount);
     }, [count, setCount, currCount]);
@@ -65,16 +58,9 @@ export default function Home(props) {
                             order.map((currOrder, index) => {
                                 const objIndex = count.findIndex((obj => obj.id == currOrder.id));
                                 currCount = count[objIndex].count;
-                                return <div className="odrerItem">
-                                    <div><label htmlFor=""> {currOrder.name}  </label></div>
-                                    <div><label htmlFor=""> x {currCount} ={currOrder.price * currCount} </label></div>
+                                return <OrderItem key={currOrder.id}
+                                    product={currOrder} count={currCount} />
 
-
-                                </div>
-
-                                // <OrderItem key={currOrder.id}
-                                //     onDataChange={onDataChange}
-                                //     currOrder={currOrder} count={currCount} />
                             })
 
                         }

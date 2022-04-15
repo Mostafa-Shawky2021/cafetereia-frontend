@@ -7,23 +7,13 @@ import './Home.css';
 import { useState, useEffect } from 'react';
 export default function OrderItem(props) {
 
-    const { currOrder } = props;
-
-    let [count, setCount] = useState([]);
-    let onDataChange = (count, order) => {
-        setCount(count);
-        console.log("data app 2", count, order);
-    }
-
-    useEffect(() => {
-
-        console.log("orderItem,,,,,,", count);
-    }, [count]);
+    const { product } = props;
+    const { count } = props;
     return (
         <>
             <div className="odrerItem">
-                <div><label htmlFor=""> {currOrder.name}  </label></div>
-                <div><label htmlFor=""> x {count} ={currOrder.price * count} </label></div>
+                <div><label htmlFor=""> {product.name}  </label></div>
+                <div><label htmlFor=""> {count}x ={product.price * count} </label></div>
 
 
             </div>

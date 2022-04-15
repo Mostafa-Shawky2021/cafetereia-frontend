@@ -1,11 +1,15 @@
 .productsDetails {
-    background-color: #fcd997;
+    font-weight: bold;
+    padding: 0.5rem 0.88rem;
+    background-color: #c39b51;
+    color: #fff;
     border-radius: 30px;
     margin: 30px;
     width: 35%;
     height: 100%;
     text-align: center;
     padding: 20px;
+    margin-top: 70px;
 
 }
 
@@ -14,7 +18,7 @@
 
     width: 65%;
     height: 100%;
-    border-color: #fcd997;
+    border-color: #c39b51;
     border-radius: 30px;
     margin: 30px;
     display: flex;

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
 import React from "react";
 import './card.css'
-export default function ProductCard({ product, addToOrder, removeFromOrder, increment, decrement }) {
+export default function ProductCard({ product, addToOrder, removeFromOrder, increment, decrement, updateTotal }) {
 
     let [count, setCount] = useState(0);
     let [Order, setOrder] = useState('');
@@ -13,6 +13,7 @@ export default function ProductCard({ product, addToOrder, removeFromOrder, incr
         if (!firstTime) {
             setFirstTime(true);
             addToOrder(product);
+            updateTotal();
         } else {
             increment(product.id);
         }

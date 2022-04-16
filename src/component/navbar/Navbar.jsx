@@ -1,5 +1,5 @@
 import "./navbar.css";
-import logo from "../../assests/img/logo.png";
+import logo from "../../assests/img/nav-logo-0١.png";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import useToken from "../../hooks/useToken";
@@ -13,7 +13,7 @@ function Navbar() {
     >
       <div className="container">
         <NavLink to="home" className="navbar-brand">
-          <img src={logo} width="130px" />
+          <img src={logo} width="115px" />
         </NavLink>
         <button
           className="navbar-toggler"
@@ -39,7 +39,7 @@ function Navbar() {
                 About
               </NavLink>
             </li>
-             <li className="nav-item">
+            <li className="nav-item">
               <NavLink className="nav-link" to="/orders">
                 Myorders
               </NavLink>
@@ -82,6 +82,6 @@ function Navbar() {
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;

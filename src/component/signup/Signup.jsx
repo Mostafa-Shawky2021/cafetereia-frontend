@@ -6,7 +6,7 @@ import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 
 import { signUpUser, updateProfileAvatar } from "../../api";
-import useToken from "../../hooks/useToken";
+import useToken from "../../utils/hooks/useToken";
 
 function Signup() {
   const [email, setEmail] = useState("");

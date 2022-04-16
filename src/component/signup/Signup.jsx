@@ -139,7 +139,7 @@ function Signup() {
             <div className="col-5">
               <div className="image-section"></div>
             </div>
-            <div className="col-6 m-5 p-4">
+            <div className="col-5 m-5 p-4">
               <div className="signup-content">
                 <p className="signup-text">Sign Up</p>
                 <form onSubmit={handleSubmit}>
@@ -203,7 +203,6 @@ function Signup() {
                           <div className="form-row">
                             <input
                               id="password"
-                              style={{ width: "250px" }}
                               className="form-control"
                               type="password"
                               name="password"
@@ -228,7 +227,6 @@ function Signup() {
                               className="form-control"
                               type="text"
                               name="phone"
-                              style={{ width: "250px" }}
                               placeholder="Enter Phone"
                               onChange={(e) => {
                                 phoneChange(e);
@@ -250,7 +248,6 @@ function Signup() {
                               className="form-control"
                               type="text"
                               name="address"
-                              style={{ width: "250px" }}
                               placeholder="Enter Address"
                               onChange={(e) => {
                                 addressChange(e);
@@ -272,7 +269,6 @@ function Signup() {
                               type="file"
                               name="avatar"
                               onChange={onFileChange}
-                              style={{ width: "250px" }}
                             />
                           </div>
                         </td>

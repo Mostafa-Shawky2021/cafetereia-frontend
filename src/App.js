@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
+
 import Login from "./component/login/Login";
 import Signup from "./component/signup/Signup";
+
 import Error from "./component/error/Error";
 import Navbar from "./component/navbar/Navbar";
 import Footer from "./component/footer/Footer";

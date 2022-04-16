@@ -2,7 +2,7 @@ import "./navbar.css";
 import logo from "../../assests/img/logo.png";
 import { NavLink } from "react-router-dom";
 import React from "react";
-import useToken from "../../hooks/useToken";
+import useToken from "../../utils/hooks/useToken";
 
 function Navbar() {
   const { token } = useToken();

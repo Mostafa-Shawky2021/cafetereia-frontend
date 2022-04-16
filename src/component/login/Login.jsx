@@ -6,7 +6,8 @@ import { loginUser } from "../../api/index2";
 import { useAppContext } from "../../utils/auth/contextLib";
 
 import Alert from "../alert/Alert";
-import Navbar from '../navbar/Navbar';
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
 function Login({ setToken }) {
 
@@ -59,7 +60,6 @@ function Login({ setToken }) {
           } else {
             setShowAlert(true);
           }
-
         })
         .catch((err) => {
           setShowLoading(false); // Loading End
@@ -72,6 +72,7 @@ function Login({ setToken }) {
 
   return (
     <>
+      {showAlert && <Alert setShowAlert={setShowAlert} />}
       <Navbar />
       {
         showAlert && <div className="login-error"> <Alert setShowAlert={setShowAlert} /> </div>
@@ -91,11 +92,11 @@ function Login({ setToken }) {
       }
       <div className="login" >
         <div className="container">
-          <div className="row col-12  g-0">
+          <div className="row  g-0">
             <div className="col-5">
               <div className="image-section"></div>
             </div>
-            <div className="col-6">
+            <div className="col-7">
               <div className="login-content">
                 <p className="login-text">Log In</p>
                 <form onSubmit={handleSubmit} className=" needs-validation" noValidate>
@@ -105,7 +106,8 @@ function Login({ setToken }) {
                     </div>
                     <input
                       id="username"
-                      type="text" className="form-control "
+                      type="text"
+                      className="form-control "
                       required
                       name="username"
                       value={email}
@@ -129,9 +131,7 @@ function Login({ setToken }) {
                     <p style={{ color: "red", fontSize: 14 }}> {passError} </p>
                   </div>
                   <div className="mb-3 input-container ">
-                    <button className="btn  ms-auto d-block ">
-                      login
-                    </button>
+                    <button className="btn  ms-auto d-block ">login</button>
                   </div>
                 </form>
               </div>
@@ -139,7 +139,7 @@ function Login({ setToken }) {
           </div>
         </div>
       </div>
-
+      <Footer />
     </>
   );
 }

@@ -3,28 +3,27 @@ import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
 import React from "react";
 import './card.css'
-export default function ProductCard({ product, addToOrder, removeFromOrder, increment, decrement }) {
+export default function ProductCard({ product, addToOrder, increment, decrement, updateTotal, orders }) {
 
     let [count, setCount] = useState(0);
     let [Order, setOrder] = useState('');
 
     const [firstTime, setFirstTime] = useState(false);
     let handleAddClick = () => {
-        if (!firstTime) {
+        const objIndex = orders.findIndex((obj => obj.id == product.id));
+        if (objIndex == -1) {
             setFirstTime(true);
             addToOrder(product);
+            updateTotal();
         } else {
             increment(product.id);
         }
     }
 
     let handleRemoveClick = () => {
-        if (!firstTime) {
-            setFirstTime(true);
-            removeFromOrder(product);
-        } else {
-            decrement(product.id);
-        }
+
+        decrement(product.id);
+
     }
 
     return (

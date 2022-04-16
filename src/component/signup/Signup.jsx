@@ -2,7 +2,8 @@ import "./signup.css";
 import { useState } from "react";
 import validator from "validator";
 import { Link } from "react-router-dom";
-import Navbar from '../navbar/Navbar';
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
 import { signUpUser, updateProfileAvatar } from "../../api";
 import useToken from "../../utils/hooks/useToken";
@@ -53,7 +54,7 @@ function Signup() {
   const onFileChange = (e) => {
     console.log(" On Change: ", e.target.files[0]);
     setAvatar(e.target.files[0]);
-  }
+  };
 
   const uploadAvatar = (localToken) => {
     console.log("upadate avatar");
@@ -67,16 +68,15 @@ function Signup() {
           .then((res) => {
             console.log(res.data);
 
-            setAvatar(res.data.data.avatar)
-
+            setAvatar(res.data.data.avatar);
           })
           .catch((err) => {
             console.log(err);
           });
-      }
+      };
       updateAvatarReq();
     }
-  }
+  };
 
   let validateForm = () => {
     console.log(
@@ -135,11 +135,11 @@ function Signup() {
       <Navbar />
       <div className="signup">
         <div className="container">
-          <div className="row col-12 g-0">
+          <div className="row  g-0">
             <div className="col-5">
               <div className="image-section"></div>
             </div>
-            <div className="col-5 m-4 p-4">
+            <div className="col-5 m-5 p-4">
               <div className="signup-content">
                 <p className="signup-text">Sign Up</p>
                 <form onSubmit={handleSubmit}>
@@ -152,11 +152,10 @@ function Signup() {
                           </label>
                         </td>
                         <td>
-
                           <input
                             id="username"
-                            className="form-control"
-                            style={{ width: '250px' }}
+                            className="form-control form-input"
+                            style={{ width: "250px" }}
                             type="text"
                             name="username"
                             placeholder="Enter Username"
@@ -176,7 +175,7 @@ function Signup() {
                           <input
                             id="email"
                             className="form-control"
-                            style={{ width: '250px' }}
+                            style={{ width: "250px" }}
                             type="email"
                             name="email"
                             placeholder="Enter Email"
@@ -189,23 +188,21 @@ function Signup() {
                       <tr>
                         <td>
                           <div>
-
                             <label className="form-label" htmlFor="password">
                               Password
                             </label>
                             <p>
-                              <span style={{ color: "#bc3942" }}> {emailError}</span>
+                              <span style={{ color: "#bc3942" }}>
+                                {" "}
+                                {emailError}
+                              </span>
                             </p>
                           </div>
-
                         </td>
                         <td>
-
                           <div className="form-row">
-
                             <input
                               id="password"
-                              style={{ width: '250px' }}
                               className="form-control"
                               type="password"
                               name="password"
@@ -225,13 +222,11 @@ function Signup() {
                         </td>
                         <td>
                           <div className="mb-3 input-container">
-
                             <input
                               id="phone"
                               className="form-control"
                               type="text"
                               name="phone"
-                              style={{ width: '250px' }}
                               placeholder="Enter Phone"
                               onChange={(e) => {
                                 phoneChange(e);
@@ -248,13 +243,11 @@ function Signup() {
                         </td>
                         <td>
                           <div className="mb-3 input-container">
-
                             <input
                               id="address"
                               className="form-control"
                               type="text"
                               name="address"
-                              style={{ width: '250px' }}
                               placeholder="Enter Address"
                               onChange={(e) => {
                                 addressChange(e);
@@ -265,12 +258,18 @@ function Signup() {
                       </tr>
                       <tr>
                         <td>
-                          <label className="form-label" htmlFor="photo">photo</label>
+                          <label className="form-label" htmlFor="photo">
+                            photo
+                          </label>
                         </td>
                         <td>
-                          <div style={{ width: '250px' }}>
-                            {/* <span style={{ color: "#452115" }}>Choose</span> */}
-                            <input className="form-control" type="file" name="avatar" onChange={onFileChange} style={{ width: '250px' }} />
+                          <div style={{ width: "250px" }}>
+                            <input
+                              className="form-control"
+                              type="file"
+                              name="avatar"
+                              onChange={onFileChange}
+                            />
                           </div>
                         </td>
                       </tr>
@@ -299,6 +298,7 @@ function Signup() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

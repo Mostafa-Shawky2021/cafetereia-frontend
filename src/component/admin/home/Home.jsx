@@ -13,35 +13,58 @@ export default function Home(props) {
     { 'id': 2, 'name': 'late', 'price': '200', 'img': 'E:/iti/en/final/1.png' },
     { 'id': 3, 'name': 'cola', 'price': '150', 'img': 'E:/iti/en/final/1.png' }];
 
-    var total = 190;
+    // var total = 190;
     let [currCount, setcurrCount] = useState(1);
     let [count, setCount] = useState([]);
     let [order, setOrder] = useState([]);
+    let [total, setTotal] = useState(0);
     useEffect(() => {
-        console.log("useEffect..", currCount);
+
     }, [count, setCount, currCount]);
 
     function addToOrder(product) {
         setOrder([...order, product]);
         setCount([...count, { 'id': product.id, count: 1 }])
-        console.log(count);
+        total = (total + parseInt(product.price));
+        setTotal(total);
     }
 
     function removeFromOrder(product) {
         const filteredOrder = order.filter((p) => p.id !== product.id);
+        const objIndex = count.findIndex((obj => obj.id == product.id));
+        total = (total - parseInt(product.price) * count[objIndex].count);
+        setTotal(total);
         const filteredCount = count.filter((p) => p.id !== product.id);
         setOrder(filteredOrder);
         setCount(filteredCount);
     }
 
+
+    function updateTotal() {
+
+        total = 0;
+        console.log("Update ", order);
+        order.forEach((p) => {
+            const objIndex = count.findIndex((obj => obj.id == p.id));
+            total += (count[objIndex].count * p.price)
+        })
+        return total;
+    }
+
+
+
     function increment(id) {
-        console.log(count, "...befofe")
+        console.log(count, "...befofe", id)
         const objIndex = count.findIndex((obj => obj.id == id));
         count[objIndex].count++;
         currCount = count[objIndex].count;
         setCount(count);
         setcurrCount(currCount);
+        total = updateTotal();
+        setTotal(total);
     }
+
+
     function decrement(id) {
         console.log(count, "...befofe")
         const objIndex = count.findIndex((obj => obj.id == id));
@@ -50,6 +73,8 @@ export default function Home(props) {
         currCount = count[objIndex].count;
         setCount(count);
         setcurrCount(currCount);
+        total = updateTotal();
+        setTotal(total);
     }
 
     return (
@@ -67,7 +92,11 @@ export default function Home(props) {
                                 const objIndex = count.findIndex((obj => obj.id == currOrder.id));
                                 currCount = count[objIndex].count;
                                 return <OrderItem key={currOrder.id}
-                                    product={currOrder} count={currCount} />
+                                    product={currOrder}
+                                    removeFromOrder={removeFromOrder}
+                                    count={currCount}
+
+                                />
 
                             })
 
@@ -108,8 +137,9 @@ export default function Home(props) {
                                 removeFromOrder={removeFromOrder}
                                 increment={increment}
                                 decrement={decrement}
-
+                                updateTotal={updateTotal}
                                 product={product}
+                                orders={order}
                             />
                         })
 

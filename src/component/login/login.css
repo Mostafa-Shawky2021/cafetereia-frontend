@@ -5,7 +5,7 @@
 
 .login .image-section {
   position: relative;
-  background-image: url("../../assests/img/logo.png");
+  background-image: url("../../assests/img/main-0١.png");
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -30,13 +30,13 @@
 }
 
 .login .login-content {
-  background-color: #c87941;
-  margin-left: 50px;
+  background-color: #4e4e4e;
+  margin-left: 240px;
   padding: 1.5rem 1.5rem;
   border: 1px solid #fffee9;
   border-radius: 30px;
   height: 500px;
-  width: 400px;
+  width: 500px;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
@@ -44,7 +44,7 @@
 }
 
 .login .login-content .signup-link {
-  color: #fcd997;
+  color: #4e4e4e;
   font-weight: 500;
   font-size: 0.9rem;
 }
@@ -68,9 +68,9 @@ p {
   border-radius: 5px;
   margin: 50px auto;
   border: none;
-  color: white;
-  background-color: #452115;
-  width: 90%;
+  color: #4e4e4e;
+  background-color: white;
+  width: 100%;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;

@@ -1,7 +1,7 @@
-import NavbarAdmin from "../navbar/NavbarAdmin";
+import Navbar from "../navbar/Navbar";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
-import ProductCard from '../../productCard/card'
+import ProductCard from '../productCard/card'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import './Home.css';
 import OrderItem from './orderItem';
@@ -12,6 +12,9 @@ export default function Home(props) {
     { 'id': 1, 'name': 'tea', 'price': '100', 'img': 'E:/iti/en/final/1.png' },
     { 'id': 2, 'name': 'late', 'price': '200', 'img': 'E:/iti/en/final/1.png' },
     { 'id': 3, 'name': 'cola', 'price': '150', 'img': 'E:/iti/en/final/1.png' }];
+    const latstProducts = [{ 'id': 8, 'name': 'lemon', 'price': '190', 'img': 'E:/iti/en/final/1.png' },
+    { 'id': 6, 'name': 'vanelia', 'price': '200', 'img': 'E:/iti/en/final/1.png' },
+    ];
 
     // var total = 190;
     let [currCount, setcurrCount] = useState(1);
@@ -79,7 +82,7 @@ export default function Home(props) {
 
     return (
         <>
-            <NavbarAdmin />
+            <Navbar />
             <div className="container">
 
                 <div className="productsDetails">
@@ -119,36 +122,50 @@ export default function Home(props) {
 
 
                 </div>
-                <div className="products">
-                    <Form.Select aria-label="Default select example">
-                        <option>Select Username</option>
-                        <option value="1">Samar</option>
-                        <option value="2">Mohamed</option>
-                        <option value="3">Nehal</option>
-                    </Form.Select>
+                <div className="products-section">
+                    <p className="product-h">Latest Products</p>
+                    <div className="products">
+                        {
+                            latstProducts.map((product, index) => {
+                                return <ProductCard
+                                    key={index}
+
+                                    addToOrder={addToOrder}
+                                    removeFromOrder={removeFromOrder}
+                                    increment={increment}
+                                    decrement={decrement}
+                                    updateTotal={updateTotal}
+                                    product={product}
+                                    orders={order}
+                                />
+                            })
 
 
+                        }
+                    </div>
+                    <hr className="product-hr"></hr>
 
-                    {
-                        products.map((product, index) => {
-                            return <ProductCard
-                                key={index}
+                    <p className="product-h">All Products</p>
 
-                                addToOrder={addToOrder}
-                                removeFromOrder={removeFromOrder}
-                                increment={increment}
-                                decrement={decrement}
-                                updateTotal={updateTotal}
-                                product={product}
-                                orders={order}
-                            />
-                        })
+                    <div className="products">
+                        {
+                            products.map((product, index) => {
+                                return <ProductCard
+                                    key={index}
+
+                                    addToOrder={addToOrder}
+                                    removeFromOrder={removeFromOrder}
+                                    increment={increment}
+                                    decrement={decrement}
+                                    updateTotal={updateTotal}
+                                    product={product}
+                                    orders={order}
+                                />
+                            })
 
 
-                    }
-
-
-
+                        }
+                    </div>
                 </div>
             </div>
         </>

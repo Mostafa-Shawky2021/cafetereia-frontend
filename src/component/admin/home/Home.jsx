@@ -31,24 +31,28 @@ export default function Home(props) {
 
     function removeFromOrder(product) {
         const filteredOrder = order.filter((p) => p.id !== product.id);
+        const objIndex = count.findIndex((obj => obj.id == product.id));
+        total = (total - parseInt(product.price) * count[objIndex].count);
+        setTotal(total);
         const filteredCount = count.filter((p) => p.id !== product.id);
         setOrder(filteredOrder);
         setCount(filteredCount);
     }
+
+
     function updateTotal() {
 
         total = 0;
         console.log("Update ", order);
         order.forEach((p) => {
             const objIndex = count.findIndex((obj => obj.id == p.id));
-            console.log(
-
-                count[objIndex].count
-            );
             total += (count[objIndex].count * p.price)
         })
         return total;
     }
+
+
+
     function increment(id) {
         console.log(count, "...befofe", id)
         const objIndex = count.findIndex((obj => obj.id == id));
@@ -59,6 +63,8 @@ export default function Home(props) {
         total = updateTotal();
         setTotal(total);
     }
+
+
     function decrement(id) {
         console.log(count, "...befofe")
         const objIndex = count.findIndex((obj => obj.id == id));

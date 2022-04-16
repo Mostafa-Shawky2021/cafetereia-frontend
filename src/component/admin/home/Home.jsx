@@ -94,7 +94,9 @@ export default function Home(props) {
                                 return <OrderItem key={currOrder.id}
                                     product={currOrder}
                                     removeFromOrder={removeFromOrder}
-                                    count={currCount} />
+                                    count={currCount}
+
+                                />
 
                             })
 
@@ -137,6 +139,7 @@ export default function Home(props) {
                                 decrement={decrement}
                                 updateTotal={updateTotal}
                                 product={product}
+                                orders={order}
                             />
                         })
 

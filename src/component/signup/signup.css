@@ -11,9 +11,11 @@
   width: 100%;
   height: 80%;
 }
+
 .row {
   width: 100% !important;
 }
+
 .signup .image-section::before {
   content: "";
   position: absolute;
@@ -50,6 +52,7 @@
 .signup .signup-content .input-container {
   position: relative;
 }
+
 .signup .signup-content .input-container .form-input {
   padding-left: 1rem !important;
   width: 100% !important;

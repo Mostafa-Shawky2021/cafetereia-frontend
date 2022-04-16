@@ -67,6 +67,8 @@ export default function Home(props) {
         currCount = count[objIndex].count;
         setCount(count);
         setcurrCount(currCount);
+        total = updateTotal();
+        setTotal(total);
     }
 
     return (

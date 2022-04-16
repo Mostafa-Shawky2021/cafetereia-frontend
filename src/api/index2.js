@@ -7,10 +7,19 @@ export const loginUser = async (credentials) => {
       "Content-Type": "application/json",
     },
     name: "generateToken",
-
-      param: JSON.stringify(credentials),
-    
+    param: JSON.stringify(credentials),
   });
+};
+
+export const fetchUser = async (token) => {
+  // return axios.post("http://localhost/Cafetria/api/v1/client/", {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     authorization: `Bearer ${token}`,
+  //   },
+  //   name: "generateToken",
+  //   param: JSON.stringify(credentials),
+  // });
 };
 
 export const fetchUserData = async (token) => {

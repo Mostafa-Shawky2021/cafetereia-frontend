@@ -3,14 +3,15 @@ import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { loginUser } from "../../api/index2";
-import { useAppContext } from "../../utils/auth/contextLib";
+import useToken from "../../utils/hooks/useToken";
 
 import Alert from "../alert/Alert";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 
-function Login({ setToken }) {
+function Login() {
 
+  const {setToken} = useToken();
   const [firstTime, setFirstTime] = useState(true);
 
   const [showAlert, setShowAlert] = useState(false);
@@ -33,12 +34,12 @@ function Login({ setToken }) {
   }, [email]);
 
   useEffect(() => {
-    !firstTime && password.length < 6? setPassError('Password must be at least 6 characters') : setPassError('');
+    !firstTime && password.length < 4? setPassError('Password must be at least 4 characters') : setPassError('');
     setFirstTime(false);
   }, [password]);
 
   function isValid() {
-    if (!emailValidation(email) || password.length < 6) {
+    if (!emailValidation(email) || password.length < 4) {
       return false;
     }
     return true;
@@ -51,10 +52,9 @@ function Login({ setToken }) {
       await loginUser({ email, pass: password })
         .then((res) => {
           setShowLoading(false); // Loading End
-          console.log(res);
-          if (res.data.token) {
-
-            setToken(res.data.token);
+          console.log(res.data);
+          if (res.data.response.result.token) {
+            setToken(res.data.response.result.token);
             console.log("123");
             window.location.href = "/profile";
           } else {
@@ -72,7 +72,6 @@ function Login({ setToken }) {
 
   return (
     <>
-      {showAlert && <Alert setShowAlert={setShowAlert} />}
       <Navbar />
       {
         showAlert && <div className="login-error"> <Alert setShowAlert={setShowAlert} /> </div>

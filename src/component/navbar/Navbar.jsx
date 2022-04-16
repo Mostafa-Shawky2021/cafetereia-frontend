@@ -13,7 +13,7 @@ function Navbar() {
     >
       <div className="container">
         <NavLink to="home" className="navbar-brand">
-          <img src={logo} width="115px" />
+          <img src={logo} width="115px" alt="logo" />
         </NavLink>
         <button
           className="navbar-toggler"
@@ -59,9 +59,6 @@ function Navbar() {
             <>
               <NavLink to="/login" className="link btn-login">
                 Login
-              </NavLink>
-              <NavLink to="/signup" className="link btn-signup">
-                Signup
               </NavLink>
             </>
           ) : (

@@ -2,12 +2,65 @@ import axios from "axios";
 
 export const loginUser = async (credentials) => {
   console.log(JSON.stringify(credentials));
-  return axios.post("http://localhost/Cafetria/api/v1/client/", {
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
     headers: {
       "Content-Type": "application/json",
     },
     name: "generateToken",
     param: JSON.stringify(credentials),
+  });
+};
+
+export const verifyClientRole = async (token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getClientByToken",
+    param: {},
+  });
+};
+
+export const getAllProds = async (token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getAllProds",
+    param: {},
+  });
+};
+
+export const getUserLastOrderProds = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getProductsDetailsOfLastOrderByClientId",
+    param: {customer_id: id},
+  });
+};
+
+export const addOrderfromUser = async (id, price, products, note, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "addOrder",
+    param: {
+      customer_id: id,
+      price: price,
+      note: note,
+      data: products,
+    },
   });
 };
 

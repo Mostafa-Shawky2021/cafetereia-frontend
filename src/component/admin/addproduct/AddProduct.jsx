@@ -51,24 +51,23 @@ const AddProduct = () => {
                 <div className="container-addproduct">
                     <Breadcrumb />
                     <form className="form">
-                        <div class="row mb-3">
+                        <div className="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Product name</label>
-                            <div class="col-sm-10 form-group">
+                            <div className="col-sm-10 form-group">
                                 <input type="text" class="form-control" id="inputEmail3" placeholder="product name" onChange={handleProduct}/>  
                                 <span className="error">{producterr}</span>
-                                <i class="fa fa-asterisk"></i>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <div className="row mb-3">
                             <label for="price" class="col-sm-2 col-form-label">Price</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" id="price" />
+                            <div className="col-sm-10">
+                                <input type="number" className="form-control" id="price" />
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="cateogry" class="col-sm-2 col-form-label">Cateogry</label>
-                            <div class="col-sm-10 form-group">
-                            <select class="form-select" id="cateogry" onChange={handleCat}>
+                        <div className="row mb-3">
+                            <label for="cateogry" className="col-sm-2 col-form-label">Cateogry</label>
+                            <div className="col-sm-10 form-group">
+                            <select className="form-select" id="cateogry" onChange={handleCat}>
                                     <option value="">...</option>
                                     <option value="icecream">iceream</option>
                                     <option value="hotdrink">hotdrink</option>
@@ -76,17 +75,17 @@ const AddProduct = () => {
                                 <span className="error">{cateogryerr}</span>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="cateogry " class="col-sm-2 col-form-label">Picture</label>
-                            <div class="col-sm-10 form-group">
-                                <div class="custom-file">
+                        <div className="row mb-3">
+                            <label for="cateogry " className="col-sm-2 col-form-label">Picture</label>
+                            <div className="col-sm-10 form-group">
+                                <div className="custom-file">
                                     <span>choose file</span>
                                     <input type="file" />
                                 </div>
                             </div>
                         </div>
                     <div style={{textAlign:'right'}}>
-                        <button type="submit" class="btn btn-primary" onClick={handleSubmit}><i className="fa fa-plus"></i> Add product</button>
+                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}><i className="fa fa-plus"></i> Add product</button>
                     </div>
                     </form>
                 </div>

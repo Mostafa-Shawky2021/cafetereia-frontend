@@ -33,12 +33,12 @@ function Login() {
   }
 
   useEffect(() => {
-    !firstTime && !emailValidation(email)? setEmailError('Email is not valid') : setEmailError('');
+    !firstTime && !emailValidation(email) ? setEmailError('Email is not valid') : setEmailError('');
     setFirstTime(false);
   }, [email]);
 
   useEffect(() => {
-    !firstTime && password.length < 4? setPassError('Password must be at least 4 characters') : setPassError('');
+    !firstTime && password.length < 4 ? setPassError('Password must be at least 4 characters') : setPassError('');
     setFirstTime(false);
   }, [password]);
 
@@ -87,15 +87,15 @@ function Login() {
       }
       {
         showLoading && <div id="wrapper">
-    
+
           <div className="profile-main-loader">
             <div className="loader">
-              <svg className="circular-loader"viewBox="25 25 50 50" >
+              <svg className="circular-loader" viewBox="25 25 50 50" >
                 <circle className="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" strokeWidth="2" />
               </svg>
             </div>
           </div>
-            
+
         </div>
       }
       <div className="login" >
@@ -113,13 +113,13 @@ function Login() {
                       <label className="form-label" htmlFor="username"> Email Address </label>
                     </div>
                     <input
-                      id="username"
+                      id="Email"
                       type="text"
                       className="form-control "
                       required
                       name="username"
                       value={email}
-                      placeholder="Enter Username"
+                      placeholder="Enter Email"
                       onChange={e => setEmail(e.target.value)}
                     />
                     <p style={{ color: "red", fontSize: 14 }}> {emailError} </p>

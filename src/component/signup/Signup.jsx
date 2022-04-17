@@ -1,9 +1,10 @@
 import "./signup.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import validator from "validator";
 import { Link } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
+import Alert from "../alert/Alert";
 
 import { signUpUser, updateProfileAvatar } from "../../api";
 import useToken from "../../utils/hooks/useToken";
@@ -11,29 +12,51 @@ import useToken from "../../utils/hooks/useToken";
 function Signup() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [passwordError, setPassError] = useState("");
   const [password, setPassword] = useState("");
+
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
   const [showAlert, setShowAlert] = useState(false);
-
+  const [firstTime, setFirstTime] = useState(true);
   const [emailError, setEmailError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [avatar, setAvatar] = useState(null);
 
   const { token, setToken } = useToken();
 
-  let usernameChange = (e) => {
-    console.log(e.target.value);
-    setUsername(e.target.value);
-    if (username.length < 3) e.target.style = "border-color:#bc3942";
-    else e.target.style = "border-color:#d8e2dc";
-  };
-  let passwordChange = (e) => {
-    setPassword(e.target.value);
-    if (password.length < 8) {
-      e.target.style = "border-color:#bc3942";
-    } else e.target.style = "border-color:#d8e2dc";
-  };
+  const emailValidation = (mail) => {
+    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return !(!mail || regex.test(mail) === false);
+  }
+  const phoneValidator = (phone) => {
+    const regex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    console.log("text ", regex.test(phone));
+    return regex.test(phone);
+  }
+  useEffect(() => {
+    !firstTime && !emailValidation(email) ? setEmailError('Email is not valid') : setEmailError('');
+    setFirstTime(false);
+  }, [email]);
+  useEffect(() => {
+    !firstTime && username.length < 3 ? setUsernameError('User Name must be at least 3 characters') : setUsernameError('');
+    setFirstTime(false);
+  }, [username]);
+
+  useEffect(() => {
+    !firstTime && password.length < 4 ? setPassError('Password must be at least 4 characters') : setPassError('');
+    setFirstTime(false);
+  }, [password]);
+
+
+  useEffect(() => {
+    !firstTime && !phoneValidator(phone) ? setPhoneError('InValid phone number') : setPhoneError('');
+
+    setFirstTime(false);
+  }, [phone]);
+
   let phoneChange = (e) => {
     console.log(e.target.value);
     setPhone(e.target.value);
@@ -45,10 +68,6 @@ function Signup() {
     setAddress(e.target.value);
     if (address.length < 3) e.target.style = "border-color:#bc3942";
     else e.target.style = "border-color:#d8e2dc";
-  };
-  let emailChange = (e) => {
-    setEmail(e.target.value);
-    e.target.style = "border-color:#d8e2dc";
   };
 
   const onFileChange = (e) => {
@@ -82,17 +101,17 @@ function Signup() {
     console.log(
       "username:" + username + " password: " + password + " Email : " + email
     );
-    if (!validator.isEmail(email)) {
-      setEmailError("Please enter a valid Email!");
-      return false;
-    } else setEmailError("");
+
+    console.log(" validation data", firstTime);
 
     if (
-      password.length < 8 ||
-      username.length < 3 ||
-      address.length < 3 ||
-      phone.length < 11
+      usernameError || emailError || passwordError || phoneError ||
+      username.length == 0 ||
+      email.length == 0 ||
+      password.length == 0 ||
+      phone.length == 0
     ) {
+      console.log("not valid data");
       return false;
     }
 
@@ -101,7 +120,8 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm) {
+    let v = validateForm();
+    if (v) {
       console.log(username, password);
       await signUpUser({
         name: username,
@@ -128,11 +148,15 @@ function Signup() {
           setToken(null);
         });
     }
+    else { setShowAlert(true); }
   };
 
   return (
     <>
       <Navbar />
+      {
+        showAlert && <div className="signup-error"> <Alert setShowAlert={setShowAlert} /> </div>
+      }
       <div className="signup">
         <div className="container">
           <div className="row  g-0">
@@ -159,10 +183,17 @@ function Signup() {
                             type="text"
                             name="username"
                             placeholder="Enter Username"
-                            onChange={(e) => {
-                              usernameChange(e);
-                            }}
+                            onChange={e => setUsername(e.target.value)}
                           />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <p style={{ color: "red", fontSize: 14 }}>
+
+                            {usernameError}
+                          </p>
                         </td>
                       </tr>
                       <tr>
@@ -179,10 +210,15 @@ function Signup() {
                             type="email"
                             name="email"
                             placeholder="Enter Email"
-                            onChange={(e) => {
-                              emailChange(e);
-                            }}
+                            onChange={e => setEmail(e.target.value)}
                           />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+
+                          <p style={{ color: "red", fontSize: 14 }}>{emailError}</p>
                         </td>
                       </tr>
                       <tr>
@@ -191,12 +227,6 @@ function Signup() {
                             <label className="form-label" htmlFor="password">
                               Password
                             </label>
-                            <p>
-                              <span style={{ color: "#bc3942" }}>
-                                {" "}
-                                {emailError}
-                              </span>
-                            </p>
                           </div>
                         </td>
                         <td>
@@ -207,11 +237,16 @@ function Signup() {
                               type="password"
                               name="password"
                               placeholder="Enter Password"
-                              onChange={(e) => {
-                                passwordChange(e);
-                              }}
+                              onChange={e => setPassword(e.target.value)}
                             />
                           </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+
+                          <p style={{ color: "red", fontSize: 14 }}>{passwordError}</p>
                         </td>
                       </tr>
                       <tr>
@@ -220,6 +255,7 @@ function Signup() {
                             Phone number
                           </label>
                         </td>
+
                         <td>
                           <div className="mb-3 input-container">
                             <input
@@ -229,33 +265,22 @@ function Signup() {
                               name="phone"
                               placeholder="Enter Phone"
                               onChange={(e) => {
-                                phoneChange(e);
+                                setPhone(e.target.value);
                               }}
                             />
                           </div>
                         </td>
                       </tr>
                       <tr>
+                        <td></td>
                         <td>
-                          <label className="form-label" htmlFor="address">
-                            Address
-                          </label>
-                        </td>
-                        <td>
-                          <div className="mb-3 input-container">
-                            <input
-                              id="address"
-                              className="form-control"
-                              type="text"
-                              name="address"
-                              placeholder="Enter Address"
-                              onChange={(e) => {
-                                addressChange(e);
-                              }}
-                            />
-                          </div>
+                          <p style={{ color: "red", fontSize: 14 }}>
+
+                            {phoneError}
+                          </p>
                         </td>
                       </tr>
+
                       <tr>
                         <td>
                           <label className="form-label" htmlFor="photo">
@@ -277,7 +302,7 @@ function Signup() {
                   </table>
 
                   <div className="mb-3 input-container ">
-                    <button className="btn btn-success ms-auto d-block ">
+                    <button className="btn btn-success ms-auto d-block " type="submit">
                       Signup
                     </button>
                   </div>

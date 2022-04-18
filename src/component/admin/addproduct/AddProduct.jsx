@@ -2,9 +2,9 @@ import { Container } from "react-bootstrap";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate  } from "react-router-dom";
 import "./addproduct.css";
-import { getCategories, getProductById } from "../../../api/index2";
+import { addProduct, getCategories, getLastProd, getProductById, updateProduct, updateProductAvatar } from "../../../api/index2";
 import Alert from "../../alert/Alert";
 
 import useToken from "../../../utils/hooks/useToken";
@@ -14,6 +14,7 @@ const AddProduct = ({prod}) => {
 
     const { token } = useToken();
     const {prodId} = useParams();
+    let navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
     const [showLoading, setShowLoading] = useState(false);
 
@@ -22,6 +23,7 @@ const AddProduct = ({prod}) => {
     const [nameInput, setNameInput] = useState("");
     const [priceInput, setPriceInput] = useState(0);
     const [catInput, setCatInput] = useState(0);
+    const [avatar, setAvatar] = useState({});
 
     const [producterr, setProductmsg ] = useState("");
     const [priceerr, setPricemsg ] = useState("") ;
@@ -49,11 +51,14 @@ const AddProduct = ({prod}) => {
             setPriceInput(res.data.response.result.price);
             setCatInput(res.data.response.result.cat_id);
             console.log(res.data.response.result.cat_id);
+
+            setShowLoading(false);
         })
     }
 
     useEffect(() => {
         if(prodId) {
+            setShowLoading(true);
             getProduct(prodId);
         }
         getAllCategories();
@@ -88,26 +93,86 @@ const AddProduct = ({prod}) => {
         }
     }, [catInput]);
 
+    const updateTheLastProduct = async () => {
+        await getLastProd(token)
+            .then((res) => {
+                console.log(res.data);
+                uploadTheAvatar(res.data.response.result.id);
+            }).catch((err) => {
+                console.log(err);
+            }
+        )
+    }
+
+    const addProd = async (data) => {
+        await addProduct(data, token)
+        .then((res) => {
+            console.log(res.data);
+            if(avatar){
+                updateTheLastProduct();
+            } else {
+                setShowLoading(false);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            setShowLoading(false);
+        })
+    }
+
+    const uploadTheAvatar = async (id) => {
+        const formData = new FormData();
+        formData.append("avatar", avatar);
+        await updateProductAvatar(id, formData, token)
+        .then((res) => {
+            console.log(res.data);
+            setShowLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+            setShowLoading(false);
+        })
+    }
+
+    const updateProd = async (data) => {
+        await updateProduct(data, token)
+        .then((res) => {
+            console.log(res.data);
+            console.log(avatar);
+            if(avatar) {
+                uploadTheAvatar(prodId);
+            }
+            setShowLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+            setShowLoading(false);
+        })
+    }
+
+    
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(nameInput.length === 0 || !alphadigit.test( nameInput.trim())) {
-            setProductmsg("Product name is required");
-            setShowAlert(true);
-        } else if(priceInput.length === 0 || !digit.test(priceInput)) {
-            setPricemsg("Price is required");
-            setShowAlert(true);
-        } else if(catInput === 0) {
-            setCatmsg("Category is required");
+        if(producterr || priceerr || cateogryerr) {
             setShowAlert(true);
         } else {
             setShowLoading(false);
-            setShowAlert(true);
 
+            const data = {
+                name: nameInput,
+                price: priceInput,
+                cat_id: catInput
+            }
             if(prodId) {
                 console.log("update");
+                data.id = prodId;
+                updateProd(data);
             } else {
                 console.log("add");
+                addProd(data);
             }
+            navigate('/products');
 
         }
     }
@@ -189,7 +254,7 @@ const AddProduct = ({prod}) => {
                             <div className="col-sm-10 form-group">
                                 <div className="custom-file">
                                     <span>choose file</span>
-                                    <input type="file" />
+                                    <input type="file" name="image" onChange={(e)=>setAvatar(e.target.files[0])} />
                                 </div>
                             </div>
                         </div>

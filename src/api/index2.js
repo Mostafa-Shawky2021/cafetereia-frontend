@@ -1,9 +1,12 @@
 import axios from "axios";
 
+// const domain = "http://cafeteria.elfabrikaa.online/Cafetria2";
+const domain = "http://localhost:80/c/v3";
+
 // Login
 export const loginUser = async (credentials) => {
   console.log(JSON.stringify(credentials));
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+  return axios.post(`${domain}/api/v1/client/`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -14,9 +17,9 @@ export const loginUser = async (credentials) => {
 
 export const verifyClientRole = async (token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+  return axios.post(`${domain}/api/v1/client/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getClientByToken",
@@ -26,9 +29,9 @@ export const verifyClientRole = async (token) => {
 
 export const getClientById = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+  return axios.post(`${domain}/api/v1/client/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getClientDetails",
@@ -39,9 +42,9 @@ export const getClientById = async (id, token) => {
 // User Home
 export const getAllProds = async (token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+  return axios.post(`${domain}/api/v1/prod/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getAllProds",
@@ -51,9 +54,9 @@ export const getAllProds = async (token) => {
 
 export const getUserLastOrderProds = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+  return axios.post(`${domain}/Cafetria2/api/v1/order/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getProductsDetailsOfLastOrderByClientId",
@@ -63,9 +66,9 @@ export const getUserLastOrderProds = async (id, token) => {
 
 export const addOrderfromUser = async (id, price, products, note, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+  return axios.post(`${domain}/api/v1/order/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "addOrder",
@@ -81,9 +84,9 @@ export const addOrderfromUser = async (id, price, products, note, token) => {
 // User Orders
 export const getUserOrders = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+  return axios.post(`${domain}/api/v1/order/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getOrdersByClientId",
@@ -93,9 +96,9 @@ export const getUserOrders = async (id, token) => {
 
 export const cancelOrder = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+  return axios.post(`${domain}/api/v1/order/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "deleteOrder",
@@ -105,9 +108,9 @@ export const cancelOrder = async (id, token) => {
 
 export const getOrderProducts = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+  return axios.post(`${domain}/api/v1/order/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getProductsDetailsOfSpecificOrder",
@@ -117,9 +120,9 @@ export const getOrderProducts = async (id, token) => {
 
 export const getOrderProductsOfOrder = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+  return axios.post(`${domain}/api/v1/order/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getProductsOrderOfSpecificOrder",
@@ -130,9 +133,9 @@ export const getOrderProductsOfOrder = async (id, token) => {
 export const getProductById = async (id, token) => {
   console.log(id);
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+  return axios.post(`${domain}/api/v1/prod/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getProdDetails",
@@ -142,9 +145,9 @@ export const getProductById = async (id, token) => {
 
 export const getAllUsers = async (token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+  return axios.post(`${domain}/api/v1/client/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getAllClients",
@@ -154,9 +157,9 @@ export const getAllUsers = async (token) => {
 
 export const getSpecificUser = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+  return axios.post(`${domain}/api/v1/client/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getClientDetails",
@@ -166,9 +169,9 @@ export const getSpecificUser = async (id, token) => {
 
 export const changeProductStatus = async (id, status, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+  return axios.post(`${domain}/api/v1/prod/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "updateProdStatus",
@@ -178,9 +181,9 @@ export const changeProductStatus = async (id, status, token) => {
 
 export const deleteProduct = async (id, token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+  return axios.post(`${domain}/api/v1/prod/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getProdDetails",
@@ -190,12 +193,69 @@ export const deleteProduct = async (id, token) => {
 
 export const getCategories = async (token) => {
   console.log(token);
-  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/cat/", {
+  return axios.post(`${domain}/api/v1/cat/`, {
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
     name: "getAllCategories",
+    param: {},
+  });
+};
+
+export const addProduct = async (prod, token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/prod/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "addProd",
+    param: {
+      name: prod.name,
+      price: prod.price,
+      status: 1,
+      cat_id: prod.cat_id,
+    },
+  });
+};
+
+export const updateProduct = async (prod, token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/prod/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "updateProd",
+    param: {
+      id: prod.id,
+      name: prod.name,
+      price: prod.price,
+      status: 1,
+      cat_id: prod.cat_id,
+    },
+  });
+};
+
+export const updateProductAvatar = async (id, formData, token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/prod/upload_avatar.php?id=${id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${token}`,
+    }
+  });
+};
+
+export const getLastProd = async (token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/prod/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getTheLastProd",
     param: {},
   });
 };

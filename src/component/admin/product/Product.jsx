@@ -84,7 +84,7 @@ const Product = ()=> {
                                     <tr key={index}>
                                         <td>{prod.name}</td>
                                         <td>{prod.price}</td>
-                                        <td><img src={prod.image} alt="" style={{width:'100px'}}/></td>
+                                        <td><img src={prod.avatar} alt="" style={{width:'100px'}}/></td>
                                         <td>
                                             <button className="btn btn-warning" onClick={()=>toggleStatus(prod.id)}>{prod.status>0? 'Available': 'UnAvailable'}</button>
                                             <NavLink className="btn btn-primary" to={`/editproduct/${prod.id}`}><i className="fa fa-edit"></i></NavLink>

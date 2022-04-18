@@ -1,157 +1,223 @@
-import NavbarAdmin from "../navbar/NavbarAdmin";
-import Dropdown from 'react-bootstrap/Dropdown';
-import Form from 'react-bootstrap/Form';
-import ProductCard from '../../productCard/card'
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import './Home.css';
-import OrderItem from './orderItem';
 import { useState, useEffect } from 'react';
+import useToken from "../../../utils/hooks/useToken";
+import { getAllUsers, getAllProds, getClientById, addOrderfromUser } from "../../../api/index2";
+
+import './Home.css';
+import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
+import NavbarAdmin from "../navbar/NavbarAdmin";
+import MyOrderItem from "../../home/myOrderItem/myOrderItem";
+import ProductCardTemplate from '../../home/productCard/cardTemplate';
+
+
 export default function Home(props) {
+    console.log('I\'m in The Home Page of The Admin');
 
-    const products = [{ 'id': 5, 'name': 'coffee', 'price': '190', 'img': 'E:/iti/en/final/1.png' },
-    { 'id': 1, 'name': 'tea', 'price': '100', 'img': 'E:/iti/en/final/1.png' },
-    { 'id': 2, 'name': 'late', 'price': '200', 'img': 'E:/iti/en/final/1.png' },
-    { 'id': 3, 'name': 'cola', 'price': '150', 'img': 'E:/iti/en/final/1.png' }];
+    const { token } = useToken();
+    const [allUsers, setAllUsers] = useState([]);
+    const [selectedUserData, setSelectedUserData] = useState({});
+    const [allProds, setAllProds] = useState([]);
+    const [userOreders, setUserOreders] = useState([]);
 
-    // var total = 190;
-    let [currCount, setcurrCount] = useState(1);
-    let [count, setCount] = useState([]);
-    let [order, setOrder] = useState([]);
     let [total, setTotal] = useState(0);
+    const [orderNote, setOrderNote] = useState('');
+
     useEffect(() => {
+        getAllUsersSelect();
+        getAllProducts();
+    }, []);
 
-    }, [count, setCount, currCount]);
+    const getAllProducts = async () => {
+        await getAllProds(token)
+        .then((res) => {
+            console.log(res.data);
+            setAllProds(res.data.response.result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
 
-    function addToOrder(product) {
-        setOrder([...order, product]);
-        setCount([...count, { 'id': product.id, count: 1 }])
-        total = (total + parseInt(product.price));
+    const getAllUsersSelect = async () => {
+        await getAllUsers(token)
+        .then((res) => {
+            console.log(res.data);
+            setAllUsers(res.data.response.result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const changeUserHandling = async(e) => {
+        const id = e.target.value;
+        setUserOreders([]);
+        setTotal(0);
+        await getClientById(id, token)
+        .then((res) => {
+            console.log(res.data.response.result);
+            setSelectedUserData(res.data.response.result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
+    /**   Order  */ 
+    const calculateTotal = () => {
+        let total = 0;
+        for (let i = 0; i < userOreders.length; i++) {
+            total += userOreders[i].product.price * userOreders[i].quantity;
+        }
         setTotal(total);
+    }
+
+    useEffect(() => {
+        calculateTotal();
+    }, [userOreders]);
+
+    const addToOrder = (product) => {
+        const exist = userOreders.find(item => item.product.id === product.id);
+        if (!exist) {
+            setUserOreders([...userOreders, { product: product, quantity: 1 }])
+        } else {
+            setUserOreders(
+                userOreders.map(
+                    item => item.product.id === product.id ? 
+                    { product: product, quantity: item.quantity + 1 } : item
+                )
+            );
+        }
+
+        console.log(userOreders);
+        console.log(total);
+    }
+
+    const subFromOrder = (product) => {
+        const exist = userOreders.find(item => item.product.id === product.id);
+        if (exist) {
+            if (exist.quantity > 1) {
+                setUserOreders(
+                    userOreders.map(
+                        item => item.product.id === product.id ?
+                        { product: product, quantity: item.quantity - 1 } : item
+                    )
+                );
+            } 
+        }
     }
 
     function removeFromOrder(product) {
-        const filteredOrder = order.filter((p) => p.id !== product.id);
-        const objIndex = count.findIndex((obj => obj.id == product.id));
-        total = (total - parseInt(product.price) * count[objIndex].count);
-        setTotal(total);
-        const filteredCount = count.filter((p) => p.id !== product.id);
-        setOrder(filteredOrder);
-        setCount(filteredCount);
+        setUserOreders(userOreders.filter(item => item.product.id !== product.id));
     }
 
-
-    function updateTotal() {
-
-        total = 0;
-        console.log("Update ", order);
-        order.forEach((p) => {
-            const objIndex = count.findIndex((obj => obj.id == p.id));
-            total += (count[objIndex].count * p.price)
+    const confirmSubmit = async() => {
+        const prods = userOreders.map(item => {
+            return {
+                prod_id: item.product.id,
+                quantity: item.quantity,
+                price: item.product.price
+            }
+        });
+        await addOrderfromUser(selectedUserData.id, total, prods, orderNote, token)
+        .then((res) => {
+            console.log(res.data);
+            setUserOreders([]);
+            setTotal(0);
         })
-        return total;
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
-
-
-    function increment(id) {
-        console.log(count, "...befofe", id)
-        const objIndex = count.findIndex((obj => obj.id == id));
-        count[objIndex].count++;
-        currCount = count[objIndex].count;
-        setCount(count);
-        setcurrCount(currCount);
-        total = updateTotal();
-        setTotal(total);
-    }
-
-
-    function decrement(id) {
-        console.log(count, "...befofe")
-        const objIndex = count.findIndex((obj => obj.id == id));
-        if (count[objIndex].count > 0)
-            count[objIndex].count--;
-        currCount = count[objIndex].count;
-        setCount(count);
-        setcurrCount(currCount);
-        total = updateTotal();
-        setTotal(total);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(userOreders.length > 0) {
+            confirmSubmit();
+        }
     }
 
     return (
-        <>
+            <>
             <NavbarAdmin />
-            <div className="container">
+            <section className="product-admin">
+                <div className="container-fluid">
+                    <div className="row g-0">
+                        <div className="col-4">
+                            <div className="products-details">
+                                <h1 className='title'>Orders</h1>
+                                <div className="Adminorders">
+                                    <table className="table table-striped">
+                                        <thead>
+                                            <tr>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            { userOreders.map((item, index) => {
+                                                    return (
+                                                        <MyOrderItem
+                                                            key={index}
+                                                            item={item}
+                                                            add={addToOrder}
+                                                            sub={subFromOrder}
+                                                            removeFromOrder={removeFromOrder}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table> 
+                                </div>
+                                <FloatingLabel controlId="floatingTextarea2" label="Comments">
+                                    <Form.Control
+                                        name="note"
+                                        as="textarea"
+                                        placeholder="Leave a comment here"
+                                        style={{ height: '100px' }}
+                                        value={orderNote}
+                                        onChange={(e) => setOrderNote(e.target.value)}
+                                    />
+                                </FloatingLabel>
 
-                <div className="productsDetails">
-                    <h1>Orders</h1>
-                    <div className="Adminorders">
-                        {
+                                <label htmlFor="" className="total">Total :{total}</label>
+                                <button className="confirm" onClick={handleSubmit}>Confirm</button>
+                            </div>
+                        </div>
+                        <div className="col-8">
+                            <div className="products">
+                                <Form.Select aria-label="Default select example" name="users" onChange={changeUserHandling}>
+                                    {
+                                        allUsers.map((user, index) => (
+                                            <option value={user.id}>{user.name}</option>
+                                        ))
+                                    }
+                                </Form.Select>
 
-
-                            order.map((currOrder, index) => {
-                                const objIndex = count.findIndex((obj => obj.id == currOrder.id));
-                                currCount = count[objIndex].count;
-                                return <OrderItem key={currOrder.id}
-                                    product={currOrder}
-                                    removeFromOrder={removeFromOrder}
-                                    count={currCount}
-
-                                />
-
-                            })
-
-                        }
-
-
+                                {
+                                    allProds.length? allProds.map((p) => {
+                                        return (
+                                            <ProductCardTemplate
+                                                key={p.id}
+                                                product={p}
+                                                addToOrder={addToOrder}
+                                            />
+                                        )
+                                    }): <div className="no-products">No products</div>
+                                }
+                            </div> 
+                        </div>
+                                        
                     </div>
-
-
-                    <FloatingLabel controlId="floatingTextarea2" label="Comments">
-                        <Form.Control
-                            as="textarea"
-                            placeholder="Leave a comment here"
-                            style={{ height: '100px' }}
-                        />
-                    </FloatingLabel>
-
-                    <label htmlFor="" className="total">Total :{total}</label>
-                    <button className="confirm">Confirm</button>
-
-
                 </div>
-                <div className="products">
-                    <Form.Select aria-label="Default select example">
-                        <option>Select Username</option>
-                        <option value="1">Samar</option>
-                        <option value="2">Mohamed</option>
-                        <option value="3">Nehal</option>
-                    </Form.Select>
-
-
-
-                    {
-                        products.map((product, index) => {
-                            return <ProductCard
-                                key={index}
-
-                                addToOrder={addToOrder}
-                                removeFromOrder={removeFromOrder}
-                                increment={increment}
-                                decrement={decrement}
-                                updateTotal={updateTotal}
-                                product={product}
-                                orders={order}
-                            />
-                        })
-
-
-                    }
-
-
-
-                </div>
-            </div>
-        </>
+            </section>
+            </>
+        
     )
 
 }

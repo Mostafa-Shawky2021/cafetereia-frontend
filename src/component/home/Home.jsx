@@ -1,170 +1,236 @@
 import Navbar from "../navbar/Navbar";
-import Dropdown from 'react-bootstrap/Dropdown';
+// import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
-import ProductCard from '../productCard/card'
+// import ProductCard from './productCard/card'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import './Home.css';
-import OrderItem from './orderItem';
+
 import { useState, useEffect } from 'react';
+import useToken from "../../utils/hooks/useToken";
+import { getAllProds, verifyClientRole, getUserLastOrderProds, addOrderfromUser } from "../../api/index2";
+
+import ProductCardTemplate from './productCard/cardTemplate';
+import MyOrderItem from "./myOrderItem/myOrderItem";
+
 export default function Home(props) {
+console.log('I\'m in The Home Page of The Use');
 
-    const products = [{ 'id': 5, 'name': 'coffee', 'price': '190', 'img': 'E:/iti/en/final/1.png' },
-    { 'id': 1, 'name': 'tea', 'price': '100', 'img': 'E:/iti/en/final/1.png' },
-    { 'id': 2, 'name': 'late', 'price': '200', 'img': 'E:/iti/en/final/1.png' },
-    { 'id': 3, 'name': 'cola', 'price': '150', 'img': 'E:/iti/en/final/1.png' }];
-    const latstProducts = [{ 'id': 8, 'name': 'lemon', 'price': '190', 'img': 'E:/iti/en/final/1.png' },
-    { 'id': 6, 'name': 'vanelia', 'price': '200', 'img': 'E:/iti/en/final/1.png' },
-    ];
+    const { token } = useToken();
+    const [myData, setMyData] = useState({});
+    const [allProds, setAllProds] = useState([]);
+    const [myLastProds, setMyLastProds] = useState([]);
 
-    // var total = 190;
-    let [currCount, setcurrCount] = useState(1);
-    let [count, setCount] = useState([]);
-    let [order, setOrder] = useState([]);
-    let [total, setTotal] = useState(0);
+    const getAllProducts = async () => {
+        await getAllProds(token)
+        .then((res) => {
+            console.log(res.data);
+            setAllProds(res.data.response.result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const getMyData = async () => {
+        await verifyClientRole(token)
+        .then((res) => {
+            console.log(res.data.response.result);
+            setMyData(res.data.response.result);
+            console.log(myData);
+            getMyLastOrderProducts(res.data.response.result.id);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+    const getMyLastOrderProducts = async (id) => {
+        console.log(myData);
+        await getUserLastOrderProds(id, token).then((res) => {
+            console.log(res.data);
+            !res.data.response.result.message && setMyLastProds(res.data.response.result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
     useEffect(() => {
+        getAllProducts();
+        getMyData();
+    }, []);
 
-    }, [count, setCount, currCount]);
+    useEffect(() => {
+        console.log(myData);
+        console.log(allProds);
+        console.log(myLastProds);
+    }, [myData, allProds, myLastProds]);
 
-    function addToOrder(product) {
-        setOrder([...order, product]);
-        setCount([...count, { 'id': product.id, count: 1 }])
-        total = (total + parseInt(product.price));
+
+    // order template {product:{}, quantity:1}}}
+    const [myOreders, setMyOreders] = useState([]);
+
+// [
+//     {product:{}, quantity:1},
+//     {product:{}, quantity:1},
+//     {product:{}, quantity:1},
+// ]
+
+
+    let [total, setTotal] = useState(0);
+    const [orderNote, setOrderNote] = useState('');
+
+    const calculateTotal = () => {
+        let total = 0;
+        for (let i = 0; i < myOreders.length; i++) {
+            total += myOreders[i].product.price * myOreders[i].quantity;
+        }
         setTotal(total);
+    }
+
+    useEffect(() => {
+        calculateTotal();
+    }, [myOreders]);
+
+    const addToOrder = (product) => {
+        const exist = myOreders.find(item => item.product.id === product.id);
+        if (!exist) {
+            setMyOreders([...myOreders, { product: product, quantity: 1 }])
+        } else {
+            setMyOreders(
+                myOreders.map(
+                    item => item.product.id === product.id ? 
+                    { product: product, quantity: item.quantity + 1 } : item
+                )
+            );
+        }
+
+        console.log(myOreders);
+        console.log(total);
+    }
+
+    const subFromOrder = (product) => {
+        const exist = myOreders.find(item => item.product.id === product.id);
+        if (exist) {
+            if (exist.quantity > 1) {
+                setMyOreders(
+                    myOreders.map(
+                        item => item.product.id === product.id ?
+                        { product: product, quantity: item.quantity - 1 } : item
+                    )
+                );
+            } 
+        }
     }
 
     function removeFromOrder(product) {
-        const filteredOrder = order.filter((p) => p.id !== product.id);
-        const objIndex = count.findIndex((obj => obj.id == product.id));
-        total = (total - parseInt(product.price) * count[objIndex].count);
-        setTotal(total);
-        const filteredCount = count.filter((p) => p.id !== product.id);
-        setOrder(filteredOrder);
-        setCount(filteredCount);
+        setMyOreders(myOreders.filter(item => item.product.id !== product.id));
     }
 
-
-    function updateTotal() {
-
-        total = 0;
-        console.log("Update ", order);
-        order.forEach((p) => {
-            const objIndex = count.findIndex((obj => obj.id == p.id));
-            total += (count[objIndex].count * p.price)
+    const confirmSubmit = async() => {
+        const prods = myOreders.map(item => {
+            return {
+                prod_id: item.product.id,
+                quantity: item.quantity,
+                price: item.product.price
+            }
+        });
+        await addOrderfromUser(myData.id, total, prods, orderNote, token)
+        .then((res) => {
+            console.log(res.data);
+            setMyOreders([]);
+            setTotal(0);
         })
-        return total;
+        .catch((err) => {
+            console.log(err);
+        })
     }
-
-
-
-    function increment(id) {
-        console.log(count, "...befofe", id)
-        const objIndex = count.findIndex((obj => obj.id == id));
-        count[objIndex].count++;
-        currCount = count[objIndex].count;
-        setCount(count);
-        setcurrCount(currCount);
-        total = updateTotal();
-        setTotal(total);
-    }
-
-
-    function decrement(id) {
-        console.log(count, "...befofe")
-        const objIndex = count.findIndex((obj => obj.id == id));
-        if (count[objIndex].count > 0)
-            count[objIndex].count--;
-        currCount = count[objIndex].count;
-        setCount(count);
-        setcurrCount(currCount);
-        total = updateTotal();
-        setTotal(total);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(myOreders.length > 0) {
+            confirmSubmit();
+        }
     }
 
     return (
         <>
             <Navbar />
             <div className="container">
-
                 <div className="productsDetails">
                     <h1>Orders</h1>
                     <div className="Adminorders">
-                        {
-
-
-                            order.map((currOrder, index) => {
-                                const objIndex = count.findIndex((obj => obj.id == currOrder.id));
-                                currCount = count[objIndex].count;
-                                return <OrderItem key={currOrder.id}
-                                    product={currOrder}
-                                    removeFromOrder={removeFromOrder}
-                                    count={currCount}
-
-                                />
-
-                            })
-
-                        }
-
-
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { myOreders.map((item, index) => {
+                                        return (
+                                            <MyOrderItem
+                                                key={index}
+                                                item={item}
+                                                add={addToOrder}
+                                                sub={subFromOrder}
+                                                removeFromOrder={removeFromOrder}
+                                            />
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>                        
                     </div>
-
 
                     <FloatingLabel controlId="floatingTextarea2" label="Comments">
                         <Form.Control
+                            name="note"
                             as="textarea"
                             placeholder="Leave a comment here"
                             style={{ height: '100px' }}
+                            value={orderNote}
+                            onChange={(e) => setOrderNote(e.target.value)}
                         />
                     </FloatingLabel>
 
                     <label htmlFor="" className="total">Total :{total}</label>
-                    <button className="confirm">Confirm</button>
-
-
+                    <button className="confirm" onClick={handleSubmit}>Confirm</button>
                 </div>
                 <div className="products-section">
                     <p className="product-h">Latest Products</p>
                     <div className="products">
                         {
-                            latstProducts.map((product, index) => {
-                                return <ProductCard
-                                    key={index}
 
-                                    addToOrder={addToOrder}
-                                    removeFromOrder={removeFromOrder}
-                                    increment={increment}
-                                    decrement={decrement}
-                                    updateTotal={updateTotal}
-                                    product={product}
-                                    orders={order}
-                                />
-                            })
-
-
+                            myLastProds.length? myLastProds.map((p) => {
+                                return (
+                                    <ProductCardTemplate
+                                        key={p.id}
+                                        product={p}
+                                        addToOrder={addToOrder}
+                                    />
+                                )
+                            }): <div className="no-products">No products</div>
                         }
                     </div>
-                    <hr className="product-hr"></hr>
 
+                    <hr className="product-hr"></hr>
                     <p className="product-h">All Products</p>
 
                     <div className="products">
-                        {
-                            products.map((product, index) => {
-                                return <ProductCard
-                                    key={index}
-
+                    {
+                        allProds.length? allProds.map((p) => {
+                            return (
+                                <ProductCardTemplate
+                                    key={p.id}
+                                    product={p}
                                     addToOrder={addToOrder}
-                                    removeFromOrder={removeFromOrder}
-                                    increment={increment}
-                                    decrement={decrement}
-                                    updateTotal={updateTotal}
-                                    product={product}
-                                    orders={order}
                                 />
-                            })
-
-
-                        }
+                            )
+                        }): <div className="no-products">No products</div>
+                    }
                     </div>
                 </div>
             </div>

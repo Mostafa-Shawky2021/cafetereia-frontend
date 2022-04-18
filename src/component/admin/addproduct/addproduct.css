@@ -68,3 +68,9 @@
 .add-product .form .btn:hover {
     background: #684e26 !important
 }
+
+.addproduct-error{
+    position: sticky;
+    z-index: 99999;
+    top: 0;
+  }

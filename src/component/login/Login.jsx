@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { loginUser } from "../../api/index2";
 import useToken from "../../utils/hooks/useToken";
+import useIsAdmin from "../../utils/hooks/useIsAdmin";
 
 import Alert from "../alert/Alert";
 import Navbar from "../navbar/Navbar";
@@ -11,7 +12,10 @@ import Footer from "../footer/Footer";
 
 function Login() {
 
-  const { setToken } = useToken();
+  const {setToken} = useToken();
+  //TODO:: Remove it later
+  const {setIsAdmin} = useIsAdmin();  // for deployment reasons
+
   const [firstTime, setFirstTime] = useState(true);
 
   const [showAlert, setShowAlert] = useState(false);
@@ -52,11 +56,16 @@ function Login() {
       await loginUser({ email, pass: password })
         .then((res) => {
           setShowLoading(false); // Loading End
+          // console.log(res.data);
+
+          // console.log(res.data);
           console.log(res.data);
           if (res.data.response.result.token) {
+            console.log(res.data.response);
             setToken(res.data.response.result.token);
+            setIsAdmin(res.data.response.result.role);
             console.log("123");
-            window.location.href = "/profile";
+            window.location.href = "/";
           } else {
             setShowAlert(true);
           }

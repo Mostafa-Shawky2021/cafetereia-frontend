@@ -28,7 +28,7 @@ export default function ProductCard({ product, addToOrder, increment, decrement,
 
     return (
         <Card className="product-card" style={{ borderRadius: '30px' }}>
-            <Card.Img variant="top" className="product-card-image" src={require('../images/coffeeCup.jpg')} />
+            <Card.Img variant="top" className="product-card-image" src={require('../../images/coffeeCup.jpg')} />
             <Card.Body>
                 <Card.Title>Price :{product.price}$</Card.Title>
                 <Card.Body>{product.name}</Card.Body>

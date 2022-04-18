@@ -12,7 +12,7 @@ function Navbar() {
       id="navbar"
     >
       <div className="container">
-        <NavLink to="home" className="navbar-brand">
+        <NavLink to="/" className="navbar-brand">
           <img src={logo} width="115px" alt="logo" />
         </NavLink>
         <button
@@ -28,6 +28,7 @@ function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
+        {token && (
           <ul className="navbar-nav ms-auto me-auto">
             <li className="nav-item">
               <NavLink className="nav-link active" to="/home">
@@ -35,23 +36,12 @@ function Navbar() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="about">
-                About
-              </NavLink>
-            </li>
-            <li className="nav-item">
               <NavLink className="nav-link" to="/orders">
                 Myorders
               </NavLink>
-            </li>
-            {token && (
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/profile">
-                  Profile
-                </NavLink>
-              </li>
-            )}
+            </li>            
           </ul>
+          )}
         </div>
 
         <div className="auth d-flex align-items-center">

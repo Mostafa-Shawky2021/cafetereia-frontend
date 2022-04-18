@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import './Home.css';
+import '../Home.css';
 import { useState, useEffect } from 'react';
 
 export default function MyOrderItem({item: {product, quantity}, add, sub, removeFromOrder}) {

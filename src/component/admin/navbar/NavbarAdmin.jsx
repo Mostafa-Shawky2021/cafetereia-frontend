@@ -15,11 +15,11 @@ const NavbarAdmin = () => {
             <Nav.Link className="active" href="/admin/home">
               Home
             </Nav.Link>
-            <Nav.Link href="/admin/products">Products</Nav.Link>
-            <Nav.Link href="/admin/categories">categories</Nav.Link>
-            <Nav.Link href="/admin/users">Users</Nav.Link>
+            <Nav.Link href="/products">Products</Nav.Link>
+            <Nav.Link href="/categories">categories</Nav.Link>
+            <Nav.Link href="/users">Users</Nav.Link>
             <Nav.Link href="#link">Manual Order</Nav.Link>
-            <Nav.Link href="/admin/checks">Checks</Nav.Link>
+            <Nav.Link href="/checks">Checks</Nav.Link>
           </Nav>
           <div className="admin ms-auto d-flex align-items-center justify-items-center justify-content-center">
             <img src={profile} width="50" />

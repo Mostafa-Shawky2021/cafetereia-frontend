@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Login
 export const loginUser = async (credentials) => {
   console.log(JSON.stringify(credentials));
   return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
@@ -23,6 +24,19 @@ export const verifyClientRole = async (token) => {
   });
 };
 
+export const getClientById = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getClientDetails",
+    param: {id: id},
+  });
+};
+
+// User Home
 export const getAllProds = async (token) => {
   console.log(token);
   return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
@@ -61,6 +75,128 @@ export const addOrderfromUser = async (id, price, products, note, token) => {
       note: note,
       data: products,
     },
+  });
+};
+
+// User Orders
+export const getUserOrders = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getOrdersByClientId",
+    param: {customer_id: id},
+  });
+};
+
+export const cancelOrder = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "deleteOrder",
+    param: {id: id},
+  });
+};
+
+export const getOrderProducts = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getProductsDetailsOfSpecificOrder",
+    param: {order_id: id},
+  });
+};
+
+export const getOrderProductsOfOrder = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/order/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getProductsOrderOfSpecificOrder",
+    param: {order_id: id},
+  });
+};
+
+export const getProductById = async (id, token) => {
+  console.log(id);
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getProdDetails",
+    param: {id: id},
+  });
+};
+
+export const getAllUsers = async (token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getAllClients",
+    param: {},
+  });
+};
+
+export const getSpecificUser = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/client/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getClientDetails",
+    param: {id: id},
+  });
+};
+
+export const changeProductStatus = async (id, status, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "updateProdStatus",
+    param: {id, status},
+  });
+};
+
+export const deleteProduct = async (id, token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/prod/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getProdDetails",
+    param: {id},
+  });
+};
+
+export const getCategories = async (token) => {
+  console.log(token);
+  return axios.post("http://cafeteria.elfabrikaa.online/Cafetria2/api/v1/cat/", {
+    headers: {
+      "Content-Type": "application/js",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getAllCategories",
+    param: {},
   });
 };
 

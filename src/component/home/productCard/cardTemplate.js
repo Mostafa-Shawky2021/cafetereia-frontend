@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from 'react';
 
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import './card.css';
 
 export default function CardTemplate({ product, addToOrder }) {
@@ -15,8 +15,8 @@ export default function CardTemplate({ product, addToOrder }) {
         <Card className="product-card" style={{ borderRadius: '30px' }}>
             <Card.Img variant="top" className="product-card-image" src={product.avatar} />
             <Card.Body>
-                <Card.Title>Price :{product.price}$</Card.Title>
-                <Card.Body>{product.name}</Card.Body>
+                <Card.Title>{product.name}</Card.Title>
+                <Card.Body>Price :{product.price}$</Card.Body>
                 <div className="actions">
 
                     <button className="mybtn"

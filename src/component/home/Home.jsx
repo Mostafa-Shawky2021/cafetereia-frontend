@@ -1,17 +1,16 @@
 import Navbar from "../navbar/Navbar";
-import Dropdown from 'react-bootstrap/Dropdown';
+// import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
-import ProductCard from '../productCard/card'
+// import ProductCard from './productCard/card'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import './Home.css';
-import OrderItem from './orderItem';
 
 import { useState, useEffect } from 'react';
 import useToken from "../../utils/hooks/useToken";
 import { getAllProds, verifyClientRole, getUserLastOrderProds, addOrderfromUser } from "../../api/index2";
 
-import ProductCardTemplate from '../productCard/cardTemplate';
-import MyOrderItem from "./myOrderItem";
+import ProductCardTemplate from './productCard/cardTemplate';
+import MyOrderItem from "./myOrderItem/myOrderItem";
 
 export default function Home(props) {
 console.log('I\'m in The Home Page of The Use');
@@ -222,7 +221,7 @@ console.log('I\'m in The Home Page of The Use');
 
                     <div className="products">
                     {
-                        allProds.length? myLastProds.map((p) => {
+                        allProds.length? allProds.map((p) => {
                             return (
                                 <ProductCardTemplate
                                     key={p.id}

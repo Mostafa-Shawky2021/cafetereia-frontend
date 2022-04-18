@@ -70,6 +70,9 @@ function App() {
               <Route path="/adduser" element={<Adduser />} />
               <Route path="/addcategory" element={<AddCategory />} />
               <Route path="/addproduct"  element={<AddProduct />} />
+              <Route path="/editproduct" >
+                <Route path=":prodId" element={<AddProduct />} />
+              </Route>
               <Route path="/users"       element={<AdminUsers />} />
               <Route path="/products"    element={<Product />} />
               <Route path="/categories"  element={<Categories />} />

@@ -1,166 +1,144 @@
 import "./login.css";
 
 import { Link, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { useState } from "react";
-import { loginUser } from "../../api";
+import { useEffect, useState } from "react";
+import { loginUser } from "../../api/index2";
+import useToken from "../../utils/hooks/useToken";
+
 import Alert from "../alert/Alert";
-import Navbar from '../navbar/Navbar';
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
-function Login({ setToken }) {
-  console.log("login");
+function Login() {
+
+  const { setToken } = useToken();
+  const [firstTime, setFirstTime] = useState(true);
+
   const [showAlert, setShowAlert] = useState(false);
-  let [email, uname, password] = ['', '', ''];
-  const [unameError, setUnameError] = useState('');
+  const [showLoading, setShowLoading] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState('');
   const [passError, setPassError] = useState('');
-  let unameChange = (e) => {
-    console.log(e.target.value);
-    uname = e.target.value;
-    if (uname.length < 3)
-      e.target.style = "border-color:red;shadow-radius:0px"
-    else
-      e.target.style = "border-color:#fffee9 ; shadow-radius:0px;"
 
+  const emailValidation = (mail) => {
+    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return !(!mail || regex.test(mail) === false);
   }
-  let passwordChange = (e) => {
 
-    password = e.target.value
-    if (password.length < 6) {
-      e.target.style = "border-color:red"
+  useEffect(() => {
+    !firstTime && !emailValidation(email) ? setEmailError('Email is not valid') : setEmailError('');
+    setFirstTime(false);
+  }, [email]);
+
+  useEffect(() => {
+    !firstTime && password.length < 4 ? setPassError('Password must be at least 4 characters') : setPassError('');
+    setFirstTime(false);
+  }, [password]);
+
+  function isValid() {
+    if (!emailValidation(email) || password.length < 4) {
+      return false;
     }
-    else
-      e.target.style = "border-color:#fffee9"
+    return true;
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isValid()) {
-      console.log(uname, password);
-      await loginUser({
-        email: uname,
-        password,
-      })
+      setShowLoading(true); // Loading Start
+      await loginUser({ email, pass: password })
         .then((res) => {
-          console.log(res);
-          if (res.data.token) {
-            setToken(res.data.token);
+          setShowLoading(false); // Loading End
+          console.log(res.data);
+          if (res.data.response.result.token) {
+            setToken(res.data.response.result.token);
             console.log("123");
             window.location.href = "/profile";
           } else {
             setShowAlert(true);
           }
-
         })
         .catch((err) => {
+          setShowLoading(false); // Loading End
           setToken(null);
         });
-
+    } else {
+      setShowAlert(true);
     }
-    else {
-      if (uname.length < 3)
-        setUnameError('{Username must be >=3}')
-      else
-        setUnameError('');
-      if (password.length < 6)
-        setPassError('{Password must be >6}');
-      else
-        setPassError('');
-    }
-
   };
-  function isValid() {
-    if (uname.length < 3 || password.length < 6) {
-
-      return false;
-    }
-    setUnameError('');
-    setPassError('');
-    return true;
-  }
 
   return (
     <>
       <Navbar />
       {
-        showAlert && <Alert setShowAlert={setShowAlert} />
+        showAlert && <div className="login-error"> <Alert setShowAlert={setShowAlert} /> </div>
       }
+      {
+        showLoading && <div id="wrapper">
 
+          <div className="profile-main-loader">
+            <div className="loader">
+              <svg className="circular-loader" viewBox="25 25 50 50" >
+                <circle className="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" strokeWidth="2" />
+              </svg>
+            </div>
+          </div>
+
+        </div>
+      }
       <div className="login" >
         <div className="container">
-          <div className="row col-12  g-0">
+          <div className="row  g-0">
             <div className="col-5">
               <div className="image-section"></div>
             </div>
-            <div className="col-6">
+            <div className="col-7">
               <div className="login-content">
                 <p className="login-text">Log In</p>
-                <form onSubmit={handleSubmit} className=" needs-validation" novalidate>
+                <form onSubmit={handleSubmit} className=" needs-validation" noValidate>
                   <div className="mb-3 input-container">
                     <div>
-                      <label className="form-label" htmlFor="username">
-                        Username
-                      </label>
-
-                      <p>
-                        <span style={{ color: "white", fontSize: 14 }}> {unameError}</span>
-
-                      </p>
+                      <label className="form-label" htmlFor="username"> Email Address </label>
                     </div>
                     <input
-                      id="username"
-                      type="text" className="form-control "
+                      id="Email"
+                      type="text"
+                      className="form-control "
                       required
                       name="username"
-                      placeholder="Enter Username"
-                      onChange={(e) => {
-                        unameChange(e);
-                      }}
+                      value={email}
+                      placeholder="Enter Email"
+                      onChange={e => setEmail(e.target.value)}
                     />
+                    <p style={{ color: "red", fontSize: 14 }}> {emailError} </p>
+
                   </div>
                   <div className="mb-3 input-container">
-
-
-                    <p>
-                      <span style={{ color: "white", fontSize: 14 }}> {passError}</span>
-
-                    </p>
-
-                    <label className="form-label" htmlFor="password">
-                      Password
-                    </label>
-
+                    <label className="form-label" htmlFor="password"> Password </label>
                     <input
                       id="password"
-                      className="form-control "
-
-                      type="password"
-                      name="password"
-                      placeholder="Enter password"
+                      type="password" className="form-control "
                       required
-                      onChange={(e) => {
-                        passwordChange(e);
-                      }}
+                      name="password"
+                      value={password}
+                      placeholder="Enter password"
+                      onChange={e => setPassword(e.target.value)}
                     />
+                    <p style={{ color: "red", fontSize: 14 }}> {passError} </p>
                   </div>
                   <div className="mb-3 input-container ">
-                    <button className="btn  ms-auto d-block ">
-                      login
-                    </button>
+                    <button className="btn  ms-auto d-block ">login</button>
                   </div>
-                  <p className="signup-Link ">
-                    Don't have an account
-                    <Link to="/signup" style={{ color: "white" }} >
-                      Sign Up
-                    </Link>
-                  </p>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
-
+      <Footer />
     </>
   );
 }

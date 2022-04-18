@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./component/login/Login";
 import Signup from "./component/signup/Signup";
+
 import Error from "./component/error/Error";
 import Navbar from "./component/navbar/Navbar";
 import Footer from "./component/footer/Footer";
@@ -12,6 +13,9 @@ import Categories from "./component/admin/categories/Categories";
 import AddCategory from "./component/admin/addcategory/AddCategory";
 import Adduser from "./component/admin/adduser/Adduser";
 import Users from "./component/admin/users/Users";
+
+import UserHome from "./component/home/Home";
+
 import Checks from "./component/admin/checks/Checks";
 import { Navigate } from "react-router-dom";
 import { useState } from 'react';
@@ -35,21 +39,22 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<UserHome />} />
         <Route path="/" element={<Signup />} />
         <Route path="*" element={<Error />} />
-        <Route path="Orders"  element={<Orders />} />
-        
-        <Route path="/admin" >  
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/admin" >
+
           <Route path="home" element={<Home onDataChange={onDataChange} count={count} order={order} />} />
           <Route path="products" element={<Product />} />
-          <Route path="categories" element={<Categories />}/>
+          <Route path="categories" element={<Categories />} />
           <Route path="addproduct" element={<AddProduct />} />
-          <Route path="addcategory" element={<AddCategory />}/>
-          <Route path="addcategory" element={<AddCategory />}/>
-          <Route path="adduser" element={<Adduser />}/>
-          <Route path="users" element={<Users />}/>
-          <Route path="checks" element={<Checks />}/>
-          <Route path="orders" element={<OrdersAdmin />}/>
+          <Route path="addcategory" element={<AddCategory />} />
+          <Route path="addcategory" element={<AddCategory />} />
+          <Route path="adduser" element={<Adduser />} />
+          <Route path="users" element={<Users />} />
+          <Route path="checks" element={<Checks />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
       </Routes>
       {/* </main> */}

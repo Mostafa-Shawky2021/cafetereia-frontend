@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-node_modules
-=======
 # Git https://github.com/Mohamedfadah/super-market-mern-client-app.git
 
 # dependencies
@@ -24,4 +21,3 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> samar

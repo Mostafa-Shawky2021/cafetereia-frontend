@@ -93,20 +93,7 @@ const Product = ()=> {
                                     </tr>
                                 )
                             })
-                        }
-                        
-                        <tr>
-                            <td>tea</td>
-                            <td>25$</td>
-                            <td>
-                                <img src={productImg}/>
-                            </td>
-                            <td>
-                                <a className="btn btn-info">edit</a>
-                                <a className="btn btn-danger">delete</a>
-                            </td>
-                        </tr>
-                       
+                        }                       
                     </tbody>
                 </Table>
             </div>

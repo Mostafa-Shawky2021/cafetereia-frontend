@@ -1,71 +1,212 @@
 import "./adduser.css";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 import  Breadcrumb  from "../breadcrumb/Breadcrumb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useToken from "../../../utils/hooks/useToken";
+import { addUserAPI, getLastUser, getUserById, updateUserAPI, updateUserAvatar } from "../../../api/userAPI";
+import { useParams } from "react-router-dom";
+
+import Alert from "../../alert/Alert";
+
+
 const AddUser = ()=> {
+
+    const { token } = useToken();
+    const {userId} = useParams();
+
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [confirmPass,setConfirmPass] = useState("");
-    const [nameerr,setNameerr] = useState("");
-    const [emailerr,setEmailerr] = useState("");
-    const [passworderr,setPassworderr] = useState("");
-    const [confirmPasserr,setConfirmPasserr] = useState("");     
+
+    const [nameErr,setNameErr] = useState("");
+    const [emailErr,setEmailErr] = useState("");
+    const [passwordErr,setPasswordErr] = useState("");
+    const [confirmPassErr,setConfirmPassErr] = useState(""); 
+
+    const [avatar, setAvatar] = useState({});
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
+
+    const [errorMessage, setErrorMessage] = useState("All Fields must be valid!");
+
+    useEffect(() => {
+        if(userId) {
+            setShowLoading(true);
+            getUser(userId);
+        }
+    }, []);
+
     let validPattern = {
         alpha:/^[A-z\s]+$/g,
-        email:/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/g
+        email:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     }
-    const HandleName = (event)=> {
-        setName(event.target.value);
-    }
-    const HandleEmail = (event) => {
-        setEmail(event.target.value);
-    }
-    const HandlePassword = (event) => {
-        setPassword(event.target.value);
-    }
-    const HandleConfirmpass = (event) => {
-        setConfirmPass(event.target.value);
-    }
+
+    useEffect(() => {
+        if(name.length === 0){
+            setNameErr("Name is required");
+        }else if(!name.match(validPattern.alpha)){
+            setNameErr("Name should contain only alphabets");
+        }else{
+            setNameErr("");
+        }
+    }, [name]);
+
+    useEffect(() => {
+        if(email.length === 0){
+            setEmailErr("Email is required");
+        }else if(!email.match(validPattern.email)){
+            setEmailErr("Email is not valid");
+        }else{
+            setEmailErr("");
+        }
+    }, [email]);
+
+    useEffect(() => {
+        if(password.length === 0){
+            setPasswordErr("Password is required");
+        }else if(password.length < 6){
+            setPasswordErr("Password should be atleast 6 characters");
+        }else{
+            setPasswordErr("");
+        }
+    }, [password]);
+
+    useEffect(() => {
+        if(confirmPass.length === 0){
+            setConfirmPassErr("Confirm Password is required");
+        }else if(confirmPass !== password){
+            setConfirmPassErr("Password and Confirm Password should be same");
+        }else{
+            setConfirmPassErr("");
+        }
+    }, [confirmPass]);
    
+    const getUser = async (id) => {
+        await getUserById(id, token)
+        .then((res) => {
+            console.log(res.data);
+            if(res.data.response.status === 200) {
+                setName(res.data.response.result.name);
+                setEmail(res.data.response.result.email);
+                console.log(res.data.response.result.cat_id);
+            }
 
-    const HandleSubmit = ( event )=> {
-      
-        // Check name validation
-        if( validPattern.alpha.test(name) == false || name.length < 5 ) {
-            setNameerr("Sorry the name is required and must be greater than 5character ");
-            event.preventDefault();
-        } else {
-            setNameerr("");
-        }
-        if( validPattern.email.test(email) == false ) {
-            setEmailerr("Sorry the email is required and must be valid");
-            event.preventDefault();
-        } else {
-            setEmailerr("");
-        }
-        if( password.length < 5 ) {
-            setPassworderr("Sorry the password is required and must be greater than 5 character");
-            event.preventDefault();
-        } else {
-            
-            setPassworderr("");
-
-        }
-        if( password !== confirmPass ) {
-            setConfirmPasserr("password must be identical");
-            event.preventDefault();
-        } else {
-            setConfirmPasserr("");
-        }
-
-
-
-
+            setShowLoading(false);
+        })
     }
+
+    const updateUser = async (data) => {
+        await updateUserAPI(data, token)
+        .then((res) => {
+            console.log(res.data);
+            console.log(avatar);
+            if(avatar.name) {
+                uploadTheAvatar(userId);
+            }
+            setShowLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const addUser = async (data) => {
+        await addUserAPI(data, token)
+        .then((res) => {
+            console.log(res.data);
+            if(res.data.response.status !== 200) {
+                setErrorMessage("Email already exists!");
+                setShowLoading(false);
+                setShowAlert(true);
+            } else {
+                if(avatar.name){  updateTheLastUser(); } else { setShowLoading(false); }
+            }
+            
+        })
+        .catch((err) => {
+            console.log(err);
+            setShowLoading(false);            
+        })
+    }
+
+    const updateTheLastUser = async () => {
+        await getLastUser(token)
+            .then((res) => {
+                console.log(res.data);
+                if(res.data.response.status === 200) {
+                    uploadTheAvatar(res.data.response.result.id);
+                }
+            }).catch((err) => {
+                console.log(err);
+            }
+        )
+    }
+
+    const uploadTheAvatar = async (id) => {
+        const formData = new FormData();
+        formData.append("avatar", avatar);
+        await updateUserAvatar(id, formData, token)
+        .then((res) => {
+            console.log(res.data);
+            setShowLoading(false);
+        })
+        .catch((err) => {
+            console.log(err);
+            setShowLoading(false);
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(nameErr || emailErr || passwordErr || confirmPassErr) {
+            setShowAlert(true);
+        } else {
+            setShowLoading(true);
+
+            const data = {
+                name: name,
+                email: email,
+                pass: password
+            }
+            if(userId) {
+                console.log("update");
+                data.id = userId;
+                updateUser(data).then(()=>{
+                    window.location.href = "/users";
+                });
+            } else {
+                console.log("add");
+                addUser(data).then(()=>{
+                    window.location.href = "/users";
+                });
+            }
+            // navigate('/products');
+            // window.location.href = "/users";
+        }
+    }
+
+
     return (
         <>
         <NavbarAdmin />
+        {
+            showAlert && <div className="addproduct-error"> <Alert setShowAlert={setShowAlert} message={errorMessage} /> </div>
+        }
+        {
+            showLoading && <div id="wrapper">
+
+            <div className="profile-main-loader">
+                <div className="loader">
+                <svg className="circular-loader" viewBox="25 25 50 50" >
+                    <circle className="loader-path" cx="50" cy="50" r="20" fill="none" stroke="#70c542" strokeWidth="2" />
+                </svg>
+                </div>
+            </div>
+
+            </div>
+        }
         <section className="adduser">
             <div className="container-adduser">
                 <Breadcrumb />  
@@ -73,32 +214,60 @@ const AddUser = ()=> {
                         <div class="row mb-3">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10 form-group">
-                                <input type="text" class="form-control" id="inputEmail3" placeholder="username" onChange={HandleName}/>  
-                                <span className="error">{nameerr}</span>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="inputEmail3" 
+                                    placeholder="username" 
+                                    value={name}
+                                    onChange={(e)=> setName(e.target.value)}
+                                />  
+                                <span className="error">{nameErr}</span>
                                 <i class="fa fa-asterisk"></i>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10 form-group">
-                                <input type="email" class="form-control" id="email" placeholder="Email" onChange={HandleEmail}/>
-                                <span className="error">{emailerr}</span>
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    id="email" 
+                                    placeholder="Email" 
+                                    value={email}
+                                    onChange={(e)=> setEmail(e.target.value)}
+                                />
+                                <span className="error">{emailErr}</span>
                                 <i class="fa fa-asterisk"></i>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10 form-group">
-                                <input type="password" name="password" className="form-control" id="password" onChange={HandlePassword} placeholder="password"/>
-                                <span className="error">{passworderr}</span>
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    className="form-control" 
+                                    id="password" 
+                                    onChange={(e)=> setPassword(e.target.value)} 
+                                    placeholder="password"
+                                />
+                                <span className="error">{passwordErr}</span>
                                 <i class="fa fa-asterisk"></i>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="confirmpassword" class="col-sm-2 col-form-label">Confirm Pass</label>
+                            <label for="confirmPassword" class="col-sm-2 col-form-label">Confirm Pass</label>
                             <div class="col-sm-10 form-group">
-                                <input type="password" name="password" className="form-control" id="confirmpassword" onChange={HandleConfirmpass} placeholder="confirm password"/>
-                                <span className="error">{confirmPasserr}</span>
+                                <input 
+                                    type="password" 
+                                    name="password" 
+                                    className="form-control" 
+                                    id="confirmPassword" 
+                                    onChange={(e)=> setConfirmPass(e.target.value)} 
+                                    placeholder="confirm password"
+                                />
+                                <span className="error">{confirmPassErr}</span>
                                 <i class="fa fa-asterisk"></i>
                             </div>
                         </div>
@@ -107,14 +276,14 @@ const AddUser = ()=> {
                             <div class="col-sm-10 form-group">
                                 <div class="custom-file">
                                     <span>choose file</span>
-                                    <input type="file" />
+                                    <input type="file" name="image" onChange={(e)=>setAvatar(e.target.files[0])} />
                                 </div>
                             </div>
                         </div>
                     <div style={{textAlign:'right'}}>
-                        <button type="submit" class="btn btn-primary" onClick={HandleSubmit}><i className="fa fa-plus"></i> Add User</button>
+                        <button type="submit" class="btn btn-primary" onClick={handleSubmit}><i className="fa fa-plus"></i> {userId? 'Update' : 'Add'} User</button>
                     </div>
-                    </form>
+                </form>
             </div>
 
         </section>

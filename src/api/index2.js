@@ -186,7 +186,7 @@ export const deleteProduct = async (id, token) => {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`,
     },
-    name: "getProdDetails",
+    name: "deleteProd",
     param: {id},
   });
 };
@@ -259,6 +259,19 @@ export const getLastProd = async (token) => {
     param: {},
   });
 };
+
+export const addCat = async (name, token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/cat/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "addCategory",
+    param: {name},
+  });
+};
+
 
 export const fetchUser = async (token) => {
   // return axios.post("http://localhost/Cafetria/api/v1/client/", {

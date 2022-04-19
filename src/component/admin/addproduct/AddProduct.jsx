@@ -4,13 +4,14 @@ import Breadcrumb from "../breadcrumb/Breadcrumb";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate  } from "react-router-dom";
 import "./addproduct.css";
-import { addProduct, getCategories, getLastProd, getProductById, updateProduct, updateProductAvatar } from "../../../api/index2";
+import { addCat, addProduct, getCategories, getLastProd, getProductById, updateProduct, updateProductAvatar } from "../../../api/index2";
 import Alert from "../../alert/Alert";
 
 import useToken from "../../../utils/hooks/useToken";
+import Modal from './addCategory/AddCategory';
 
 
-const AddProduct = ({prod}) => {
+const AddProduct = () => {
 
     const { token } = useToken();
     const {prodId} = useParams();
@@ -29,8 +30,46 @@ const AddProduct = ({prod}) => {
     const [priceerr, setPricemsg ] = useState("") ;
     const [cateogryerr, setCatmsg] = useState("");
 
+    const [showModal, setShowModal] = useState(false);
+    const [newCategory, setNewCategory] = useState("");
+    const [newCatError, setNewCatError] = useState("");
+
     let alphadigit = /^[A-z0-9\s]+$/;
     let digit = /^[0-9]+$/;
+
+    const addCategory = async() => {
+
+        if(newCategory.length === 0){
+            setNewCatError("Category name is required");
+            setShowModal(true);
+            return;
+        }
+        await addCat(newCategory, token)
+        .then(res => {
+            if(res.status === 200){
+                setShowModal(false);
+                setNewCategory("");
+                setNewCatError("");
+                getAllCategories();
+            }
+        })
+        .catch(err => {
+            setNewCatError(err.response.data.message);
+        })
+    }
+
+    const handleNewCatSubmit = () => {
+        setShowModal(false);
+        addCategory();
+    }
+
+    useEffect(() => {
+        if(newCategory.trim() !== ""){
+            setNewCatError("");
+        } else {
+            setNewCatError("Category name is required");
+        }
+    }, [newCategory]);
 
     const getAllCategories = async () => {
         await getCategories()
@@ -108,7 +147,7 @@ const AddProduct = ({prod}) => {
         await addProduct(data, token)
         .then((res) => {
             console.log(res.data);
-            if(avatar){
+            if(avatar.name){
                 updateTheLastProduct();
             } else {
                 setShowLoading(false);
@@ -139,7 +178,7 @@ const AddProduct = ({prod}) => {
         .then((res) => {
             console.log(res.data);
             console.log(avatar);
-            if(avatar) {
+            if(avatar.name) {
                 uploadTheAvatar(prodId);
             }
             setShowLoading(false);
@@ -172,14 +211,36 @@ const AddProduct = ({prod}) => {
                 console.log("add");
                 addProd(data);
             }
-            navigate('/products');
-
+            // navigate('/products');
+            window.location.href = "/products";
         }
     }
 
     return (
         <>
             <NavbarAdmin />
+            <Modal show={showModal} handleClose={setShowModal}>
+            <div className="form">
+                    <div className="row mb-3">
+                        <label htmlFor="name" className="col-sm-2 col-form-label">Category name</label>
+                        <div className="col-sm-10 form-group">
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                id="catName"
+                                placeholder="product name" 
+                                value={newCategory} 
+                                onChange={(e)=>setNewCategory(e.target.value)}
+                            />  
+                        </div>
+                        <div className="error text-center" style={{color: "red"}}>{newCatError}</div>
+                    </div>
+                    <div style={{textAlign:'right'}}>
+
+                    <button type="submit" className="btn btn-primary" onClick={handleNewCatSubmit}><i className="fa fa-plus"></i> Add Category</button>
+                </div>
+            </div>
+            </Modal>
             {
                 showAlert && <div className="addproduct-error"> <Alert setShowAlert={setShowAlert} message="All Fields must be valid!" /> </div>
             }
@@ -196,9 +257,12 @@ const AddProduct = ({prod}) => {
 
                 </div>
             }
+            
             <section className="add-product">
                 <div className="container-addproduct">
                     <Breadcrumb />
+                    <button className="btn btn-primary" onClick={()=>{setShowModal(true)}}>Add new category</button>
+
                     <form className="form">
                         <div className="row mb-3">
                             <label htmlFor="name" className="col-sm-2 col-form-label">Product name</label>
@@ -231,7 +295,7 @@ const AddProduct = ({prod}) => {
                         <div className="row mb-3">
                             <label htmlFor="cateogry" className="col-sm-2 col-form-label">Cateogry</label>
                             <div className="col-sm-10 form-group">
-                            <select className="form-select" id="cateogry" onChange={(e)=>setCatInput(e.target.value)}>
+                                <select className="form-select" id="cateogry" onChange={(e)=>setCatInput(e.target.value)}>
                                     <option value="0">Select</option>
                                     {
                                         categories.map((cat, index) => {
@@ -259,6 +323,7 @@ const AddProduct = ({prod}) => {
                             </div>
                         </div>
                     <div style={{textAlign:'right'}}>
+
                         <button type="submit" className="btn btn-primary" onClick={handleSubmit}><i className="fa fa-plus"></i> {prodId? 'Update' : 'Add'} product</button>
                     </div>
                     </form>

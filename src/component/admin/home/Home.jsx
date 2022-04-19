@@ -137,68 +137,85 @@ export default function Home(props) {
             confirmSubmit();
         }
     }
+    const[ toggle, setToggle ] = useState(false);
+    const handleToggle = () => {
+        setToggle(!toggle);
+      
+    }
 
     return (
             <>
+            
             <NavbarAdmin />
             <section className="product-admin">
                 <div className="container-fluid">
                     <div className="row g-0">
                         <div className="col-4">
-                            <div className="products-details">
+                            <div className={ ( toggle ? 'active-sidebar' : '' ) + ' products-details'}>
+                                <div className="toggle-bar" onClick={handleToggle}>
+                                    <i class="fa fa-gear"></i> 
+                                </div>  
                                 <h1 className='title'>Orders</h1>
-                                <div className="Adminorders">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr>
+                               
+                                <table className="table-product w-100">
+                                    <thead>
+                                        <tr>
                                             <th>Product</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
                                             <th>Total</th>
                                             <th>Action</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                            { userOreders.map((item, index) => {
-                                                    return (
-                                                        <MyOrderItem
-                                                            key={index}
-                                                            item={item}
-                                                            add={addToOrder}
-                                                            sub={subFromOrder}
-                                                            removeFromOrder={removeFromOrder}
-                                                        />
-                                                    )
-                                                })
-                                            }
-                                        </tbody>
-                                    </table> 
-                                </div>
-                                <FloatingLabel controlId="floatingTextarea2" label="Comments">
+                                    </thead>
+                                    <tbody>
+                                        {userOreders.length > 0 ? 
+                                            userOreders.map((item, index) => {
+                                            return (
+                                                <MyOrderItem
+                                                    key={index}
+                                                    item={item}
+                                                    add={addToOrder}
+                                                    sub={subFromOrder}
+                                                    removeFromOrder={removeFromOrder}
+                                                />
+                                            )
+                                        })
+                                        :
+                                        <tr>
+                                            <td className="no-product" colspan="5">No Product to show</td>
+                                        </tr>
+
+                                    
+                                        }
+                                     
+                                    </tbody>
+                                </table> 
+                          
+                                <FloatingLabel controlId="floatingTextarea2" label="Comments" >
                                     <Form.Control
                                         name="note"
                                         as="textarea"
                                         placeholder="Leave a comment here"
-                                        style={{ height: '100px' }}
+                                        style={{ height: '100px',marginTop:'86px' }}
                                         value={orderNote}
                                         onChange={(e) => setOrderNote(e.target.value)}
                                     />
                                 </FloatingLabel>
 
                                 <label htmlFor="" className="total">Total :{total}</label>
-                                <button className="confirm" onClick={handleSubmit}>Confirm</button>
+                                <button className="btn-confirm" onClick={handleSubmit}>Confirm</button>
                             </div>
                         </div>
-                        <div className="col-8">
-                            <div className="products">
-                                <Form.Select aria-label="Default select example" name="users" onChange={changeUserHandling}>
-                                    {
-                                        allUsers.map((user, index) => (
-                                            <option value={user.id}>{user.name}</option>
-                                        ))
-                                    }
-                                </Form.Select>
-
+                        <div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>
+                            <Form.Select aria-label="Default select example" name="users" onChange={changeUserHandling}>
+                                {
+                                    allUsers.map((user, index) => (
+                                        <option value={user.id}>{user.name}</option>
+                                    ))
+                                }
+                            </Form.Select>
+                            <div className="products row">
+                              
                                 {
                                     allProds.length? allProds.map((p) => {
                                         return (

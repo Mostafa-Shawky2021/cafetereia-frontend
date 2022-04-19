@@ -1,4 +1,4 @@
-.products-details {
+.productsDetails {
     font-weight: bold;
     padding: 0.5rem 0.88rem;
     border-radius: 30px;
@@ -12,17 +12,17 @@
     background-color: #c39b51;
 
 }
-.products-details .title {
+.productsDetails .title {
     font-weight: bold;
     margin-bottom: 2rem;
     margin-top: 1.2rem;
     border-bottom: 1px solid #d0d0d0;
     padding-bottom: 26px;
 }
-.products-details th {
+.productsDetails th {
     color: #e4e4e4;
 }
-.products-details td {
+.productsDetails td {
     text-align: center;
     vertical-align: middle;
 }

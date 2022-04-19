@@ -1,23 +1,93 @@
+.product-admin {
+    padding-top: 3rem;
+}
+.product-admin .toggle-bar {
+    background-color: #4e4e4e;
+    width: 32px;
+    height: 29px;
+    text-align: center;
+    line-height: 31px;
+    position: absolute;
+    right: -32px;
+    cursor: pointer;
+
+}
+.product-admin .toggle-bar .fa {
+    transform-origin: 50% 50% ;
+    animation: animate-toggle 3s linear infinite ;
+}
 .product-admin .products-details {
     font-weight: bold;
     padding: 0.5rem 0.88rem;
-    background-color: #c39b51;
+    background-color: #4e4e4e;
     color: #fff;
-    border-radius: 30px;
-    margin: 30px;
-    height: 100%;
+    border-radius: 0.3125rem;
     text-align: center;
-    padding: 20px;
-    margin-top: 70px;
-    min-height: 200px;
-    width: 100% !important;
-    
+    padding: 2.3rem 1.5rem;
+    width: 397px;
+    position: fixed;
+    top: 56px;
+    height: 100%;
+    left: -398px;
+    transition: all 0.5s;
 }
-
-.Adminorders {
-    min-height: 200px;
+.product-admin .products-details.active-sidebar {
+    left: 0px;
 }
+.product-admin .products-details .title {
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: left;
+    margin-bottom: 1.2rem;
+    position: relative;
+    margin-left: 5px;
+}
+.product-admin .products-details .table-product {
 
+}
+.product-admin .products-details th {
+    color: #bdbdbd;
+    font-weight: 500;
+    border-width: 0px !important;
+}
+.product-admin .products-details td,
+.product-admin .products-details th {
+    padding: 0.5rem 0.5rem;
+}
+.product-admin .products-details .no-product {
+    text-align: left;
+    background: #5e5e5e;
+    padding: 0.5rem;
+    color: #c6c6c6;
+    font-size: 0.9rem;
+}
+.product-admin .products-details textarea {
+    height: 160px;
+    margin-top: 86px;
+    resize: none;   
+    transition: all 0.5s;
+}
+.product-admin .products-details textarea:hover {
+    box-shadow: 0px 0px 16px #0a58ca;
+
+}
+.product-admin .products-details .form-floating > label {
+    color: #b6b6b6
+}
+.product-admin .products-details .btn-confirm {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #A64B2A;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-top: 1.3rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+
+}
 .product-admin .products {
     width: 65%;
     height: 100%;
@@ -28,10 +98,14 @@
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 20px;
+    margin: 0px !important;
 }
-
+.product-admin .product-content .form-select {
+    width: 30%;
+    margin-left: auto;
+    margin-right: 5rem;
+}
 .product-admin .odrerItem {
-
 
     border-color: #cecbc5;
     border-radius: 30px;
@@ -62,21 +136,62 @@
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     background-color: #a59089;
 }
-
-.product-admin .confirm {
-    background-color: #452115;
-    color: aliceblue;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border: none;
+.product-admin .product-content {
+    padding-left: 0px;
+    transition: all 0.5s;
+}
+.product-admin .product-content.active-content {
+    padding-left: 386px;
+}
+.product-card {
+    margin: 0px !important ;
+    width: 100% !important;
+}
+.product-card img {
+    height: 250px;
     width: 100%;
-    height: 40px;
-    border-radius: 20px;
-    font-size: 16px;
-    margin: auto;
-    padding: auto;
+    padding: 0px !important;
+    
 }
+.product-card .card-title {
+    color: #7f7f7f;
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+.product-card .card-body {
+    padding-bottom: 4rem;
+}
+.product-card .price {
+    color: #a7a7a7;
+    font-weight: 500;
+    text-align: right;
+    font-size: 1rem;
+}
+.product-card .action-add {
+    margin-top: 2.5rem
+}
+.product-card .action-add button {
+    background-color: #452115;
+    color: #fff;
+    padding: 7px 34px;
+    font-weight: 500;
+    text-transform: capitalize;
+    border: none;
+    transition: all 0.5s;;
+}
+.product-card .action-add button:hover {
+    background-color: #dc8f46;
+}
+/* Sidebar Togglebar animation */
+@keyframes animate-toggle {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 
-.product-admin .confirm:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-    background-color: #a59089;
 }
+    

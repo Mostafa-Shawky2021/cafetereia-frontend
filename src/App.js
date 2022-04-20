@@ -68,13 +68,15 @@ function App() {
         {
           role === "admin" ? (
             <>
-              <Route path="/login"       element={<Navigate to="/home" />} />
-              <Route path="/home"        element={<AdminHome />} />
-              <Route path="/adduser"     element={<Adduser />} />
+              <Route path="/login"  element={<Navigate to="/home" />} />
+              <Route path="/adduser" element={<Adduser />} />
+              <Route path="/edituser" >
+                <Route path=":userId"    element={<Adduser />} />
+              </Route>
               <Route path="/addcategory" element={<AddCategory />} />
               <Route path="/addproduct"  element={<AddProduct />} />
               <Route path="/editproduct" >
-                <Route path=":prodId"   element={<AddProduct />} />
+                <Route path=":prodId"    element={<AddProduct />} />
               </Route>
               <Route path="/users"       element={<AdminUsers />} />
               <Route path="/products"    element={<Product />} />

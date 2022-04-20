@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import ProductArea from "../../orders/productArea/ProductArea";
 
-const Orders = () => {
+const OrdersAdmin = () => {
   const { token } = useToken();
   const [orders, setOrders] = useState([]);
   const [orderProducts, setOrderProducts] = useState([]);
@@ -117,4 +117,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default OrdersAdmin;

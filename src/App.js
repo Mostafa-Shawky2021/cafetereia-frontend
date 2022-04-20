@@ -25,7 +25,7 @@ import Categories from "./component/admin/categories/Categories";
 import Product from "./component/admin/product/Product";
 import AdminUsers from "./component/admin/users/Users";
 import AdminChecks from "./component/admin/checks/Checks";
-import Orders from "./component/admin/orders/Orders";
+import OrdersAdmin from "./component/admin/orders/OrdersAdmin";
 
 // User
 import UserHome from "./component/home/Home";

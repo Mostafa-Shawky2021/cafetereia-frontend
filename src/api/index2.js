@@ -272,6 +272,54 @@ export const addCat = async (name, token) => {
   });
 };
 
+export const getAllOrdersAPI = async (token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/order/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getAllOrders",
+    param: {},
+  });
+};
+
+export const getClientRelatedToOrder = async (id, token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/order/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getClientDetailsOfOrder",
+    param: {id: id},
+  });
+};
+
+export const changeOrderStatusAPI = async (id, status, token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/order/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "updateStatus",
+    param: {id: id, status: status},
+  });
+};
+
+export const getOrdersWithClientNameAPI = async (token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/order/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    name: "getOrdersWithClientName",
+    param: {},
+  });
+};
+
 
 export const fetchUser = async (token) => {
   // return axios.post("http://localhost/Cafetria/api/v1/client/", {

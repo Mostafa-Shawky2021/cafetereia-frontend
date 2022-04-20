@@ -31,8 +31,8 @@ const Product = ()=> {
                                 <img src={productImg}/>
                             </td>
                             <td>
-                                <a class="btn btn-info">edit</a>
-                                <a class="btn btn-danger">delete</a>
+                                <a className="btn btn-info">edit</a>
+                                <a className="btn btn-danger">delete</a>
                             </td>
 
                         </tr>

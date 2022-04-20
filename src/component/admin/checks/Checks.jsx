@@ -38,7 +38,7 @@ const Checks = ()=> {
                             </div>
                         </form>
                     </div>
-                    <div class="table-checks row">
+                    <div className="table-checks row">
                         {/* Head */}
                         <div className="col-6 head">Name</div>
                         <div className="col-6 head">Total Amount</div>

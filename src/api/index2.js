@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const domain = "http://cafeteria.elfabrikaa.online/Cafetria2";
-const domain = "http://localhost:80/c/v3";
+const domain = "http://localhost:81/c/v3";
 
 // Login
 export const loginUser = async (credentials) => {

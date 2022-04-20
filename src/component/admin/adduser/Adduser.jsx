@@ -211,39 +211,39 @@ const AddUser = ()=> {
             <div className="container-adduser">
                 <Breadcrumb />  
                 <form className="form">
-                        <div class="row mb-3">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-10 form-group">
+                        <div className="row mb-3">
+                            <label for="inputEmail3" className="col-sm-2 col-form-label">Name</label>
+                            <div className="col-sm-10 form-group">
                                 <input 
                                     type="text" 
-                                    class="form-control" 
+                                    className="form-control" 
                                     id="inputEmail3" 
                                     placeholder="username" 
                                     value={name}
                                     onChange={(e)=> setName(e.target.value)}
                                 />  
                                 <span className="error">{nameErr}</span>
-                                <i class="fa fa-asterisk"></i>
+                                <i className="fa fa-asterisk"></i>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="email" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10 form-group">
+                        <div className="row mb-3">
+                            <label for="email" className="col-sm-2 col-form-label">Email</label>
+                            <div className="col-sm-10 form-group">
                                 <input 
                                     type="email" 
-                                    class="form-control" 
+                                    className="form-control" 
                                     id="email" 
                                     placeholder="Email" 
                                     value={email}
                                     onChange={(e)=> setEmail(e.target.value)}
                                 />
                                 <span className="error">{emailErr}</span>
-                                <i class="fa fa-asterisk"></i>
+                                <i className="fa fa-asterisk"></i>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="password" class="col-sm-2 col-form-label">Password</label>
-                            <div class="col-sm-10 form-group">
+                        <div className="row mb-3">
+                            <label for="password" className="col-sm-2 col-form-label">Password</label>
+                            <div className="col-sm-10 form-group">
                                 <input 
                                     type="password" 
                                     name="password" 
@@ -253,12 +253,12 @@ const AddUser = ()=> {
                                     placeholder="password"
                                 />
                                 <span className="error">{passwordErr}</span>
-                                <i class="fa fa-asterisk"></i>
+                                <i className="fa fa-asterisk"></i>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="confirmPassword" class="col-sm-2 col-form-label">Confirm Pass</label>
-                            <div class="col-sm-10 form-group">
+                        <div className="row mb-3">
+                            <label for="confirmPassword" className="col-sm-2 col-form-label">Confirm Pass</label>
+                            <div className="col-sm-10 form-group">
                                 <input 
                                     type="password" 
                                     name="password" 
@@ -268,20 +268,20 @@ const AddUser = ()=> {
                                     placeholder="confirm password"
                                 />
                                 <span className="error">{confirmPassErr}</span>
-                                <i class="fa fa-asterisk"></i>
+                                <i className="fa fa-asterisk"></i>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="cateogry " class="col-sm-2 col-form-label">Picture</label>
-                            <div class="col-sm-10 form-group">
-                                <div class="custom-file">
+                        <div className="row mb-3">
+                            <label for="cateogry " className="col-sm-2 col-form-label">Picture</label>
+                            <div className="col-sm-10 form-group">
+                                <div className="custom-file">
                                     <span>choose file</span>
                                     <input type="file" name="image" onChange={(e)=>setAvatar(e.target.files[0])} />
                                 </div>
                             </div>
                         </div>
                     <div style={{textAlign:'right'}}>
-                        <button type="submit" class="btn btn-primary" onClick={handleSubmit}><i className="fa fa-plus"></i> {userId? 'Update' : 'Add'} User</button>
+                        <button type="submit" className="btn btn-primary" onClick={handleSubmit}><i className="fa fa-plus"></i> {userId? 'Update' : 'Add'} User</button>
                     </div>
                 </form>
             </div>

@@ -212,7 +212,7 @@ const AddProduct = () => {
                 addProd(data);
             }
             // navigate('/products');
-            window.location.href = "/products";
+            // window.location.href = "/products";
         }
     }
 
@@ -296,7 +296,7 @@ const AddProduct = () => {
                             <label htmlFor="cateogry" className="col-sm-2 col-form-label">Cateogry</label>
                             <div className="col-sm-10 form-group">
                                 <select className="form-select" id="cateogry" onChange={(e)=>setCatInput(e.target.value)}>
-                                    <option value="0">Select</option>
+                                    <option value="0" disabled>Select</option>
                                     {
                                         categories.map((cat, index) => {
                                             return (

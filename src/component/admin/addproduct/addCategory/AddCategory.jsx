@@ -8,7 +8,7 @@ const Modal = ({ handleClose, show, children }) => {
         <section className="modal-main">
           {children}
           <div className="modal-footer justify-content-center">
-            <button class="btn btn-primary text-center mr-auto" type="button" onClick={()=>handleClose(false)}>
+            <button className="btn btn-primary text-center mr-auto" type="button" onClick={()=>handleClose(false)}>
                 Close
             </button>
           </div>

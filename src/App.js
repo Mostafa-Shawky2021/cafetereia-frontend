@@ -62,11 +62,12 @@ function App() {
       <Routes>
       <Route path="/addproduct"  element={<AddProduct />} />
         <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/home"   element={<AdminHome />} />
+
         {
           role === "admin" ? (
             <>
               <Route path="/login"  element={<Navigate to="/home" />} />
-              <Route path="/home"   element={<AdminHome />} />
               <Route path="/adduser" element={<Adduser />} />
               <Route path="/edituser" >
                 <Route path=":userId"    element={<Adduser />} />

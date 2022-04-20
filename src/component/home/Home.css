@@ -1,7 +1,6 @@
 .productsDetails {
     font-weight: bold;
     padding: 0.5rem 0.88rem;
-    background-color: #c39b51;
     border-radius: 30px;
     margin: 30px;
     width: 35%;
@@ -9,10 +8,24 @@
     text-align: center;
     padding: 20px;
     margin-top: 70px;
-    min-height: 200px;
+    max-height: 550px;
+    background-color: #c39b51;
 
 }
-
+.productsDetails .title {
+    font-weight: bold;
+    margin-bottom: 2rem;
+    margin-top: 1.2rem;
+    border-bottom: 1px solid #d0d0d0;
+    padding-bottom: 26px;
+}
+.productsDetails th {
+    color: #e4e4e4;
+}
+.productsDetails td {
+    text-align: center;
+    vertical-align: middle;
+}
 .Adminorders {
     min-height: 200px;
 }
@@ -24,7 +37,6 @@
 
 .products-section {
     color: #452115;
-
     width: 70%;
     height: 100%;
     display: inline-block;
@@ -32,7 +44,6 @@
 
 .products-section {
     color: #452115;
-
     font: size 12px;
     padding-top: 40px;
     padding-left: 40px;
@@ -58,20 +69,19 @@
 
 }
 
-.products {
-
+.product-admin .products {
     width: 100%;
     border-color: #c39b51;
     border-radius: 30px;
     margin: 30px;
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
     padding: 20px;
+    justify-content: flex-start !important;
+    
 }
 
 .odrerItem {
-
 
     border-color: #cecbc5;
     border-radius: 30px;
@@ -89,7 +99,6 @@
 
 .container {
     width: 100%;
-
     display: flex;
 }
 

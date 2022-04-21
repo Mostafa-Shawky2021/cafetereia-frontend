@@ -23,10 +23,11 @@ const NavbarAdmin = () => {
           </Nav>
           <div className="admin ms-auto d-flex align-items-center justify-items-center justify-content-center">
             <img src={profile} width="50" />
-            <a className="role" href="/">
+            <div className="role" href="/">
               Admin
-            </a>
-            <i className="fa fa-chevron-down"></i>
+              /
+              <a className="logout" href="#">Logout</a>
+            </div>
           </div>
         </Navbar.Collapse>
       </Container>

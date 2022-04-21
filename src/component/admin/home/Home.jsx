@@ -156,49 +156,50 @@ export default function Home(props) {
                                     <i class="fa fa-gear"></i> 
                                 </div>  
                                 <h1 className='title'>Orders</h1>
-                               
-                                <table className="table-product w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {userOreders.length > 0 ? 
-                                            userOreders.map((item, index) => {
-                                            return (
-                                                <MyOrderItem
-                                                    key={index}
-                                                    item={item}
-                                                    add={addToOrder}
-                                                    sub={subFromOrder}
-                                                    removeFromOrder={removeFromOrder}
-                                                />
-                                            )
-                                        })
-                                        :
-                                        <tr>
-                                            <td className="no-product" colspan="5">No Product to show</td>
-                                        </tr>
+                                <div className="table-responsive">
+                                    <table className="table-product w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Total</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {userOreders.length > 0 ? 
+                                                userOreders.map((item, index) => {
+                                                return (
+                                                    <MyOrderItem
+                                                        key={index}
+                                                        item={item}
+                                                        add={addToOrder}
+                                                        sub={subFromOrder}
+                                                        removeFromOrder={removeFromOrder}
+                                                    />
+                                                )
+                                            })
+                                            :
+                                            <tr>
+                                                <td className="no-product" colspan="5">No Product to show</td>
+                                            </tr>
 
-                                    
-                                        }
-                                     
-                                    </tbody>
-                                </table> 
+                                        
+                                            }
+                                        
+                                        </tbody>
+                                    </table> 
+                                </div>
                                 {
                                     userOreders.length > 0 ?
-                                    <div>
+                                    <div className="container-comment">
                                         <FloatingLabel controlId="floatingTextarea2" label="Comments" >
                                         <Form.Control
                                             name="note"
                                             as="textarea"
                                             placeholder="Leave a comment here"
-                                            style={{ height: '100px',marginTop:'86px' }}
+                                            style={{ height: '100px' }}
                                             value={orderNote}
                                             onChange={(e) => setOrderNote(e.target.value)}
                                         />

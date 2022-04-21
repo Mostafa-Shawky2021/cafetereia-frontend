@@ -25,7 +25,6 @@
 }
 
 .navbar .admin {
-    border: 1px solid #ccc;
     padding: 0.3rem 1.7rem 0px 1rem;
     cursor: pointer;
     color: #aa772e;
@@ -38,13 +37,11 @@
     border-radius: 50%;
 }
 .navbar .admin .role {
-    color: #aa772e;
+    color: #525252;
     text-decoration: none;
 }
-.navbar .admin  .fa {
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
+.navbar .admin .role .logout {
+    color: #cbc9c9;
+    text-decoration: none;
 }
   

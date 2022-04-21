@@ -14,7 +14,7 @@ export default function CardTemplate({ product, addToOrder }) {
     return (
         <div class="col-3">
             <Card className="product-card">
-                <Card.Img variant="top" className="product-card-image" src={productTest} />
+                <Card.Img variant="top" className="product-card-image" src={product.avatar} />
                 <Card.Body>
                     <Card.Title>{product.name}</Card.Title>
                     <p className="price"> Price :{product.price}$ </p>

@@ -16,7 +16,7 @@ const NavbarAdmin = () => {
               Home
             </Nav.Link>
             <Nav.Link href="/products">Products</Nav.Link>
-            <Nav.Link href="/categories">categories</Nav.Link>
+            {/* <Nav.Link href="/categories">categories</Nav.Link> */}
             <Nav.Link href="/users">Users</Nav.Link>
             <Nav.Link href="/orders">Manual Order</Nav.Link>
             <Nav.Link href="/checks">Checks</Nav.Link>

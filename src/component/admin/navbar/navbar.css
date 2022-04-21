@@ -18,10 +18,10 @@
     background-repeat: no-repeat;
 }
 .navbar .nav-link.active {
-    color: #4f1019;
+  color: #4e4e4e;
 }
 .navbar .nav-link:hover {
-    color: #4f1019!important;
+  color: #4e4e4e !important;
 }
 
 .navbar .admin {
@@ -31,10 +31,10 @@
     position: relative;
 }
 .navbar .admin img {
-    width: 39px;
-    height: 30px;
-    object-fit: contain;
-    border-radius: 50%;
+  width: 39px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 50%;
 }
 .navbar .admin .role {
     color: #525252;
@@ -44,4 +44,3 @@
     color: #cbc9c9;
     text-decoration: none;
 }
-  

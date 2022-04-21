@@ -17,7 +17,6 @@ const OrdersAdmin = () => {
   const [orders, setOrders] = useState([]);
   const [orderProducts, setOrderProducts] = useState([]);
 
-
   useEffect(() => {
     getOrdersWithClientName();
   }, []);
@@ -67,10 +66,9 @@ const OrdersAdmin = () => {
       <NavbarAdmin />
       <section className="orders">
         <div className="container-orders">
-          <Breadcrumb />
           <div style={{ textAlign: "right", marginBottom: "10px" }}></div>
           <h3 className="title">Orders</h3>
-          <Table striped bordered hover size="sm">
+          <Table striped bordered hover size="sm" className="table">
             <thead>
               <tr>
                 <th>Order Date</th>
@@ -103,14 +101,14 @@ const OrdersAdmin = () => {
                         Deliver
                       </button>
                     ) : (
-                      <span>Delivered</span>
+                      <span className="orderspan">Delivered</span>
                     )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
-          <ProductArea prods={orderProducts}/>
+          <ProductArea prods={orderProducts} />
         </div>
       </section>
     </>

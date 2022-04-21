@@ -1,76 +1,81 @@
 .add-product {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .add-product .container-addproduct {
-    max-width: 1170px;
-    margin: auto;
+  max-width: 1170px;
+  margin: auto;
 }
-.add-product .form{
-    padding: 1.5rem 1.2rem;
-    max-width: 800px;
-    background-color: #fff;
-    box-shadow: rgb(149 157 165 / 20%) 0px 8px 23px;
+.add-product .form {
+  margin-top: 20px;
+  padding: 1.5rem 1.2rem;
+  max-width: 800px;
+  background-color: #fff;
+  box-shadow: rgb(149 157 165 / 20%) 0px 8px 23px;
 }
 .add-product .form .form-group {
-    position: relative;
+  position: relative;
 }
 .add-product .form .form-group .error {
-    color: #dc3545;
-    font-size: 0.85rem;
-    font-weight: 500;
-    position: absolute;
-    left: 26%;
-    top: -25px;
+  color: #dc3545;
+  font-size: 0.85rem;
+  font-weight: 500;
+  position: absolute;
+  left: 26%;
+  top: -25px;
 }
 .add-product .form .form-group .fa-asterisk {
-    color: #dc3545;
-    font-size: 0.85rem;
-    font-weight: 500;
-    position: absolute;
-    right: 4%;
-    top: 34%;
-}   
+  color: #dc3545;
+  font-size: 0.85rem;
+  font-weight: 500;
+  position: absolute;
+  right: 4%;
+  top: 34%;
+}
 .add-product .form .custom-file {
-    position: relative;
-    width: 147px;
-    background-color: #0a58ca;
-    color: #fff;
-    padding: 1.3rem 0.5rem;
+  position: relative;
+  width: 147px;
+  background-color: #4e4e4e;
+  color: #fff;
+  padding: 1.3rem 0.5rem;
 }
 .custom-file span {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    transform: translate(-50%,-50%);
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-  }
-  .custom-file input[type='file'] {
-    opacity: 0; 
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-    top: 0px;
-    left: 0px;
-    cursor: pointer;
-
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.custom-file input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  top: 0px;
+  left: 0px;
+  cursor: pointer;
 }
 .add-product .form .btn {
-    background: #93692a !important;
-    border: none;
-    padding: 0.5rem 1.2rem;
-    transition: all 0.5s;
+  background: #4e4e4e !important;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  transition: all 0.5s;
 }
 .add-product .form .btn:hover {
-    background: #684e26 !important
+  background: #4e4e4e !important;
 }
 
-.addproduct-error{
-    position: sticky;
-    z-index: 99999;
-    top: 0;
-  }
+.addproduct-error {
+  position: sticky;
+  z-index: 99999;
+  top: 0;
+}
+
+.category {
+  background: #4e4e4e !important;
+  border: #4e4e4e !important;
+}

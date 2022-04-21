@@ -208,7 +208,7 @@
     transition: all 0.5s;;
 }
 .product-card .action-add button:hover {
-    background-color: #3a3a3a;
+    background-color: #2e2e2e;
 }
 /* Sidebar Togglebar animation */
 @keyframes animate-toggle {

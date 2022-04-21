@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect } from 'react';
-import productTest from "../../../assests/img/pexels-johnny-willz-997670.jpg";
-import Card from 'react-bootstrap/Card';
+import { useState, useEffect } from "react";
+import Card from "react-bootstrap/Card";
 // import Button from 'react-bootstrap/Button';
-import './card.css';
+import "./card.css";
 
 export default function CardTemplate({ product, addToOrder }) {
 
@@ -29,8 +28,3 @@ export default function CardTemplate({ product, addToOrder }) {
     );
 
 }
-
-
-
-
-

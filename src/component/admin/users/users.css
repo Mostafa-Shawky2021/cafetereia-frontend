@@ -1,56 +1,48 @@
 .users {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .users .container-user {
-    max-width: 1000px;
-    margin: auto
+  max-width: 1000px;
+  margin: auto;
 }
 .users .btn.add {
-    background-color: #b18137 !important;
-    border: none;
-    transition: all 0.5s;
+  background-color: #4e4e4e !important;
+  border: none;
+  transition: all 0.5s;
 }
 .users .btn.add:hover {
-    background-color: #93692a !important;
+  background-color: #4e4e4e !important;
 }
 .users .title {
-    color: #3c3c3c;
-    font-weight: bold;
-    text-transform: capitalize;
-    margin-bottom: 2rem;
+  color: #4e4e4e;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
 }
 .users .table {
-    background-color: #fff;
- 
+  background-color: #fff;
 }
 .users .table th {
-    background: #3c3c3c;
-    color: #fff;
-    border-width: 0px !important; 
-    padding: 0.9rem 1.2rem !important;
- 
-
+  background: #4e4e4e;
+  color: #fff;
+  border-width: 0px !important;
+  padding: 0.9rem 1.2rem !important;
 }
 
 .users .table th,
 .users .table td {
-    padding: 0.5rem 1.2rem;
-    text-align: center;
-    vertical-align: middle;
+  padding: 0.5rem 1.2rem;
+  text-align: center;
+  vertical-align: middle;
 }
-.users .table img{
-
-    width: 50px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 50%;
-
+.users .table img {
+  width: 50px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .users .table td .btn {
-    
-    margin-right: 16px;
-    padding: 4px 19px;
-
+  margin-right: 16px;
+  padding: 4px 19px;
 }

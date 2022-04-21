@@ -1,17 +1,91 @@
-import { Accordion, Container, Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 import './checks.css';
 import productImg from "../../../assests/img/product.jpg";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllChecksByDate, getAllUserswithTotalChecks, getOrderProducts, getOrderProductsOfOrder, getUserOrders } from "../../../api/index2";
+import useToken from "../../../utils/hooks/useToken";
+import ProductArea from "../../orders/productArea/ProductArea";
 const Checks = ()=> {
-    const [active, setActive] = useState(false)
-    const HandleDetails = (e)=> {
-        //setActive(!active);
-        console.log(e.target)
+
+    const {token} = useToken();
+
+    const [dateStart, setDateStart] = useState('');
+    const [dateEnd, setDateEnd] = useState('');
+
+    const [allChecks, setAllChecks] = useState([]);
+    // const [allProducts, setAllProducts] = useState([]);
+    const [orderProducts, setOrderProducts] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+
+    const [selectedUser, setSelectedUser] = useState('');
+    const [selectedUserOrder, setSelectedUserOrder] = useState({});
+    
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    useEffect(() => {
+        getChecks();
+        setOrderProducts([]);
+    }, [selectedUser, dateStart, dateEnd]);
+
+    useEffect(() => {
+        // getProducts();
+        getProdsOrder();
+    }, [selectedUserOrder]);
+
+    const getUsers = async () => {
+        await getAllUserswithTotalChecks(token)
+        .then (res => {
+            setAllUsers(res.data.response.result);
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
-    console.log(active);
+
+    const getChecks = async () => {
+        if(selectedUser && dateStart && dateEnd) {
+            await getAllChecksByDate(selectedUser, dateStart, dateEnd, token)
+            .then((res) => {
+                console.log(res.data);
+                setAllChecks(res.data.response.result);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        } else if(selectedUser) {
+            console.log(selectedUser);
+            await getUserOrders(selectedUser, token)
+            .then((res) => {
+                console.log(res.data);
+                setAllChecks(res.data.response.result);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        } else {
+            setAllChecks([]);
+        }
+
+    }
+
+    const getProdsOrder = async () => {
+        await getOrderProductsOfOrder(selectedUserOrder.id, token)
+        .then((res) => {
+          console.log(res.data);
+          setOrderProducts(res.data.response.result);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
+
+
     return (
         <>
             <NavbarAdmin />
@@ -24,16 +98,33 @@ const Checks = ()=> {
                         <form>
                             <div className="data row justify-content-center">
                                 <div className="col-3">
-                                    <input type="date" name="date-from" className="form-control"/>
+                                    <input 
+                                        type="date" 
+                                        name="date-from" 
+                                        className="form-control" 
+                                        onChange={(e) => setDateStart(e.target.value)}
+                                    />
                                 </div>
                                 <div className="col-3">
-                                    <input type="date" name="date-to"  className="form-control col-md-3"/>
+                                    <input 
+                                        type="date" 
+                                        name="date-to"  
+                                        className="form-control col-md-3"
+                                        onChange={(e) => setDateEnd(e.target.value)}
+                                    />
                                 </div>
                                 
                             </div>
                             <div className="users mt-5  m-auto col-2">
-                                <select name="user " className="form-select">
+                                <select name="user " className="form-select" onChange={(e) => setSelectedUser(e.target.value)}>
                                     <option option="">...</option>
+                                    {
+                                        allUsers && allUsers.map((user, index) => {
+                                            return (
+                                                <option key={index} value={user.id}>{user.name}</option>
+                                            )
+                                        })
+                                    }
                                     <option option="samar">Samar</option>
                                     <option option="samar">Bola</option>
                                     <option option="samar">Nehal</option>
@@ -42,67 +133,79 @@ const Checks = ()=> {
                         </form>
                     </div>
                     <div className="table-checks row">
-                        {/* Head */}
+                        <div className="col-12">
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        allUsers && allUsers.map((user, index) => {
+                                            return (
+                                                <tr key={index} onClick={() => setSelectedUser(user.id)}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{user.name}</td>
+                                                    <td>{user.total}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
+
+                        <div className="col-12">
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Order Date</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        allChecks && allChecks.map((check, index) => {
+                                            return (
+                                                <tr key={index} onClick={() => setSelectedUserOrder(check)}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{check.date}</td>
+                                                    <td>{check.price}</td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
+
+                        <div className="col-12">
+                            <ProductArea prods={orderProducts}/>
+                        </div>
+
+                        {/* Head
                         <div className="col-6 head">Name</div>
                         <div className="col-6 head">Total Amount</div>
 
                         {/* Data here */}
-                        <div className="wrapper" onClick={HandleDetails}>
-                            <div className="user-details" >
+                        {/* <div className="wrapper">
+                            <div className="user-details">
                                 <div className="col-6 body"><i className="fa fa-plus"></i> Mostafa</div>
                                 <div className="col-6 body">110</div>
                             </div>
-                            <div className={"order-details" + (active ? "active" : "")}>
+                            <div >
                                 <div className="col-6 head">Order Date</div>
                                 <div className="col-6 head">Amount</div>
                                 <div className="col-6 body"><i className="fa fa-plus"></i> 2020-10-20</div>
                                 <div className="col-6 body">55EGB</div>  
                             </div>  
                         </div>
-                        <div className="wrapper">
-                            <div className="user-details" onClick={HandleDetails}>
-                                <div className="col-6 body"><i className="fa fa-plus"></i> Atef</div>
-                                <div className="col-6 body">110</div>
-                            </div>
-                            <div className={"order-details" + (active ? "active" : "")}>
-                                <div className="col-6 head">Order Date</div>
-                                <div className="col-6 head">Amount</div>
-                                <div className="col-6 body"><i className="fa fa-plus"></i> 2020-10-20</div>
-                                <div className="col-6 body">55EGB</div>  
-                            </div>  
-                        </div>
-
-
-
-<Accordion defaultActiveKey="0">
-  <Accordion.Item eventKey="0">
-    <Accordion.Header>Accordion Item #1</Accordion.Header>
-    <Accordion.Body>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </Accordion.Body>
-  </Accordion.Item>
-  <Accordion.Item eventKey="1">
-    <Accordion.Header>Accordion Item #2</Accordion.Header>
-    <Accordion.Body>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </Accordion.Body>
-  </Accordion.Item>
-</Accordion>
-
-
-
+                        <div className="col-6 body"><i className="fa fa-plus"></i> Bola</div>
+                        <div className="col-6 body">50</div>  */}
 
                     </div>
                 </div>

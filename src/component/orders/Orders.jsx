@@ -6,7 +6,7 @@ import Footer from "../footer/Footer";
 // import OrderCard from "./orderCard/OrderCard";
 
 import useToken from "../../utils/hooks/useIsAdmin";
-import { verifyClientRole, getUserOrders, cancelOrder, getOrderProductsOfOrder } from "../../api/index2";
+import { verifyClientRole, getUserOrders, cancelOrder, getOrderProductsOfOrder, getAllChecksByDate } from "../../api/index2";
 import ProductArea from "./productArea/ProductArea";
 
 const Orders = () => {
@@ -16,30 +16,57 @@ const Orders = () => {
   const [orderId, setOrderId] = useState(null);
   const [orderProducts, setOrderProducts] = useState([]);
 
+  const [dateStart, setDateStart] = useState('');
+  const [dateEnd, setDateEnd] = useState('');
+
   useEffect(() => {
     getMyData();
   }, []);
+
+    /************************************* */
+    useEffect(() => {
+      if(dateStart && dateEnd){
+        getMyData();
+        setOrderProducts([]);
+      }
+    }, [dateStart, dateEnd]);
+    /************************************* */
 
   const getMyData = async () => {
     await verifyClientRole(token)
     .then((res) => {
         console.log(res.data.response.result);
         // setMyData(res.data.response.result);
-        getOrders(res.data.response.result.id);
+        if(dateStart && dateEnd){
+          getOrders(res.data.response.result.id, dateStart, dateEnd);
+        }else{
+          getOrders(res.data.response.result.id);
+        }
     })
     .catch((err) => {
         console.log(err);
     })
 }
 
-  const getOrders = async (id) => {
-    await getUserOrders(id, token)
-    .then((res) => {
-      setOrders(res.data.response.result);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+  const getOrders = async (id, tempDateStart, tempDateEnd) => {
+    if (id && tempDateStart && tempDateEnd) {
+      await getAllChecksByDate(id, tempDateStart, tempDateEnd, token)
+        .then((res) => {
+          console.log(res.data);
+          setOrders(res.data.response.result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      } else {
+        await getUserOrders(id, token)
+        .then((res) => {
+          setOrders(res.data.response.result);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
   }
 
   const cancelOrderHandle = async (id) => {
@@ -67,6 +94,25 @@ const Orders = () => {
   return (
     <>
       <Navbar />
+      <div className="data row justify-content-center">
+            <div className="col-3">
+                <input 
+                    type="date" 
+                    name="date-from" 
+                    className="form-control" 
+                    onChange={(e) => setDateStart(e.target.value)}
+                />
+            </div>
+            <div className="col-3">
+                <input 
+                    type="date" 
+                    name="date-to"  
+                    className="form-control col-md-3"
+                    onChange={(e) => setDateEnd(e.target.value)}
+                />
+            </div>
+            
+        </div>
       <section className="orders">
         <div className="container-orders">
           <h2 className="title">My Orders</h2>

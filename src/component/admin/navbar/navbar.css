@@ -1,31 +1,38 @@
+.navbar {
+  position: fixed !important;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  z-index: 100;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 .navbar .nav-link.active {
-    color: #4f1019;
+  color: #4e4e4e;
 }
 .navbar .nav-link:hover {
-    color: #4f1019!important;
+  color: #4e4e4e !important;
 }
 
 .navbar .admin {
-    border: 1px solid #ccc;
-    padding: 0.3rem 1.7rem 0px 1rem;
-    cursor: pointer;
-    color: #aa772e;
-    position: relative;
+  border: 1px solid #ccc;
+  padding: 0.3rem 1.7rem 0px 1rem;
+  cursor: pointer;
+  color: #4e4e4e;
+  position: relative;
 }
 .navbar .admin img {
-    width: 39px;
-    height: 30px;
-    object-fit: contain;
-    border-radius: 50%;
+  width: 39px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 50%;
 }
 .navbar .admin .role {
-    color: #aa772e;
-    text-decoration: none;
+  color: #4e4e4e;
+  text-decoration: none;
 }
-.navbar .admin  .fa {
-    position: absolute;
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
+.navbar .admin .fa {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
 }
-  

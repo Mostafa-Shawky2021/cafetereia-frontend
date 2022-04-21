@@ -25,7 +25,7 @@ import Categories from "./component/admin/categories/Categories";
 import Product from "./component/admin/product/Product";
 import AdminUsers from "./component/admin/users/Users";
 import AdminChecks from "./component/admin/checks/Checks";
-import AdminOrders from "./component/admin/orders/Orders";
+import OrdersAdmin from "./component/admin/orders/OrdersAdmin";
 
 // User
 import UserHome from "./component/home/Home";
@@ -61,12 +61,14 @@ function App() {
     <>
       <Routes>
       <Route path="/addproduct"  element={<AddProduct />} />
+      <Route path="/home"  element={<AdminHome />} />
         <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/home"   element={<AdminHome />} />
+
         {
           role === "admin" ? (
             <>
               <Route path="/login"  element={<Navigate to="/home" />} />
-              <Route path="/home"   element={<AdminHome />} />
               <Route path="/adduser" element={<Adduser />} />
               <Route path="/edituser" >
                 <Route path=":userId"    element={<Adduser />} />
@@ -79,13 +81,13 @@ function App() {
               <Route path="/users"       element={<AdminUsers />} />
               <Route path="/products"    element={<Product />} />
               <Route path="/categories"  element={<Categories />} />
-              <Route path="/checks"  element={<AdminChecks />} />
-              <Route path="/orders"  element={<AdminOrders />} />
+              <Route path="/checks"      element={<AdminChecks />} />
+              <Route path="/orders"      element={<OrdersAdmin />} />
             </>
           ) : role === "user" ? (
             <>
-              <Route path="/login" element={<Navigate to="/home" />} />
-              <Route path="/home" element={<UserHome />} />
+              <Route path="/login"  element={<Navigate to="/home" />} />
+              <Route path="/home"   element={<UserHome />} />
               <Route path="/orders" element={<Orders />} />
             </>
           ) : (

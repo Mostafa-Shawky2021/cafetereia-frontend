@@ -12,7 +12,7 @@ const Product = ()=> {
                 <div className="categories-container">
                     <Breadcrumb />
                     <div style={{textAlign:'right',marginBottom:'10px'}}>
-                        <NavLink className="btn btn-primary add" to="/admin/addcategory"><i className="fa fa-plus me-2"></i>Add category</NavLink>
+                        <NavLink className="btn btn-primary add" to="/addcategory"><i className="fa fa-plus me-2"></i>Add category</NavLink>
                     </div>
                     <Table striped bordered hover size="sm">
                         <thead>

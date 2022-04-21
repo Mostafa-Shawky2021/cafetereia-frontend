@@ -7,18 +7,17 @@ const NavbarAdmin = () => {
     <Navbar bg="light" expand="lg" className="bg-white">
       <Container className="align-items-center">
         <Navbar.Brand href="#home">
-          <img src={logo} width="130px" />
+          {/* <img src={logo} width="130px" /> */}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link className="active" href="/admin/home">
+            <Nav.Link className="active" href="/home">
               Home
             </Nav.Link>
             <Nav.Link href="/products">Products</Nav.Link>
-            <Nav.Link href="/categories">categories</Nav.Link>
             <Nav.Link href="/users">Users</Nav.Link>
-            <Nav.Link href="#link">Manual Order</Nav.Link>
+            <Nav.Link href="/orders">Manual Order</Nav.Link>
             <Nav.Link href="/checks">Checks</Nav.Link>
           </Nav>
           <div className="admin ms-auto d-flex align-items-center justify-items-center justify-content-center">

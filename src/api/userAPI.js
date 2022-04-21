@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const domain = "http://cafeteria.elfabrikaa.online/Cafetria2";
-const domain = "http://localhost:81gu/c/v3";
+const domain = "http://cafeteria.elfabrikaa.online/Cafetria2";
+// const domain = "http://localhost:81gu/c/v3";
 
 export const addUserAPI = async (user, token) => {
   console.log(token);

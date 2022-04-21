@@ -4,6 +4,38 @@ const domain = "http://cafeteria.elfabrikaa.online/Cafetria2";
 // const domain = "http://localhost:80/c/v3";
 
 // Login
+export const getAllChecksByDate = async (
+  client_id,
+  startDate,
+  endDate,
+  token
+) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/order/`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    name: "getProductsDetailsOfOrdersBetweenByClientId",
+    param: {
+      start: startDate,
+      end: endDate,
+      customer_id: client_id,
+    },
+  });
+};
+
+export const getAllUserswithTotalChecks = async (token) => {
+  console.log(token);
+  return axios.post(`${domain}/api/v1/client/`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    name: "getAllUsersWithTotalChecksAmount",
+    param: {},
+  });
+};
 export const loginUser = async (credentials) => {
   console.log(JSON.stringify(credentials));
   return axios.post(`${domain}/api/v1/client/`, {

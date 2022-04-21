@@ -45,13 +45,13 @@ const Users = () => {
       <NavbarAdmin />
       <section className="users">
         <div className="container-user">
-          <Breadcrumb />
+          <h1 className="title">users</h1>
+
           <div style={{ textAlign: "right", marginBottom: "10px" }}>
             <NavLink className="btn btn-primary add" to="/adduser">
-              <i className="fa fa-plus"></i>Add users
+              <i className="fa fa-plus"></i> Add users
             </NavLink>
           </div>
-          <h3 className="title">users</h3>
           <Table striped bordered hover size="sm">
             <thead>
               <tr>

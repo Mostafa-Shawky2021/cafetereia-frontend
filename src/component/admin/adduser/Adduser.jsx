@@ -197,6 +197,7 @@ const AddUser = () => {
   return (
     <>
       <NavbarAdmin />
+
       {showAlert && (
         <div className="addproduct-error">
           {" "}

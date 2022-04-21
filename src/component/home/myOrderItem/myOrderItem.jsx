@@ -12,9 +12,9 @@ export default function MyOrderItem({item: {product, quantity}, add, sub, remove
                 <td>{product.price}</td>
                 <td>{product.price * quantity}</td>
                 <td>
-                    <button className="mybtn" onClick={() => add(product)}>+</button>
-                    <button className="mybtn" onClick={() => sub(product)}>-</button>
-                    <button className="mybtn" onClick={() => removeFromOrder(product)}>x</button>
+                    <button className="bg-primary product-control" onClick={() => add(product)}><i className=" fa fa-plus"></i></button>
+                    <button className="bg-success  product-control" onClick={() => sub(product)}><i className="fa fa-minus"></i></button>
+                    <button className="bg-danger product-control" onClick={() => removeFromOrder(product)}><i className="fa fa-close"></i></button>
                 </td>
             </tr>
         </>

@@ -190,20 +190,27 @@ export default function Home(props) {
                                      
                                     </tbody>
                                 </table> 
-                          
-                                <FloatingLabel controlId="floatingTextarea2" label="Comments" >
-                                    <Form.Control
-                                        name="note"
-                                        as="textarea"
-                                        placeholder="Leave a comment here"
-                                        style={{ height: '100px',marginTop:'86px' }}
-                                        value={orderNote}
-                                        onChange={(e) => setOrderNote(e.target.value)}
-                                    />
-                                </FloatingLabel>
+                                {
+                                    userOreders.length > 0 ?
+                                    <div>
+                                        <FloatingLabel controlId="floatingTextarea2" label="Comments" >
+                                        <Form.Control
+                                            name="note"
+                                            as="textarea"
+                                            placeholder="Leave a comment here"
+                                            style={{ height: '100px',marginTop:'86px' }}
+                                            value={orderNote}
+                                            onChange={(e) => setOrderNote(e.target.value)}
+                                        />
+                                        </FloatingLabel>
+                                        <label htmlFor="" className="total">Total :{total} <i className="fa fa-coffee"></i></label>
+                                        <button className="btn btn-confirm btn-primary" onClick={handleSubmit}>Confirm</button>
+                                    </div>
+                                    : ''
+                                }
+                              
 
-                                <label htmlFor="" className="total">Total :{total}</label>
-                                <button className="btn-confirm" onClick={handleSubmit}>Confirm</button>
+                              
                             </div>
                         </div>
                         <div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>

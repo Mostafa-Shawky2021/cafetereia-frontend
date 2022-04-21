@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import logo from "../../../assests/img/nav-logo-0١.png";
+import logo from "../../../assests/img/main-0١.png";
 import profile from "../../../assests/img/profile.png";
 import "./navbar.css";
 const NavbarAdmin = () => {
@@ -7,7 +7,7 @@ const NavbarAdmin = () => {
     <Navbar bg="light" expand="lg" className="bg-white">
       <Container className="align-items-center">
         <Navbar.Brand href="#home">
-          {/* <img src={logo} width="130px" /> */}
+          <div className="logo"></div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

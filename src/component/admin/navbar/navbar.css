@@ -5,6 +5,17 @@
     width: 100%;
     z-index: 5;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+
+}
+.navbar .logo {
+    background-image: url('../../../assests/img/main-0١.png');
+    background-size: cover;
+    background-position: center;
+    width: 76px;
+    height: 52px;
+    background-repeat: no-repeat;
 }
 .navbar .nav-link.active {
     color: #4f1019;

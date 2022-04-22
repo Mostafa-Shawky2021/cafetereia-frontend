@@ -21,7 +21,7 @@ import AdminHome from "./component/admin/home/Home";
 import Adduser from "./component/admin/adduser/Adduser";
 import AddCategory from "./component/admin/addcategory/AddCategory";
 import AddProduct from "./component/admin/addproduct/AddProduct";
-import Categories from "./component/admin/categories/Categories";
+// import Categories from "./component/admin/categories/Categories";
 import Product from "./component/admin/product/Product";
 import AdminUsers from "./component/admin/users/Users";
 import AdminChecks from "./component/admin/checks/Checks";
@@ -44,9 +44,9 @@ function App() {
       .then((res) => {
         console.log(res.data);
         console.log(res.data.response.result);
-        // res.data.response.result.role === 1? setRole("admin") : setRole("user");
+        res.data.response.result.role === 1? setRole("admin") : setRole("user");
         console.log(isAdmin);
-        isAdmin == 1? setRole("admin") : setRole("user");
+        isAdmin == 1 ? setRole("admin") : setRole("user");
       console.log(role);
       });
   };
@@ -86,8 +86,9 @@ function App() {
             </>
           ) : role === "user" ? (
             <>
+             
               <Route path="/login"  element={<Navigate to="/home" />} />
-              <Route path="/home"   element={<UserHome />} />
+              <Route path="/userhome"   element={<UserHome />} />
               <Route path="/orders" element={<Orders />} />
             </>
           ) : (

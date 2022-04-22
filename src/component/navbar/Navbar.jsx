@@ -1,5 +1,5 @@
 import "./navbar.css";
-import logo from "../../assests/img/nav-logo-0١.png";
+// import logo from "../../assests/img/nav-logo-0١.png";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import useToken from "../../utils/hooks/useToken";
@@ -13,7 +13,7 @@ function Navbar() {
     >
       <div className="container">
         <NavLink to="/" className="navbar-brand">
-          <img src={logo} width="115px" alt="logo" />
+          <div className="logo"></div>
         </NavLink>
         <button
           className="navbar-toggler"
@@ -31,7 +31,7 @@ function Navbar() {
         {token && (
           <ul className="navbar-nav ms-auto me-auto">
             <li className="nav-item">
-              <NavLink className="nav-link active" to="/home">
+              <NavLink className="nav-link active" to="/userhome">
                 Home <span className="sr-only">(current)</span>
               </NavLink>
             </li>

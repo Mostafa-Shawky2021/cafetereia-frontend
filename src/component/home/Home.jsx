@@ -3,6 +3,7 @@ import Navbar from "../navbar/Navbar";
 import Form from "react-bootstrap/Form";
 // import ProductCard from './productCard/card'
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Footer from '../footer/Footer';
 import "./Home.css";
 
 import { useState, useEffect } from "react";
@@ -158,95 +159,125 @@ export default function UserHome(props) {
     }
   };
 
+  const[ toggle, setToggle ] = useState(false);
+  const handleToggle = () => {
+	  setToggle(!toggle);
+	
+  }
   return (
     <>
       <Navbar />
-      <div className="container">
-        <div className="productsDetails">
-          <h1>Orders</h1>
-          <div className="Adminorders">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Quantity</th>
-                  <th>Price</th>
-                  <th>Total</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {myOreders.map((item, index) => {
-                  return (
-                    <MyOrderItem
-                      key={index}
-                      item={item}
-                      add={addToOrder}
-                      sub={subFromOrder}
-                      removeFromOrder={removeFromOrder}
-                    />
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+	  <section className="product-user"> 
+		<div className="container-fluid">
+				<div className="row g-0">
+					<div className="col-4">
+						<div className={ ( toggle ? 'active-sidebar' : '' ) + ' products-details'}>
+							<div className="toggle-bar" onClick={handleToggle}>
+								<i class="fa fa-gear"></i> 
+							</div> 
 
-          <FloatingLabel controlId="floatingTextarea2" label="Comments">
-            <Form.Control
-              name="note"
-              as="textarea"
-              placeholder="Leave a comment here"
-              style={{ height: "100px" }}
-              value={orderNote}
-              onChange={(e) => setOrderNote(e.target.value)}
-            />
-          </FloatingLabel>
+							<h1 className='title'>Orders</h1>
+							<div className="table-responsive">
+								<table className="table-product w-100">
+									<thead>
+									<tr>
+									<th>Product</th>
+									<th>Quantity</th>
+									<th>Price</th>
+									<th>Total</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{  
+								myOreders.length > 0 ?
+									myOreders.map((item, index) => {
+									return (
+										<MyOrderItem
+										key={index}
+										item={item}
+										add={addToOrder}
+										sub={subFromOrder}
+										removeFromOrder={removeFromOrder}
+										/>
+									);
+								})
+								:
+								<tr>
+									<td className="no-product" colspan="5">No Product to show</td>
+								</tr>
+								}
+							</tbody>
+						</table>
+						
+					</div>
+					{
+						myOreders.length > 0 ?
+						<div className="container-comment">
+							<FloatingLabel controlId="floatingTextarea2" label="Comments">
+							<Form.Control
+								name="note"
+								as="textarea"
+								placeholder="Leave a comment here"
+								style={{ height: "100px" }}
+								value={orderNote}
+								onChange={(e) => setOrderNote(e.target.value)}
+							/>
+							</FloatingLabel>
+							<label htmlFor="" className="total">
+								Total :{total}
+							</label>
+							<button className="btn btn-primary btn-confirm" onClick={handleSubmit}>
+								Confirm
+							</button>
+						</div>
+						: ''
+					}
+					</div>
+					</div> 
+						</div> 
+					
+					<div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>
+					<p className="product-h">Latest Products</p>
+					<div className="products row">
+						{
+						myLastProds.length ?  myLastProds.map((p) => {
+							return (
+							<ProductCardTemplate
+								key={p.id}
+								product={p}
+								addToOrder={addToOrder}
+							/>
+							);
+					
+							}) : <div className="no-products">No products</div>
+						}
+					</div>
 
-          <label htmlFor="" className="total">
-            Total :{total}
-          </label>
-          <button className="confirm" onClick={handleSubmit}>
-            Confirm
-          </button>
-        </div>
-        <div className="products-section">
-          <p className="product-h">Latest Products</p>
-          <div className="products">
-            {myLastProds.length ? (
-              myLastProds.map((p) => {
-                return (
-                  <ProductCardTemplate
-                    key={p.id}
-                    product={p}
-                    addToOrder={addToOrder}
-                  />
-                );
-              })
-            ) : (
-              <div className="no-products">No products</div>
-            )}
-          </div>
+					<hr className="product-hr"></hr>
+					<p className="product-h">All Products</p>
 
-          <hr className="product-hr"></hr>
-          <p className="product-h">All Products</p>
-
-          <div className="products">
-            {allProds.length ? (
-              allProds.map((p) => {
-                return (
-                  <ProductCardTemplate
-                    key={p.id}
-                    product={p}
-                    addToOrder={addToOrder}
-                  />
-                );
-              })
-            ) : (
-              <div className="no-products">No products</div>
-            )}
-          </div>
-        </div>
-      </div>
-    </>
+					<div className="products row">
+						{
+							allProds.length ? 
+								allProds.map((p) => {
+									return (
+									<ProductCardTemplate
+										key={p.id}
+										product={p}
+										addToOrder={addToOrder}
+									/>
+									
+									)
+									
+								}): <div className="no-products">No products</div>
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+		<Footer />
+   	     </>
+			
   );
 }

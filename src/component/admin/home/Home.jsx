@@ -210,10 +210,9 @@ export default function Home(props) {
                                     : ''
                                 }
                               
-
-                              
                             </div>
                         </div>
+
                         <div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>
                             <Form.Select aria-label="Default select example" name="users" onChange={changeUserHandling}>
                                 {

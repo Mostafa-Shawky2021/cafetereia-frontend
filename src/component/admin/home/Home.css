@@ -9,6 +9,7 @@
     line-height: 31px;
     position: absolute;
     right: -32px;
+    top: 63px;
     cursor: pointer;
 
 }
@@ -119,6 +120,7 @@
 }
 .product-admin .products .product-box .product-card {
     width: 100% !important;
+    box-shadow: 0px 5px 29px rgb(78 54 54 / 35%)
 }
 .product-admin .product-content .form-select {
     width: 30%;
@@ -168,6 +170,8 @@
 .product-admin .product-content.active-content .product-card {
     margin: 0px !important ;
     width: 100% !important;
+
+
 }
 .product-admin .product-content.active-content .product-box {
     flex: 0 0 calc(100% / 3)  !important;

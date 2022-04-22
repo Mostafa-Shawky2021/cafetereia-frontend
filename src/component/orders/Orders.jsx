@@ -94,7 +94,7 @@ const Orders = () => {
   return (
     <>
       <Navbar />
-      <div className="data row justify-content-center">
+      <div className="mt-4 data row justify-content-center">
             <div className="col-3">
                 <input 
                     type="date" 
@@ -132,7 +132,7 @@ const Orders = () => {
                     <td>{order.date}</td>
                     <td>{order.status == 0? 'Not Yet' : order.status == 1? 'Processing': 'Delivered'}</td>
                     <td>{order.price}</td>
-                    <td>{order.status == 0? <button onClick={() => cancelOrderHandle(order.id)}>Cancel</button> : ''}</td>
+                    <td>{order.status == 0? <button className="btn btn-primary" onClick={() => cancelOrderHandle(order.id)}>Cancel</button> : ''}</td>
                   </tr>
                 ))
               }

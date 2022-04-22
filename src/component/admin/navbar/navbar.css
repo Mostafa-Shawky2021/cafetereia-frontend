@@ -3,7 +3,7 @@
     left: 0px;
     top: 0px;
     width: 100%;
-    z-index: 5;
+    z-index: 9999;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding-top: 14px;
     padding-bottom: 14px;

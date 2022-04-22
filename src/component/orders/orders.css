@@ -36,3 +36,7 @@
   --bs-table-accent-bg: transparent !important;
   color: var(--bs-table-hover-color);
 }
+
+.orders .container-orders td  .orders-status {
+  
+}

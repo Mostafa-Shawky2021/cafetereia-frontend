@@ -1,4 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import logo from "../../../assests/img/main-0١.png";
 import profile from "../../../assests/img/profile.png";
 import "./navbar.css";
@@ -12,14 +13,14 @@ const NavbarAdmin = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link className="active" href="/home">
+            <NavLink className="nav-link active" to="/home">
               Home
-            </Nav.Link>
-            <Nav.Link href="/products">Products</Nav.Link>
+            </NavLink>
+            <NavLink  className="nav-link" to="/products">Products</NavLink>
             {/* <Nav.Link href="/categories">categories</Nav.Link> */}
-            <Nav.Link href="/users">Users</Nav.Link>
-            <Nav.Link href="/orders">Manual Order</Nav.Link>
-            <Nav.Link href="/checks">Checks</Nav.Link>
+            <NavLink className="nav-link" to="/users">Users</NavLink>
+            <NavLink className="nav-link" to="/orders">Manual Order</NavLink>
+            <NavLink className="nav-link" to="/checks">Checks</NavLink>
           </Nav>
           <div className="admin ms-auto d-flex align-items-center justify-items-center justify-content-center">
             <img src={profile} width="50" />

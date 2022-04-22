@@ -100,7 +100,7 @@ function Login() {
       }
       <div className="login" >
         <div className="container">
-          <div className="row  g-0">
+          <div className="row">
             <div className="col-5">
               <div className="image-section"></div>
             </div>

@@ -6,29 +6,39 @@ const domain = "http://cafeteria.elfabrikaa.online/Cafetria2";
 export const addUserAPI = async (user, token) => {
   console.log(token);
   console.log(user);
-  return axios.post(`${domain}/api/v1/client/`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+  return axios.post(`${domain}/api/v1/client/`,{
     name: "addClient",
     param: {
       name: user.name,
       email: user.email,
       pass: user.pass,
     },
+  }, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    // name: "addClient",
+    // param: {
+    //   name: user.name,
+    //   email: user.email,
+    //   pass: user.pass,
+    // },
   });
 };
 
 export const getLastUser = async (token) => {
   console.log(token);
   return axios.post(`${domain}/api/v1/client/`, {
+    name: "getTheLastClient",
+    param: {},
+  },{
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    name: "getTheLastClient",
-    param: {},
+    // name: "getTheLastClient",
+    // param: {},
   });
 };
 
@@ -49,10 +59,6 @@ export const updateUserAvatar = async (id, formData, token) => {
 export const updateUserAPI = async (user, token) => {
   console.log(token);
   return axios.post(`${domain}/api/v1/client/`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
     name: "updateClient",
     param: {
       id: user.id,
@@ -60,6 +66,18 @@ export const updateUserAPI = async (user, token) => {
       email: user.email,
       pass: user.pass,
     },
+  },{
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    // name: "updateClient",
+    // param: {
+    //   id: user.id,
+    //   name: user.name,
+    //   email: user.email,
+    //   pass: user.pass,
+    // },
   });
 };
 
@@ -67,23 +85,29 @@ export const getUserById = async (id, token) => {
   console.log(id);
   console.log(token);
   return axios.post(`${domain}/api/v1/client/`, {
+    name: "getClientDetails",
+    param: { id: id },
+  },{
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    name: "getClientDetails",
-    param: { id: id },
+    // name: "getClientDetails",
+    // param: { id: id },
   });
 };
 
 export const deleteUser = async (id, token) => {
   console.log(token);
   return axios.post(`${domain}/api/v1/client/`, {
+    name: "deleteClient",
+    param: { id },
+  },{
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    name: "deleteClient",
-    param: { id },
+    // name: "deleteClient",
+    // param: { id },
   });
 };

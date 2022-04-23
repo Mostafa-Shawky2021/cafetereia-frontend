@@ -81,7 +81,7 @@ function Login() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {
         showAlert && <div className="login-error"> <Alert setShowAlert={setShowAlert} /> </div>
       }

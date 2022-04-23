@@ -4,6 +4,10 @@ import logo from "../../../assests/img/main-0١.png";
 import profile from "../../../assests/img/profile.png";
 import "./navbar.css";
 const NavbarAdmin = () => {
+    const HandleLogout = ()=> {
+      window.localStorage.clear()
+      window.location.href = "/login"
+    }
   return (
     <Navbar bg="light" expand="lg" className="bg-white">
       <Container className="align-items-center">
@@ -27,7 +31,8 @@ const NavbarAdmin = () => {
             <div className="role" href="/">
               Admin
               /
-              <a className="logout" href="#">Logout</a>
+          
+              <a className="logout" href="#" onClick = { HandleLogout }>Logout</a>
             </div>
           </div>
         </Navbar.Collapse>

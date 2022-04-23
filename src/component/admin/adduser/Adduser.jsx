@@ -108,8 +108,10 @@ const AddUser = () => {
         console.log(avatar);
         if (avatar.name) {
           uploadTheAvatar(userId);
+        } else {
+          setShowLoading(false);
         }
-        setShowLoading(false);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -117,6 +119,7 @@ const AddUser = () => {
   };
 
   const addUser = async (data) => {
+    console.log(data);
     await addUserAPI(data, token)
       .then((res) => {
         console.log(res.data);
@@ -155,9 +158,13 @@ const AddUser = () => {
     const formData = new FormData();
     formData.append("avatar", avatar);
     await updateUserAvatar(id, formData, token)
+    
       .then((res) => {
         console.log(res.data);
+        
         setShowLoading(false);
+        window.location.href = "/users";
+      
       })
       .catch((err) => {
         console.log(err);
@@ -180,14 +187,10 @@ const AddUser = () => {
       if (userId) {
         console.log("update");
         data.id = userId;
-        updateUser(data).then(() => {
-          window.location.href = "/users";
-        });
+        updateUser(data)
       } else {
         console.log("add");
-        addUser(data).then(() => {
-          window.location.href = "/users";
-        });
+        addUser(data)
       }
       // navigate('/products');
       // window.location.href = "/users";

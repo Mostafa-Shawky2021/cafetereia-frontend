@@ -65,7 +65,7 @@ const AddProduct = () => {
 
   const handleNewCatSubmit = () => {
     setShowModal(false);
-    addCategory();
+    addCategory(token);
   };
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const AddProduct = () => {
   }, [newCategory]);
 
   const getAllCategories = async () => {
-    await getCategories()
+    await getCategories(token)
       .then((res) => {
         console.log(res.data);
         setCategories(res.data.response.result);
@@ -209,11 +209,11 @@ const AddProduct = () => {
         console.log("update");
         data.id = prodId;
         updateProd(data);
-      } else {
+      } else {  
         console.log("add");
         addProd(data);
       }
-      // navigate('/products');
+      navigate('/products');
       // window.location.href = "/products";
     }
   };

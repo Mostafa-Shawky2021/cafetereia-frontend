@@ -35,40 +35,43 @@ import Orders from "./component/orders/Orders";
 
 function App() {
 
-  const { token } = useToken();
-  const { isAdmin } = useIsAdmin();
-  const [role, setRole] = useState("");
-
+  const { token }        = useToken();
+  const { isAdmin }      = useIsAdmin();
+  const [role, setRole]  = useState("");
+  // const [admin,setAdmin] = useState(-1)
   const verifyRole = async () => {
     await verifyClientRole(token)
       .then((res) => {
         console.log(res.data);
         console.log(res.data.response.result);
-        res.data.response.result.role === 1? setRole("admin") : setRole("user");
+        console.log(res.data.response.result.role);
+        res.data.response.result.role === "1" ? setRole("admin") : setRole("user");
         console.log(isAdmin);
-        isAdmin == 1 ? setRole("admin") : setRole("user");
+        // isAdmin == 1 ? setRole("admin") : setRole("user");
       console.log(role);
       });
   };
-
+  
   useEffect(() => {
     if (token) {
       verifyRole();
     }
   }, []);
 
+  // useEffect(()=>{
+  //   role === 'admin' ? setAdmin(1) : role === 'user' ? setAdmin(0) : setAdmin(-1) 
+
+  // },[role])
+
   return (
     <>
       <Routes>
-      <Route path="/addproduct"  element={<AddProduct />} />
-      <Route path="/home"  element={<AdminHome />} />
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/home"   element={<AdminHome />} />
-
         {
-          role === "admin" ? (
+          role === 'admin' ? (
             <>
               <Route path="/login"  element={<Navigate to="/home" />} />
+              <Route path="/home"   element={<AdminHome />} />
               <Route path="/adduser" element={<Adduser />} />
               <Route path="/edituser" >
                 <Route path=":userId"    element={<Adduser />} />
@@ -86,8 +89,7 @@ function App() {
             </>
           ) : role === "user" ? (
             <>
-             
-              <Route path="/login"  element={<Navigate to="/home" />} />
+              <Route path="/login"  element={<Navigate to="/userhome" />} />
               <Route path="/userhome"   element={<UserHome />} />
               <Route path="/orders" element={<Orders />} />
             </>

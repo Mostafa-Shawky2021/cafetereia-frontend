@@ -3,6 +3,15 @@
     padding-bottom: 3rem;
 
 }
+
+.checks .title {
+    color: #4e4e4e;
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
 .checks  .checks-container {
     max-width: 1170px;
     margin: auto

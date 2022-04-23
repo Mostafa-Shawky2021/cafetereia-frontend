@@ -12,38 +12,51 @@ export const getAllChecksByDate = async (
 ) => {
   console.log(token);
   return axios.post(`${domain}/api/v1/order/`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
     name: "getProductsDetailsOfOrdersBetweenByClientId",
     param: {
       start: startDate,
       end: endDate,
       customer_id: client_id,
     },
+  },{
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    // name: "getProductsDetailsOfOrdersBetweenByClientId",
+    // param: {
+    //   start: startDate,
+    //   end: endDate,
+    //   customer_id: client_id,
+    // },
   });
 };
 
 export const getAllUserswithTotalChecks = async (token) => {
   console.log(token);
   return axios.post(`${domain}/api/v1/client/`, {
+    name: "getAllUsersWithTotalChecksAmount",
+    param: {},
+  } ,{
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    name: "getAllUsersWithTotalChecksAmount",
-    param: {},
+    // name: "getAllUsersWithTotalChecksAmount",
+    // param: {},
   });
 };
 export const loginUser = async (credentials) => {
   console.log(JSON.stringify(credentials));
   return axios.post(`${domain}/api/v1/client/`, {
+    name: "generateToken",
+    param: JSON.stringify(credentials),
+  },{
     headers: {
       "Content-Type": "application/json",
     },
-    name: "generateToken",
-    param: JSON.stringify(credentials),
+    // name: "generateToken",
+    // param: JSON.stringify(credentials),
   });
 };
 

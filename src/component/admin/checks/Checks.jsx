@@ -92,7 +92,7 @@ const Checks = ()=> {
             
             <section className="checks">
                 <div className="checks-container">
-                    <Breadcrumb />
+                    
                     <h2 className="title">Checks</h2>
                     <div className="form">
                         <form>

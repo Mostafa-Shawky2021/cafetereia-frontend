@@ -21,8 +21,8 @@ function Navbar() {
         <button
           className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -30,8 +30,9 @@ function Navbar() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse " id="navbarSupportedContent">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
         {token && (
+        
           <ul className="navbar-nav ms-auto me-auto">
             <li className="nav-item">
               <NavLink className={`nav-link ${(path === "/" || path === "/userhome") && 'active'}`} to="/userhome">
@@ -45,8 +46,9 @@ function Navbar() {
             </li>            
           </ul>
           )}
+      
         </div>
-
+          
         <div className="auth d-flex align-items-center">
           {!token ? (
             <>

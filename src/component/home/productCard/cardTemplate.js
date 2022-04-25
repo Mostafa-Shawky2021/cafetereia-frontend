@@ -11,7 +11,7 @@ export default function CardTemplate({ product, addToOrder }) {
     }
 
     return (
-        <div class="col-3 product-box">
+        <div class="col-12 col-sm-6 col-md-4 col-xl-3 text-center text-md-left product-box">
             <Card className="product-card">
                 <Card.Img variant="top" className="product-card-image" src={product.avatar} />
                 <Card.Body>

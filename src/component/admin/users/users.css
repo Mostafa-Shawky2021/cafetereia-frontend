@@ -50,3 +50,7 @@
   margin-right: 16px;
   padding: 4px 19px;
 }
+.users .container-user img {
+  height: 320px;
+  object-fit: cover
+}

@@ -3,6 +3,9 @@ import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../../assests/img/main-0١.png";
 import profile from "../../../assests/img/profile.png";
 import "./navbar.css";
+
+
+
 const NavbarAdmin = () => {
   const location = useLocation();
   const path = location.pathname;

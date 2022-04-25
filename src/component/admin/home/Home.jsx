@@ -12,6 +12,7 @@ import ProductCardTemplate from '../../home/productCard/cardTemplate';
 
 
 export default function Home(props) {
+
     console.log('I\'m in The Home Page of The Admin');
 
     const { token } = useToken();
@@ -145,13 +146,12 @@ export default function Home(props) {
 
     return (
             <>
-            
             <NavbarAdmin />
-            <section className="product-admin container">
+            <section className="product-admin">
                 <div className="container-fluid">
                     <div className="row g-0">
-                        <div className="col-4">
-                            <div className={ ( toggle ? 'active-sidebar' : '' ) + ' products-details'}>
+                        <div >
+                            <div className={ ( toggle ? 'active-sidebar' : '' ) + ' products-details'}id='sidebar'>
                                 
                                 <div className="toggle-bar" onClick={handleToggle}>
                                     <i class="fa fa-gear"></i> 
@@ -215,20 +215,20 @@ export default function Home(props) {
                             </div>
                         </div>
 
-                        <div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>
-                        <div class="text-center" style={{ marginBottom: "10px" }}>
-                            <div class="row justify-content-center" style={{margin: 0}}>
-                                <div class="col-12 col-sm-4" style={{marginBottom: "5px"}}>
-                                    <Form.Select class="form-select" aria-label="Default select example" name="users" onChange={changeUserHandling}>
-                                    {
-                                        allUsers.map((user, index) => (
-                                            <option value={user.id}>{user.name}</option>
-                                        ))
-                                    }
-                                    </Form.Select>
+                        <div className= 'product-content'>
+                            <div class="text-center" style={{ marginBottom: "10px" }}>
+                                <div class="row justify-content-center" style={{margin: 0}}>
+                                    <div class="col-8 col-sm-4  ms-auto" style={{marginBottom: "5px"}}>
+                                        <Form.Select class="form-select" aria-label="Default select example" name="users" onChange={changeUserHandling}>
+                                        {
+                                            allUsers.map((user, index) => (
+                                                <option value={user.id}>{user.name}</option>
+                                            ))
+                                        }
+                                        </Form.Select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                             {/* <Form.Select aria-label="Default select example" name="users" onChange={changeUserHandling}>
                                 {
                                     allUsers.map((user, index) => (
@@ -236,7 +236,7 @@ export default function Home(props) {
                                     ))
                                 }
                             </Form.Select> */}
-                            <div className="products row">
+                            <div className="row">
                               
                                 {
                                     allProds.length? allProds.map((p) => {

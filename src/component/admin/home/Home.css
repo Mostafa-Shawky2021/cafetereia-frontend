@@ -3,16 +3,37 @@
 }
 .product-admin .toggle-bar {
     background-color: #4e4e4e;
-    width: 60px;
-    height: 60px;
     text-align: center;
     line-height: 4.69;
     position: absolute;
-    right: -60px;
+    width: 40px;
+    height: 40px;
+    right: -40px;
     top: 22px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
+
+@media screen and ( min-width: 576px ) {
+    .product-admin .toggle-bar {
+        width: 60px;
+        height: 60px;
+        right: -60px;
+    }
+} 
+
+.product-admin .toggle-bar .fa.fa-gear{  
+    font-size: 1.7rem;  
+}
+@media screen and ( min-width: 768px ) {
+    .product-admin .toggle-bar .fa.fa-gear{  
+        font-size: 2.1rem;   
+    }
+}
+
 .product-admin .toggle-bar .fa {
     transform-origin: 50% 50% ;
     animation: animate-toggle 3s linear infinite ;
@@ -25,16 +46,49 @@
     border-radius: 0.3125rem;
     text-align: center;
     padding: 42px 18px;
-    width: 399px;
     position: fixed;
-    top: 56px;
+    top: 78px;
     height: 100%;
-    left: -398px;
+    left: -30vw;
     transition: all 0.5s;
     border-right: 1px solid #e7e7e7;
     border-radius: 0px;
+    z-index: 9999;
+    width: 89vw;
+    left: -89vw;    
 }
- 
+
+/* responsive sidebar animation */
+@media screen and ( min-width: 576px ) {
+    .product-admin .products-details  {
+        width: 68vw;
+        left: -68vw;    
+    }
+}
+@media screen and ( min-width: 768px ) {
+    .product-admin .products-details  {
+        width: 60vw;
+        left: -60vw;    
+    }
+}
+@media screen and ( min-width: 900px ) {
+    .product-admin .products-details  {
+        width: 55vw;
+        left: -55vw;    
+    }
+}
+@media screen and ( min-width: 992px ) {
+    .product-admin .products-details  {
+        width: 35vw;
+        left: -35vw;    
+    }
+}
+@media screen and ( min-width: 1170px ) {
+    .product-admin .products-details  {
+        width: 30vw;
+        left: -30vw;    
+    }
+}
 .product-admin .products-details.active-sidebar {
     left: 0px;
 }
@@ -48,6 +102,12 @@
     color: #e5e5e5;
     font-size: 2.2rem;
 }
+@media screen and ( max-width: 768px ) {
+    .product-admin .products-details .title {
+        font-size: 1.8rem;
+        margin-lefT: 0px;
+    }
+}
 .product-admin .products-details th {
     color: #bdbdbd;
     font-weight: 500;
@@ -60,9 +120,23 @@
 }
 .product-admin .products-details td,
 .product-admin .products-details th {
-    padding: 11px 7px;
+   
+    padding: 5px;
     color: #b9b9b9;
     font-weight: 500;
+    text-align: left;
+    font-size: 13px;
+
+}
+
+@media screen and ( min-width: 567px ) {
+    .product-admin .products-details td,
+    .product-admin .products-details th{
+        padding: 11px 7px;  
+        text-align: center;
+        font-size: 1rem;
+    }
+     
 }
 .product-admin .products-details .no-product {
     text-align: left;
@@ -114,11 +188,11 @@
     padding: 20px;
     margin: 0px !important;
 }
-.product-admin .products .product-box {
-    flex: 0 0 calc(100% / 4);
-    transition: all 0.5s;
+
+.product-admin .product-box .card {
+    width: 100% !important;
 }
-.product-admin .products .product-box .product-card {
+.product-admin  .product-box .product-card {
     width: 100% !important;
     box-shadow: 0px 5px 29px rgb(78 54 54 / 35%)
 }
@@ -126,6 +200,7 @@
     margin-left: auto;
     margin-right: 5rem;
 }
+
 .product-admin .odrerItem {
     border-color: #cecbc5;
     border-radius: 30px;
@@ -138,10 +213,14 @@
 .product-admin .total {
     font-weight: 500;
     padding: 0.5rem 0.88rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     letter-spacing: 2px;
 }
-
+@media screen and ( min-width: 576px ) {
+    .product-admin .total {
+        font-size: 1.5rem;
+    }
+}
 .product-admin .product-control {
     color: aliceblue;
     border: none;
@@ -178,6 +257,7 @@
     height: 250px;
     width: 100%;
     padding: 0px !important;
+    object-fit: cover;
     
 }
 .product-card .card-title {
@@ -187,6 +267,8 @@
     text-transform: capitalize;
     letter-spacing: 1px;
     margin-top: 20px;
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 14px;
 }
 .product-card .card-body {
     padding-bottom: 4rem;
@@ -194,9 +276,12 @@
 .product-card .price {
     color: #a7a7a7;
     font-weight: 500;
-    text-align: right;
+    text-align: center;
     font-size: 1rem;
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 12px;
 }
+    
 .product-card .action-add {
     margin-top: 2.5rem
 }
@@ -223,7 +308,3 @@
 
 }
     
-.fa.fa-gear{
-    /* margin-top: 12px; */
-    font-size: 39px;
-}

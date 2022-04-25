@@ -101,10 +101,10 @@ function Login() {
       <div className="login" >
         <div className="container">
           <div className="row">
-            <div className="col-5">
+            <div className=" d-none d-lg-block col-lg-6">
               <div className="image-section"></div>
             </div>
-            <div className="col-7">
+            <div className="col-12  col-md-10 col-lg-6 m-auto ">
               <div className="login-content">
                 <p className="login-text">Log In</p>
                 <form onSubmit={handleSubmit} className=" needs-validation" noValidate>

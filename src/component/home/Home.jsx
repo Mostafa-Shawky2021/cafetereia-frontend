@@ -167,7 +167,7 @@ export default function UserHome(props) {
   }
   return (
     <>
-      <Navbar />
+    <Navbar />
 	  <section className="product-user"> 
 		<div className="container-fluid">
       
@@ -227,7 +227,7 @@ export default function UserHome(props) {
 							/>
 							</FloatingLabel>
 							<label htmlFor="" className="total">
-								Total :{total}
+								Total :{total} <i className="fa fa-coffee"></i>
 							</label>
 							<button className="btn btn-primary btn-confirm" onClick={handleSubmit}>
 								Confirm
@@ -235,13 +235,13 @@ export default function UserHome(props) {
 						</div>
 						: ''
 					}
-					</div>
-					</div> 
+					    </div>
+					  </div> 
 					</div> 
 					
-					<div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>
+					<div className='product-content'>
 					<p className="product-h title text-center">Latest Products</p>
-					<div className="products row">
+					<div className="row">
 						{
               myLastProds.length ?  myLastProds.map((p) => {
                 return (
@@ -257,23 +257,23 @@ export default function UserHome(props) {
 					</div>
 
 					<hr className="product-hr"></hr>
-					<p className="product-h">All Products</p>
-
-					<div className="products row">
-						{
-							allProds.length ? 
-								allProds.map((p) => {
-									return (
-									<ProductCardTemplate
-										key={p.id}
-										product={p}
-										addToOrder={addToOrder}
-									/>
-								)
-									
-								}): <div className="no-products">No products</div>
-						}
-					</div>
+					<p className="product-h text-center">All Products</p>
+     
+          <div className="row">
+            {
+              allProds.length ? 
+                allProds.map((p) => {
+                  return (
+                  <ProductCardTemplate
+                    key={p.id}
+                    product={p}
+                    addToOrder={addToOrder}
+                  />
+                )
+                  
+                }): <div className="no-products">No products</div>
+            }
+          </div>
 				</div>
 			</div>
 		</section>

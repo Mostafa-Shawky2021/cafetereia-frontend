@@ -41,11 +41,10 @@
   text-align: center;
   vertical-align: middle;
 }
-.products-admin .table img {
-  width: 50px;
-  height: 75px;
+.products-admin img {
+  height: 329px;
   object-fit: cover;
-  border-radius: 50%;
+
 }
 .products-admin .table td .btn {
   margin-right: 16px;

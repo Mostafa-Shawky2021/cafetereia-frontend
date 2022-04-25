@@ -40,3 +40,7 @@
 .orders .container-orders td  .orders-status {
   
 }
+
+tr.active{
+  background-color: #a5a5a5 !important;
+}

@@ -27,18 +27,36 @@ function OrderCard({orderProd, quantity, price}) {
   }, [])
 
   return (
-    <Card style={{margin: "10px", display: "inline-block" }} className="col col-md-6 col-lg-4 col-sm-12">
-      <Card.Img variant="top" src={product.avatar} />
-      <Card.Body>
-        <Card.Title>{product?.name}</Card.Title>
-        <Card.Text style={{ color: "#4e4e4e" }}>
-        {quantity}
-        </Card.Text>
-      </Card.Body>
-      <ListGroup className="list-group-flush">
-        <ListGroupItem>{price}</ListGroupItem>
-      </ListGroup>
+    <div className="col-12 col-md-6 col-lg-4" style={{marginBottom: "10px"}}>
+      <div className="container">
+    <Card style={{height: "100%"}} >
+        <Card.Img variant="top" src={product.avatar} />
+        <Card.Body>
+            <Card.Title>{product.name}</Card.Title>
+            <ListGroup variant="flush">
+                <ListGroup.Item></ListGroup.Item>
+                <ListGroup.Item>Quantity: {quantity}</ListGroup.Item>
+                <ListGroup.Item>Price: {price}$</ListGroup.Item>
+                <ListGroup.Item></ListGroup.Item>
+            </ListGroup>
+        </Card.Body>
     </Card>
-  );
+    </div>
+    </div>  
+  )
+  // return (
+  //   <Card style={{margin: "10px", display: "inline-block" }} className="col col-md-6 col-lg-4 col-sm-12">
+  //     <Card.Img variant="top" src={product.avatar} />
+  //     <Card.Body>
+  //       <Card.Title>{product?.name}</Card.Title>
+  //       <Card.Text style={{ color: "#4e4e4e" }}>
+  //       {quantity}
+  //       </Card.Text>
+  //     </Card.Body>
+  //     <ListGroup className="list-group-flush">
+  //       <ListGroupItem>{price}</ListGroupItem>
+  //     </ListGroup>
+  //   </Card>
+  // );
 }
 export default OrderCard;

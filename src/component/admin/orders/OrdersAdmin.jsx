@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import NavbarAdmin from "../navbar/NavbarAdmin";
 import "./orders.css";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
@@ -6,26 +6,46 @@ import Breadcrumb from "../breadcrumb/Breadcrumb";
 import useToken from "../../../utils/hooks/useToken";
 import {
   changeOrderStatusAPI,
+  getAllUsers,
   getOrderProductsOfOrder,
   getOrdersWithClientNameAPI,
 } from "../../../api/index2";
 import { useEffect, useState } from "react";
 import ProductArea from "../../orders/productArea/ProductArea";
+import ShowOrderDetails from "./showOrderDetails/ShowOrderDetails";
 
 const OrdersAdmin = () => {
   const { token } = useToken();
+  const [show, setShow] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [ordersFiltered, setOrdersFiltered] = useState([]);
   const [orderProducts, setOrderProducts] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  const [activeOrder, setActiveOrder] = useState(0);
 
   useEffect(() => {
     getOrdersWithClientName();
+    getAllUsersSelect();
   }, []);
 
+  const getAllUsersSelect = () => {
+    getAllUsers(token)
+      .then((res) => {
+        console.log(res.data);
+        setUsers(res.data.response.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   const getOrdersWithClientName = async () => {
     await getOrdersWithClientNameAPI(token)
       .then((res) => {
         console.log(res.data);
         setOrders(res.data.response.result);
+        setOrdersFiltered(res.data.response.result);
+
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +59,7 @@ const OrdersAdmin = () => {
         setOrders(
           orders.map((order) => {
             if (order.id === id) {
-              order.status = status;
+              order.status = status+"";
             }
             return order;
           })
@@ -55,10 +75,17 @@ const OrdersAdmin = () => {
       .then((res) => {
         console.log(res.data);
         setOrderProducts(res.data.response.result);
+        setActiveOrder(id);
+        setShow(true);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleFilter = (e) => {
+    const { value } = e.target;
+    value? setOrdersFiltered(orders.filter((order) => order.customer_id === value)) : setOrdersFiltered(orders);
   };
 
   return (
@@ -66,8 +93,25 @@ const OrdersAdmin = () => {
       <NavbarAdmin />
       <section className="orders">
         <div className="container-orders">
-          <div style={{ textAlign: "right", marginBottom: "10px" }}></div>
-          <h3 className="title">Orders</h3>
+          <div style={{ textAlign: "right", marginBottom: "10px" }}>
+            <h3 className="title text-center">Orders</h3>
+            <div class="text-center" style={{ marginBottom: "10px" }}>
+              <div class="row justify-content-center" style={{margin: 0}}>
+                <div class="col-12 col-sm-4" style={{marginBottom: "5px"}}>
+                    <select class="form-select" onChange={handleFilter} >
+                      <option selected value="">All</option>
+                      {
+                        users.map((user, index) => (
+                          <option key={index} value={user.id}>{user.name}</option>
+                        ))
+                      }
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ShowOrderDetails show={show} setShow={setShow} prods={orderProducts}/>
+
           <Table striped bordered hover size="sm" className="table">
             <thead>
               <tr>
@@ -79,36 +123,37 @@ const OrdersAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
-                <tr key={index} onClick={() => getProdsOrder(order.id)}>
+              {ordersFiltered.length? ordersFiltered.map((order, index) => (
+                <tr className={activeOrder === order.id? 'active' : ''} key={index} onClick={() => getProdsOrder(order.id)}>
                   <td>{order.date}</td>
                   <td>{order.name}</td>
                   <td>
-                    {order.status === 0
+                    {order.status === "0"
                       ? "Not Yet"
-                      : order.status === 1
+                      : order.status === "1"
                       ? "Processing"
                       : "Delivered"}
                   </td>
                   <td>{order.price}</td>
                   <td>
-                    {order.status === 0 ? (
-                      <button onClick={() => changeOrderStatus(order.id, 1)}>
-                        Process
-                      </button>
-                    ) : order.status === 1 ? (
-                      <button onClick={() => changeOrderStatus(order.id, 2)}>
-                        Deliver
-                      </button>
+                    {order.status === "0" ? (
+                      <Button onClick={() => changeOrderStatus(order.id, 1)} variant="warning">Process</Button>
+                    ) : order.status === "1" ? (
+                      <Button onClick={() => changeOrderStatus(order.id, 2)} variant="success">Deliver</Button>
                     ) : (
                       <span className="orderspan">Delivered</span>
                     )}
                   </td>
                 </tr>
-              ))}
+              )): <tr><td colSpan="5">
+                <h3 className='text-center' style={{ margin: "40px auto", color: "#BBB"}}>There is No Products At This Order</h3>  
+              </td></tr>
+              
+              }
             </tbody>
+              
           </Table>
-          <ProductArea prods={orderProducts} />
+          {/* <ProductArea prods={orderProducts} /> */}
         </div>
       </section>
     </>

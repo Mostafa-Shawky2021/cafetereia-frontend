@@ -1,10 +1,11 @@
 .products-admin {
-  padding-top: 3rem;
   padding-bottom: 3rem;
+  width: 100%;
+  margin: 22px auto;
 }
 .products-admin .container-products {
-  max-width: 1000px;
-  margin: auto;
+  width: 100%;
+  margin: 0 auto;
 }
 .products-admin .btn.add {
   background-color: #4e4e4e !important;
@@ -18,8 +19,11 @@
   color: #4e4e4e;
   font-weight: bold;
   font-size: 40px;
+  text-shadow: -4px 5px 2px #ccc;
   text-transform: capitalize;
+  border-bottom: 1px solid #CCC;
   margin-bottom: 2rem;
+  padding: 11px;
 }
 .products-admin .table {
   background-color: #fff;

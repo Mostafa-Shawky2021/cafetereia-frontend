@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getAllChecksByDate, getAllUserswithTotalChecks, getOrderProducts, getOrderProductsOfOrder, getUserOrders } from "../../../api/index2";
 import useToken from "../../../utils/hooks/useToken";
 import ProductArea from "../../orders/productArea/ProductArea";
+import ShowOrderDetails from "../orders/showOrderDetails/ShowOrderDetails";
 const Checks = ()=> {
 
     const {token} = useToken();
@@ -23,6 +24,8 @@ const Checks = ()=> {
     const [selectedUser, setSelectedUser] = useState('');
     const [selectedUserOrder, setSelectedUserOrder] = useState({});
     
+    const [show, setShow] = useState(false);
+
 
     useEffect(() => {
         getUsers();
@@ -77,8 +80,10 @@ const Checks = ()=> {
     const getProdsOrder = async () => {
         await getOrderProductsOfOrder(selectedUserOrder.id, token)
         .then((res) => {
-          console.log(res.data);
-          setOrderProducts(res.data.response.result);
+            console.log(res.data);
+            setOrderProducts(res.data.response.result);
+            setShow(true);
+
         })
         .catch((err) => {
           console.log(err);
@@ -89,53 +94,46 @@ const Checks = ()=> {
     return (
         <>
             <NavbarAdmin />
-            
+            <ShowOrderDetails show={show} setShow={setShow} prods={orderProducts}/>
             <section className="checks">
                 <div className="checks-container">
-                    
-                    <h2 className="title">Checks</h2>
-                    <div className="form">
-                        <form>
-                            <div className="data row justify-content-center">
-                                <div className="col-3">
-                                    <input 
-                                        type="date" 
-                                        name="date-from" 
-                                        className="form-control" 
-                                        onChange={(e) => setDateStart(e.target.value)}
-                                    />
-                                </div>
-                                <div className="col-3">
-                                    <input 
-                                        type="date" 
-                                        name="date-to"  
-                                        className="form-control col-md-3"
-                                        onChange={(e) => setDateEnd(e.target.value)}
-                                    />
-                                </div>
-                                
-                            </div>
-                            <div className="users mt-5  m-auto col-2">
-                                <select name="user " className="form-select" onChange={(e) => setSelectedUser(e.target.value)}>
-                                    <option option="">...</option>
-                                    {
-                                        allUsers && allUsers.map((user, index) => {
-                                            return (
-                                                <option key={index} value={user.id}>{user.name}</option>
-                                            )
-                                        })
-                                    }
-                                    <option option="samar">Samar</option>
-                                    <option option="samar">Bola</option>
-                                    <option option="samar">Nehal</option>
-                                </select>
-                            </div>
-                        </form>
+                <div style={{ textAlign: "right", marginBottom: "10px" }}>
+                    <h3 className="title text-center">Checks</h3>
+                    <div class="text-center" style={{ marginBottom: "10px" }}>
+                    <div class="row justify-content-center" style={{margin: 0}}>
+                        <div class="col-12 col-sm-4" style={{marginBottom: "5px"}}>
+                            <select class="form-select" onChange={(e) => setSelectedUser(e.target.value)} >
+                                <option selected value="">All</option>
+                                {
+                                    allUsers && allUsers.map((user, index) => (<option key={index} value={user.id}>{user.name}</option>))
+                                }
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            {/* <label class="form-label">From</label> */}
+                            <input 
+                                type="date" 
+                                name="date-from" 
+                                className="form-control" 
+                                onChange={(e) => setDateStart(e.target.value)}
+                            />
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            {/* <label class="form-label">To</label> */}
+                            <input 
+                                type="date" 
+                                name="date-to"  
+                                className="form-control col-md-3"
+                                onChange={(e) => setDateEnd(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <div className="table-checks row">
+                    </div>
+                </div>
+                    <div className="table-checks row container-fluid"  style={{margin: 0}}>
                         <div className="col-12">
-                            <Table striped bordered hover>
-                                <thead>
+                            <table class="table table-bordered table-hover">
+                                <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
                                         <th>User</th>
@@ -146,21 +144,21 @@ const Checks = ()=> {
                                     {
                                         allUsers && allUsers.map((user, index) => {
                                             return (
-                                                <tr key={index} onClick={() => setSelectedUser(user.id)}>
-                                                    <td>{index + 1}</td>
+                                                <tr className={selectedUser === user.id? 'active' : ''} key={index} onClick={() => setSelectedUser(user.id)}>
+                                                    <th scope="row">{index + 1}</th>
                                                     <td>{user.name}</td>
-                                                    <td>{user.total}</td>
+                                                    <td>{user.total}$</td>
                                                 </tr>
                                             )
                                         })
                                     }
                                 </tbody>
-                            </Table>
+                            </table>
                         </div>
 
                         <div className="col-12">
-                            <Table striped bordered hover>
-                                <thead>
+                            <table class="table table-bordered table-hover">
+                                <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
                                         <th>Order Date</th>
@@ -171,42 +169,21 @@ const Checks = ()=> {
                                     {
                                         allChecks && allChecks.map((check, index) => {
                                             return (
-                                                <tr key={index} onClick={() => setSelectedUserOrder(check)}>
-                                                    <td>{index + 1}</td>
+                                                <tr className={selectedUserOrder.id === check.id? 'active' : ''} key={index} onClick={() => setSelectedUserOrder(check)}>
+                                                    <th scope="row">{index + 1}</th>
                                                     <td>{check.date}</td>
-                                                    <td>{check.price}</td>
+                                                    <td>{check.price}$</td>
                                                 </tr>
                                             )
                                         })
                                     }
                                 </tbody>
-                            </Table>
+                            </table>
                         </div>
 
                         <div className="col-12">
                             <ProductArea prods={orderProducts}/>
                         </div>
-
-                        {/* Head
-                        <div className="col-6 head">Name</div>
-                        <div className="col-6 head">Total Amount</div>
-
-                        {/* Data here */}
-                        {/* <div className="wrapper">
-                            <div className="user-details">
-                                <div className="col-6 body"><i className="fa fa-plus"></i> Mostafa</div>
-                                <div className="col-6 body">110</div>
-                            </div>
-                            <div >
-                                <div className="col-6 head">Order Date</div>
-                                <div className="col-6 head">Amount</div>
-                                <div className="col-6 body"><i className="fa fa-plus"></i> 2020-10-20</div>
-                                <div className="col-6 body">55EGB</div>  
-                            </div>  
-                        </div>
-                        <div className="col-6 body"><i className="fa fa-plus"></i> Bola</div>
-                        <div className="col-6 body">50</div>  */}
-
                     </div>
                 </div>
             </section>

@@ -44,3 +44,13 @@
     color: #cbc9c9;
     text-decoration: none;
 }
+
+.navbar-toggler {
+  position: relative;
+  padding-bottom: 14px !important;
+}
+
+.navbar-toggler .navbar-toggler-icon{
+  position: relative;
+  margin: 0 auto;
+}

@@ -108,7 +108,7 @@ export const getAllProds = async (token) => {
 
 export const getUserLastOrderProds = async (id, token) => {
   console.log(token);
-  return axios.post(`${domain}/Cafetria2/api/v1/order/`, {
+  return axios.post(`${domain}/api/v1/order/`, {
     name: "getProductsDetailsOfLastOrderByClientId",
     param: { customer_id: id },
   },{

@@ -169,6 +169,7 @@ const AddProduct = () => {
     await updateProductAvatar(id, formData, token)
       .then((res) => {
         console.log(res.data);
+        window.location.href = "/products";
         setShowLoading(false);
       })
       .catch((err) => {
@@ -184,8 +185,10 @@ const AddProduct = () => {
         console.log(avatar);
         if (avatar.name) {
           uploadTheAvatar(prodId);
+        } else {
+          setShowLoading(false);
         }
-        setShowLoading(false);
+        // setShowLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -198,7 +201,7 @@ const AddProduct = () => {
     if (producterr || priceerr || cateogryerr) {
       setShowAlert(true);
     } else {
-      setShowLoading(false);
+      setShowLoading(true);
 
       const data = {
         name: nameInput,
@@ -213,7 +216,7 @@ const AddProduct = () => {
         console.log("add");
         addProd(data);
       }
-      navigate('/products');
+      // navigate('/products');
       // window.location.href = "/products";
     }
   };

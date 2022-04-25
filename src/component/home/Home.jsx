@@ -51,6 +51,7 @@ export default function UserHome(props) {
   };
   const getMyLastOrderProducts = async (id) => {
     console.log(myData);
+    console.log(id);
     await getUserLastOrderProds(id, token)
       .then((res) => {
         console.log(res.data);
@@ -169,7 +170,8 @@ export default function UserHome(props) {
       <Navbar />
 	  <section className="product-user"> 
 		<div className="container-fluid">
-				<div className="row g-0">
+      
+        <div className="row g-0">
 					<div className="col-4">
 						<div className={ ( toggle ? 'active-sidebar' : '' ) + ' products-details'}>
 							<div className="toggle-bar" onClick={handleToggle}>
@@ -235,23 +237,23 @@ export default function UserHome(props) {
 					}
 					</div>
 					</div> 
-						</div> 
+					</div> 
 					
 					<div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>
-					<p className="product-h">Latest Products</p>
+					<p className="product-h title text-center">Latest Products</p>
 					<div className="products row">
 						{
-						myLastProds.length ?  myLastProds.map((p) => {
-							return (
-							<ProductCardTemplate
-								key={p.id}
-								product={p}
-								addToOrder={addToOrder}
-							/>
-							);
-					
-							}) : <div className="no-products">No products</div>
-						}
+              myLastProds.length ?  myLastProds.map((p) => {
+                return (
+                <ProductCardTemplate
+                  key={p.id}
+                  product={p}
+                  addToOrder={addToOrder}
+                />
+                );
+            
+              }): <h3 className='text-center' style={{ margin: "40px auto", color: "#BBB"}}>There is No Past Products</h3>
+            }
 					</div>
 
 					<hr className="product-hr"></hr>
@@ -267,8 +269,7 @@ export default function UserHome(props) {
 										product={p}
 										addToOrder={addToOrder}
 									/>
-									
-									)
+								)
 									
 								}): <div className="no-products">No products</div>
 						}

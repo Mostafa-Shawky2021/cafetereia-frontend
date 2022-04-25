@@ -8,16 +8,20 @@ import Footer from "../footer/Footer";
 import useToken from "../../utils/hooks/useToken";
 import { verifyClientRole, getUserOrders, cancelOrder, getOrderProductsOfOrder, getAllChecksByDate } from "../../api/index2";
 import ProductArea from "./productArea/ProductArea";
+import ShowOrderDetails from "../admin/orders/showOrderDetails/ShowOrderDetails";
 
 const Orders = () => {
 
   const { token } = useToken();
+  const [show, setShow] = useState(false);
   const [orders, setOrders] = useState([]);
   const [orderId, setOrderId] = useState(null);
   const [orderProducts, setOrderProducts] = useState([]);
 
   const [dateStart, setDateStart] = useState('');
   const [dateEnd, setDateEnd] = useState('');
+
+  const [activeOrder, setActiveOrder] = useState(0);
 
   useEffect(() => {
     getMyData();
@@ -54,6 +58,7 @@ const Orders = () => {
         .then((res) => {
           console.log(res.data);
           setOrders(res.data.response.result);
+          setActiveOrder(id);
         })
         .catch((err) => {
           console.log(err);
@@ -85,6 +90,7 @@ const Orders = () => {
     .then((res) => {
       console.log(res.data);
       setOrderProducts(res.data.response.result);
+      setShow(true);
     })
     .catch((err) => {
       console.log(err);
@@ -116,6 +122,9 @@ const Orders = () => {
       <section className="orders">
         <div className="container-orders">
           <h2 className="title text-center">My Orders</h2>
+
+          <ShowOrderDetails show={show} setShow={setShow} prods={orderProducts}/>
+
           <Table striped bordered hover size="sm">
             <thead>
               <tr>
@@ -127,7 +136,7 @@ const Orders = () => {
             </thead>
             <tbody>
             {orders.length? orders.map((order, index) => (
-                <tr key={index} onClick={() => getProdsOrder(order.id)}>
+                <tr className={activeOrder === order.id && 'active'} key={index} onClick={() => getProdsOrder(order.id)}>
                   <td>{order.date}</td>
                   <td>
                     {order.status === "0"
@@ -149,7 +158,7 @@ const Orders = () => {
               }
             </tbody>
           </Table>
-          <ProductArea prods={orderProducts}/>
+          {/* <ProductArea prods={orderProducts}/> */}
         </div>
       </section>
       <Footer />

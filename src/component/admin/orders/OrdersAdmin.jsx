@@ -22,6 +22,8 @@ const OrdersAdmin = () => {
   const [orderProducts, setOrderProducts] = useState([]);
   const [users, setUsers] = useState([]);
 
+  const [activeOrder, setActiveOrder] = useState(0);
+
   useEffect(() => {
     getOrdersWithClientName();
     getAllUsersSelect();
@@ -73,6 +75,7 @@ const OrdersAdmin = () => {
       .then((res) => {
         console.log(res.data);
         setOrderProducts(res.data.response.result);
+        setActiveOrder(id);
         setShow(true);
       })
       .catch((err) => {
@@ -121,7 +124,7 @@ const OrdersAdmin = () => {
             </thead>
             <tbody>
               {ordersFiltered.length? ordersFiltered.map((order, index) => (
-                <tr key={index} onClick={() => getProdsOrder(order.id)}>
+                <tr className={activeOrder === order.id? 'active' : ''} key={index} onClick={() => getProdsOrder(order.id)}>
                   <td>{order.date}</td>
                   <td>{order.name}</td>
                   <td>

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { getAllChecksByDate, getAllUserswithTotalChecks, getOrderProducts, getOrderProductsOfOrder, getUserOrders } from "../../../api/index2";
 import useToken from "../../../utils/hooks/useToken";
 import ProductArea from "../../orders/productArea/ProductArea";
+import ShowOrderDetails from "../orders/showOrderDetails/ShowOrderDetails";
 const Checks = ()=> {
 
     const {token} = useToken();
@@ -23,6 +24,8 @@ const Checks = ()=> {
     const [selectedUser, setSelectedUser] = useState('');
     const [selectedUserOrder, setSelectedUserOrder] = useState({});
     
+    const [show, setShow] = useState(false);
+
 
     useEffect(() => {
         getUsers();
@@ -77,8 +80,10 @@ const Checks = ()=> {
     const getProdsOrder = async () => {
         await getOrderProductsOfOrder(selectedUserOrder.id, token)
         .then((res) => {
-          console.log(res.data);
-          setOrderProducts(res.data.response.result);
+            console.log(res.data);
+            setOrderProducts(res.data.response.result);
+            setShow(true);
+
         })
         .catch((err) => {
           console.log(err);
@@ -89,7 +94,7 @@ const Checks = ()=> {
     return (
         <>
             <NavbarAdmin />
-            
+            <ShowOrderDetails show={show} setShow={setShow} prods={orderProducts}/>
             <section className="checks">
                 <div className="checks-container">
                 <div style={{ textAlign: "right", marginBottom: "10px" }}>
@@ -139,7 +144,7 @@ const Checks = ()=> {
                                     {
                                         allUsers && allUsers.map((user, index) => {
                                             return (
-                                                <tr key={index} onClick={() => setSelectedUser(user.id)}>
+                                                <tr className={selectedUser === user.id? 'active' : ''} key={index} onClick={() => setSelectedUser(user.id)}>
                                                     <th scope="row">{index + 1}</th>
                                                     <td>{user.name}</td>
                                                     <td>{user.total}$</td>
@@ -164,7 +169,7 @@ const Checks = ()=> {
                                     {
                                         allChecks && allChecks.map((check, index) => {
                                             return (
-                                                <tr key={index} onClick={() => setSelectedUserOrder(check)}>
+                                                <tr className={selectedUserOrder.id === check.id? 'active' : ''} key={index} onClick={() => setSelectedUserOrder(check)}>
                                                     <th scope="row">{index + 1}</th>
                                                     <td>{check.date}</td>
                                                     <td>{check.price}$</td>

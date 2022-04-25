@@ -152,9 +152,11 @@ export default function Home(props) {
                     <div className="row g-0">
                         <div className="col-4">
                             <div className={ ( toggle ? 'active-sidebar' : '' ) + ' products-details'}>
+                                
                                 <div className="toggle-bar" onClick={handleToggle}>
                                     <i class="fa fa-gear"></i> 
                                 </div>  
+                                
                                 <h1 className='title'>Orders</h1>
                                 <div className="table-responsive">
                                     <table className="table-product w-100">
@@ -214,13 +216,26 @@ export default function Home(props) {
                         </div>
 
                         <div className={ (toggle ? 'active-content' : '') + ' product-content'} product-content>
-                            <Form.Select aria-label="Default select example" name="users" onChange={changeUserHandling}>
+                        <div class="text-center" style={{ marginBottom: "10px" }}>
+                            <div class="row justify-content-center" style={{margin: 0}}>
+                                <div class="col-12 col-sm-4" style={{marginBottom: "5px"}}>
+                                    <Form.Select class="form-select" aria-label="Default select example" name="users" onChange={changeUserHandling}>
+                                    {
+                                        allUsers.map((user, index) => (
+                                            <option value={user.id}>{user.name}</option>
+                                        ))
+                                    }
+                                    </Form.Select>
+                                </div>
+                            </div>
+                        </div>
+                            {/* <Form.Select aria-label="Default select example" name="users" onChange={changeUserHandling}>
                                 {
                                     allUsers.map((user, index) => (
                                         <option value={user.id}>{user.name}</option>
                                     ))
                                 }
-                            </Form.Select>
+                            </Form.Select> */}
                             <div className="products row">
                               
                                 {
@@ -232,7 +247,10 @@ export default function Home(props) {
                                                 addToOrder={addToOrder}
                                             />
                                         )
-                                    }): <div className="no-products">No products</div>
+                                    }): <h3 className='text-center' style={{ margin: "40px auto", color: "#BBB"}}>There is No Products</h3>
+
+                                    // <h3 className='text-center' style={{ margin: "40px auto", color: "#BBB"}}>There is No Products At This Order</h3>  
+
                                 }
                             </div> 
                         </div>

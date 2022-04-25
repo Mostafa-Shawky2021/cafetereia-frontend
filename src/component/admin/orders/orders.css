@@ -60,3 +60,6 @@
   position: static !important;
   color: #7a7a7a;
 }
+tr.active{
+  background-color: #a5a5a5 !important;
+}

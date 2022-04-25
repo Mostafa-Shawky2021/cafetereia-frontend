@@ -57,3 +57,6 @@
     transform: scaleY(1);
     height: auto;
 }
+tr.active{
+    background-color: #a5a5a5 !important;
+}

@@ -1,11 +1,14 @@
 import "./navbar.css";
 // import logo from "../../assests/img/nav-logo-0١.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import React from "react";
 import useToken from "../../utils/hooks/useToken";
 
 function Navbar() {
   const { token } = useToken();
+  const location = useLocation();
+  const path = location.pathname;
+
   return (
     <nav
       className="navbar navbar-expand-lg  navbar-light customize-navbar justify-content-between"
@@ -31,12 +34,12 @@ function Navbar() {
         {token && (
           <ul className="navbar-nav ms-auto me-auto">
             <li className="nav-item">
-              <NavLink className="nav-link active" to="/userhome">
+              <NavLink className={`nav-link ${(path === "/" || path === "/userhome") && 'active'}`} to="/userhome">
                 Home <span className="sr-only">(current)</span>
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/orders">
+              <NavLink className={`nav-link ${( path === "/orders") && 'active'}`} to="/orders">
                 Myorders
               </NavLink>
             </li>            

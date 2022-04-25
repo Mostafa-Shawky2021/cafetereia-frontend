@@ -3,13 +3,13 @@
 }
 .product-admin .toggle-bar {
     background-color: #4e4e4e;
-    width: 32px;
-    height: 29px;
+    width: 60px;
+    height: 60px;
     text-align: center;
-    line-height: 31px;
+    line-height: 4.69;
     position: absolute;
-    right: -32px;
-    top: 63px;
+    right: -60px;
+    top: 22px;
     cursor: pointer;
 
 }
@@ -123,12 +123,10 @@
     box-shadow: 0px 5px 29px rgb(78 54 54 / 35%)
 }
 .product-admin .product-content .form-select {
-    width: 30%;
     margin-left: auto;
     margin-right: 5rem;
 }
 .product-admin .odrerItem {
-
     border-color: #cecbc5;
     border-radius: 30px;
     display: flex;
@@ -225,3 +223,7 @@
 
 }
     
+.fa.fa-gear{
+    /* margin-top: 12px; */
+    font-size: 39px;
+}

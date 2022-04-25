@@ -37,7 +37,9 @@ const Orders = () => {
     .then((res) => {
         console.log(res.data.response.result);
         // setMyData(res.data.response.result);
+  
         if(dateStart && dateEnd){
+       
           getOrders(res.data.response.result.id, dateStart, dateEnd);
         }else{
           getOrders(res.data.response.result.id);

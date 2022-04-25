@@ -19,8 +19,12 @@
 .orders .title {
   color: #4e4e4e;
   font-weight: bold;
+  font-size: 40px;
+  text-shadow: -4px 5px 2px #ccc;
   text-transform: capitalize;
+  border-bottom: 1px solid #CCC;
   margin-bottom: 2rem;
+  padding: 11px;
 }
 .orders .table {
   background-color: #fff;

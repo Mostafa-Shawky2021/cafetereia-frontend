@@ -1,0 +1,10 @@
+.modal-90w{
+    margin-top: 80px;
+}
+@media screen and (min-width: 576px) {
+    .modal-dialog {
+        max-width: 90% !important;
+        margin: 1.75rem auto;
+    }
+}
+

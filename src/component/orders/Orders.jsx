@@ -1,11 +1,11 @@
 import "./orders.css";
 import { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import Footer from "../footer/Footer";
 // import OrderCard from "./orderCard/OrderCard";
 
-import useToken from "../../utils/hooks/useIsAdmin";
+import useToken from "../../utils/hooks/useToken";
 import { verifyClientRole, getUserOrders, cancelOrder, getOrderProductsOfOrder, getAllChecksByDate } from "../../api/index2";
 import ProductArea from "./productArea/ProductArea";
 
@@ -35,7 +35,7 @@ const Orders = () => {
   const getMyData = async () => {
     await verifyClientRole(token)
     .then((res) => {
-        console.log(res.data.response.result);
+        console.log(res.data.response);
         // setMyData(res.data.response.result);
         if(dateStart && dateEnd){
           getOrders(res.data.response.result.id, dateStart, dateEnd);
@@ -115,7 +115,7 @@ const Orders = () => {
         </div>
       <section className="orders">
         <div className="container-orders">
-          <h2 className="title">My Orders</h2>
+          <h2 className="title text-center">My Orders</h2>
           <Table striped bordered hover size="sm">
             <thead>
               <tr>
@@ -126,66 +126,27 @@ const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              {
-                orders.map((order, index) => (
-                  <tr key={index} onClick={() => getProdsOrder(order.id)}>
-                    <td>{order.date}</td>
-                    <td>{order.status == 0? 'Not Yet' : order.status == 1? 'Processing': 'Delivered'}</td>
-                    <td>{order.price}</td>
-                    <td>{order.status == 0? <button className="btn btn-primary" onClick={() => cancelOrderHandle(order.id)}>Cancel</button> : ''}</td>
-                  </tr>
-                ))
+            {orders.length? orders.map((order, index) => (
+                <tr key={index} onClick={() => getProdsOrder(order.id)}>
+                  <td>{order.date}</td>
+                  <td>
+                    {order.status === "0"
+                      ? "Not Yet"
+                      : order.status === "1"
+                      ? "Processing"
+                      : "Delivered"}
+                  </td>
+                  <td>{order.price}</td>
+                  <td>
+                    {order.status === "0" ? (
+                      <Button onClick={() => cancelOrderHandle(order.id)} variant="danger">Cancel</Button>
+                    ) : ''}
+                  </td>
+                </tr>
+              )): <tr><td colSpan="5">
+                <h3 className='text-center' style={{ margin: "40px auto", color: "#BBB"}}>There is No Products At This Order</h3>  
+              </td></tr>
               }
-              {/* <tr>
-                <td>2021/05/03 12:10</td>
-                <td>Success</td>
-                <td>1</td>
-                <td>Action</td>
-              </tr>
-              <tr>
-                <td style={{ border: "none", width: "20px" }}>
-                  <OrderCard />
-                </td>
-              </tr>
-              <tr>
-                <td>2021/05/03 12:10</td>
-                <td>Failed</td>
-                <td>4</td>
-                <td>Action</td>
-              </tr>
-              <tr>
-                <td style={{ border: "none", width: "20px" }}>
-                  <OrderCard />
-                </td>
-                <td style={{ border: "none", width: "20px" }}>
-                  <OrderCard />
-                </td>
-                <td style={{ border: "none", width: "20px" }}>
-                  <OrderCard />
-                </td>
-              </tr>
-
-              <tr>
-                <td>2021/05/03 12:10</td>
-                <td>Success</td>
-                <td>5</td>
-                <td>Action</td>
-              </tr>
-              <tr>
-                <td style={{ border: "none", width: "20px" }}>
-                  <OrderCard />
-                </td>
-                <td style={{ border: "none", width: "20px" }}>
-                  <OrderCard />
-                </td>
-              </tr>
-
-              <tr>
-                <td>2021/05/03 12:10</td>
-                <td>Processing</td>
-                <td>Amount</td>
-                <td>Action</td>
-              </tr> */}
             </tbody>
           </Table>
           <ProductArea prods={orderProducts}/>

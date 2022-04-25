@@ -8,17 +8,23 @@ import {
   changeProductStatus,
   getAllProds,
   deleteProduct,
+  getCategories,
 } from "../../../api/index2";
 import { useEffect, useState } from "react";
 
 import useToken from "../../../utils/hooks/useToken";
+import Sidebar from "../sidebar/Sidebar";
+import Tableofproducts from "./table/TableOfProducts";
 
 const Product = () => {
   const { token } = useToken();
   const [allProds, setAllProds] = useState([]);
+  const [allFiltered, setFiltered] = useState([]);
+  const [allCats, setAllCats] = useState([]);
 
   useEffect(() => {
     getAllProducts();
+    getAllCategories();
   }, []);
 
   const getAllProducts = async () => {
@@ -26,11 +32,23 @@ const Product = () => {
       .then((res) => {
         console.log(res.data);
         setAllProds(res.data.response.result);
+        setFiltered(res.data.response.result);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  const getAllCategories = async () => {
+    await getCategories(token)
+      .then((res) => {
+        console.log(res.data);
+        setAllCats(res.data.response.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 
   const toggleStatus = async (id) => {
     const status = allProds.find((prod) => prod.id === id).status;
@@ -39,6 +57,14 @@ const Product = () => {
       .then((res) => {
         setAllProds(
           allProds.map((prod) => {
+            if (prod.id === id) {
+              prod.status = -prod.status;
+            }
+            return prod;
+          })
+        );
+        setFiltered(
+          allFiltered.map((prod) => {
             if (prod.id === id) {
               prod.status = -prod.status;
             }
@@ -55,10 +81,16 @@ const Product = () => {
     await deleteProduct(id, token)
       .then((res) => {
         setAllProds(allProds.filter((prod) => prod.id !== id));
+        setFiltered(allFiltered.filter((prod) => prod.id !== id));
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleFilter = (e) => {
+    const { value } = e.target;
+    value? setFiltered(allProds.filter((prod) => prod.cat_id === value)) : setFiltered(allProds);
   };
 
   return (
@@ -66,59 +98,33 @@ const Product = () => {
       <NavbarAdmin />
       <section className="products-admin">
         <div className="container-products">
-          <h3 className="title">Products</h3>
-          <div style={{ textAlign: "right", marginBottom: "10px" }}>
-            <NavLink className="btn btn-primary add" to="/addproduct">
-              <i className="fa fa-plus"></i>Add product
-            </NavLink>
+          <h3 className="title text-center">Products</h3>
+          <div class="text-center" style={{ marginBottom: "10px" }}>
+            <div class="row justify-content-center" style={{margin: 0}}>
+              <div class="col-12 col-sm-4" style={{marginBottom: "5px"}}>
+                  <select class="form-select" onChange={handleFilter} >
+                    <option selected value="">All</option>
+                    {
+                      allCats.map((cat, index) => (
+                        <option key={index} value={cat.id}>{cat.name}</option>
+                      ))
+                    }
+                  </select>
+              </div>
+              <div class="col-12 col-sm-4">
+                <NavLink className="btn btn-primary add d-block" to="/addproduct">
+                  <i className="fa fa-plus"></i>Add product
+                </NavLink>
+              </div>
+            </div>
+            
           </div>
-          <Table striped bordered hover size="sm">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allProds.map((prod, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{prod.name}</td>
-                    <td>{prod.price}</td>
-                    <td>
-                      <img
-                        src={prod.avatar}
-                        alt=""
-                        style={{ width: "100px" }}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => toggleStatus(prod.id)}
-                      >
-                        {prod.status > 0 ? "Available" : "UnAvailable"}
-                      </button>
-                      <NavLink
-                        className="btn btn-primary"
-                        to={`/editproduct/${prod.id}`}
-                      >
-                        <i className="fa fa-edit"></i>
-                      </NavLink>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => deleteProductHandle(prod.id)}
-                      >
-                        <i className="fa fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+          
+          <div className="row container-fluid" style={{margin: 0}}>
+            <div className="col-12">
+              <Tableofproducts allProds={allFiltered} toggleStatus={toggleStatus} deleteProductHandle={deleteProductHandle}/>
+            </div>
+          </div>
         </div>
       </section>
     </>

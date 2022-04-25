@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import useToken from "../../../utils/hooks/useToken";
 import { getAllUsers } from "../../../api/index2";
 import { deleteUser } from "../../../api/userAPI";
+import UsersCollection from "./table/UsersCollection";
 
 const Users = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -45,14 +46,24 @@ const Users = () => {
       <NavbarAdmin />
       <section className="users">
         <div className="container-user">
-          <h1 className="title">users</h1>
-
-          <div style={{ textAlign: "right", marginBottom: "10px" }}>
-            <NavLink className="btn btn-primary add" to="/adduser">
-              <i className="fa fa-plus"></i> Add users
-            </NavLink>
+          <h1 className="title text-center">users</h1>
+          <div class="text-center" style={{ marginBottom: "10px" }}>
+            <div class="row justify-content-center" style={{margin: 0}}>
+              <div class="col-4 col-sm-4">
+                <NavLink className="btn btn-primary add d-block" to="/adduser">
+                  <i className="fa fa-plus"></i> Add Users
+                </NavLink>
+              </div>
+            </div>
+            
           </div>
-          <Table striped bordered hover size="sm">
+          <div className="row container-fluid" style={{margin: 0}}>
+            <div className="col-12">
+              <UsersCollection allUsers={allUsers} deleteUserHandle={deleteUserHandle}/>
+            </div>
+          </div>
+
+          {/* <Table striped bordered hover size="sm">
             <thead>
               <tr>
                 <th>Name</th>
@@ -92,7 +103,7 @@ const Users = () => {
                 );
               })}
             </tbody>
-          </Table>
+          </Table> */}
         </div>
       </section>
     </>

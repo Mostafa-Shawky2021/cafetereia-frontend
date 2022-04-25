@@ -147,7 +147,7 @@ export default function Home(props) {
             <>
             
             <NavbarAdmin />
-            <section className="product-admin">
+            <section className="product-admin container">
                 <div className="container-fluid">
                     <div className="row g-0">
                         <div className="col-4">
